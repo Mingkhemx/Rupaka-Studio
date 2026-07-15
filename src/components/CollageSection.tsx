@@ -41,14 +41,13 @@ export default function CollageSection() {
         >
           <div className="relative w-full h-[180px] rounded-2xl overflow-hidden mb-4">
             <img
-              alt="Design Drafting Process"
+              alt="Poster Rumah Panggang"
               className="w-full h-full object-cover select-none"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuDGxwLNMP2KVAWtuqvWXiFZkBm5YgSXjM45PkkRPvB3NsuAPX4Nse6nAySmOSPxXiaWvlTk0fB0Pagx0EkNf1L8x3CFyxgAWpQbdP2z4ZXhaiVorAeLCKBcI2qvs9oG9HqdMdiJrUYvBgL1Dr8nKNzygffqFMIlgWyshucf41s65I_hV3kCGtjFYShml4zOn9O6MuvVW54WVcjP7bBLEAYguBfutmc0Yq73HP9-yBiY6b98be0hC6KYAZFesHH3FkL4Gx0Yks2fyrpu"
-              referrerPolicy="no-referrer"
+              src={require('../assets/Poster Rumah panggang 1.png').default}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black-dark/40 to-transparent pointer-events-none" />
             <span className="absolute bottom-3 left-3 bg-white/25 backdrop-blur-md text-[9px] font-bold text-white uppercase tracking-wider px-2.5 py-1 rounded-full border border-white/20">
-              Sketsa Manual
+              Poster Rumah Panggang
             </span>
           </div>
           
@@ -90,17 +89,16 @@ export default function CollageSection() {
           style={{ right: '14%', top: '12%', width: '300px', height: '340px', zIndex: 10 }}
         >
           <img
-            alt="Vibrant Branding Artwork"
+            alt="Logo Saky Branding"
             className="w-full h-full object-cover select-none"
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRI6ZfedfqJ42Kz8fkZTlqC5CbQ5Q_0kVkLxIu7Xh8-ABjTl2K4v_yJEBQE1wi3AZMYD9IMvFxFOJyc86piFVAfQ0g6nyc1fRoYl7wB1_YDB3zlrCqOGtEow28qlTRV6LL9s1-rRPvAYojJgQhjJ9ERQ7Jf-IhHeg0bAcA4QWd3YKyDnVxSjTGeJ--ir7xqCghMtZPJ5OjvBwWSTiw7xPHbFrwOa_f5RTQGV6WOEWxuC-xwV7Ayb1q0kBzYF_oQHCxP3Dn3PL-aewa"
-            referrerPolicy="no-referrer"
+            src={require('../assets/Logo saky.png').default}
           />
           <div className="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/50 backdrop-blur-md border border-white/50 flex items-center justify-center shadow-lg hover:scale-110 transition-transform">
             <Sparkles size={14} className="text-text-dark" />
           </div>
           <div className="absolute bottom-4 left-4 right-4 bg-black/60 backdrop-blur-md border border-white/10 p-3.5 rounded-2xl text-white">
-            <p className="font-display text-[10px] font-bold tracking-widest uppercase text-[#FF4B2B]">Warna Akurat</p>
-            <p className="text-[11px] text-white/70 leading-normal mt-1">Preset palet khusus untuk visual UMKM lokal.</p>
+            <p className="font-display text-[10px] font-bold tracking-widest uppercase text-[#FF4B2B]">Logo Saky</p>
+            <p className="text-[11px] text-white/70 leading-normal mt-1">Identitas visual yang kuat untuk brand Anda.</p>
           </div>
         </motion.div>
 
@@ -151,16 +149,15 @@ export default function CollageSection() {
           style={{ right: '10%', top: '56%', width: '350px', height: '240px', zIndex: 15 }}
         >
           <img
-            alt="Creative Studio Setup"
+            alt="Mockup Logo Design"
             className="w-full h-full object-cover select-none"
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRd7pAyBrUx31zx6klyDiCWD04EiIaiDfNYNdGO8HozSTYH3bTc4IhWoBbOh4CpW4jAmMk2H_ecdJwzZL71ta4NvHIyMqapKo2BK36h0hn674xlIS0FoLhl6jQwDTwu_Idk9ZLj6MN8k5s-VrWMSox9J5YNpnlpqVlAVnzCXtAeDkwyvNWzXtGXt76wUk85CfXUmdE9Vi6RxqxkyBORzc1__OdpVEqiYNrMD1dKFJIU7gC874F--k_Kf5C1_yMSnhoytWkS9XWPwsm"
-            referrerPolicy="no-referrer"
+            src={require('../assets/Mockup logo.png').default}
           />
           <div className="absolute top-4 left-4 bg-white/70 backdrop-blur-xl px-4 py-2 rounded-full border border-white/50 shadow-md flex items-center gap-2">
             <div className="w-2.5 h-2.5 rounded-full bg-green-500 animate-ping absolute" />
             <div className="w-2.5 h-2.5 rounded-full bg-green-500 relative" />
             <span className="font-display text-[9px] font-bold text-text-dark uppercase tracking-wider">
-              Kualitas Agensi
+              Mockup Profesional
             </span>
           </div>
         </motion.div>
@@ -233,13 +230,12 @@ export default function CollageSection() {
         <div className="bg-white-card border border-line-grey/40 p-5 rounded-[24px] shadow-sm flex flex-col gap-4">
           <div className="relative h-[200px] rounded-2xl overflow-hidden">
             <img
-              alt="Quality Artwork Setup"
+              alt="Mascot Website Rupaka"
               className="w-full h-full object-cover"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRd7pAyBrUx31zx6klyDiCWD04EiIaiDfNYNdGO8HozSTYH3bTc4IhWoBbOh4CpW4jAmMk2H_ecdJwzZL71ta4NvHIyMqapKo2BK36h0hn674xlIS0FoLhl6jQwDTwu_Idk9ZLj6MN8k5s-VrWMSox9J5YNpnlpqVlAVnzCXtAeDkwyvNWzXtGXt76wUk85CfXUmdE9Vi6RxqxkyBORzc1__OdpVEqiYNrMD1dKFJIU7gC874F--k_Kf5C1_yMSnhoytWkS9XWPwsm"
-              referrerPolicy="no-referrer"
+              src={require('../assets/mascot website rupaka.png').default}
             />
             <span className="absolute top-3 left-3 bg-white/80 backdrop-blur-md text-[9px] font-bold text-text-dark uppercase tracking-wider px-3 py-1 rounded-full shadow-md">
-              Kualitas Agensi
+              Karya Rupaka
             </span>
           </div>
           <div>
@@ -254,16 +250,15 @@ export default function CollageSection() {
         <div className="bg-white-card border border-line-grey/40 p-5 rounded-[24px] shadow-sm flex flex-col justify-between">
           <div className="relative h-[200px] rounded-2xl overflow-hidden">
             <img
-              alt="Indonesian local branding typography"
+              alt="Mascot Saky Design"
               className="w-full h-full object-cover"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRI6ZfedfqJ42Kz8fkZTlqC5CbQ5Q_0kVkLxIu7Xh8-ABjTl2K4v_yJEBQE1wi3AZMYD9IMvFxFOJyc86piFVAfQ0g6nyc1fRoYl7wB1_YDB3zlrCqOGtEow28qlTRV6LL9s1-rRPvAYojJgQhjJ9ERQ7Jf-IhHeg0bAcA4QWd3YKyDnVxSjTGeJ--ir7xqCghMtZPJ5OjvBwWSTiw7xPHbFrwOa_f5RTQGV6WOEWxuC-xwV7Ayb1q0kBzYF_oQHCxP3Dn3PL-aewa"
-              referrerPolicy="no-referrer"
+              src={require('../assets/mascot saky.png').default}
             />
           </div>
           <div className="mt-4">
-            <h4 className="font-display text-base font-bold text-text-dark">Kombinasi Karakter Nusantara</h4>
+            <h4 className="font-display text-base font-bold text-text-dark">Karakter Unik Brand</h4>
             <p className="font-body text-xs text-muted-grey mt-1">
-              Desain modern yang dipadukan dengan nilai-nilai lokal khas Indonesia.
+              Desain karakter yang memorable dan sesuai identitas brand Anda.
             </p>
           </div>
         </div>
