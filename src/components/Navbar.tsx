@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Menu, X, MessageSquare, ExternalLink } from 'lucide-react';
+import logoImage from '../assets/logo.png';
 
 interface NavbarProps {
   onScrollToSection: (sectionId: string) => void;
@@ -51,7 +52,7 @@ export default function Navbar({ onScrollToSection }: NavbarProps) {
               title="Rupaka Studio - Home"
             >
               <img 
-                src="/assets/logo.png" 
+                src={logoImage} 
                 alt="Rupaka Studio Logo" 
                 className="h-[40px] w-auto"
               />
@@ -113,7 +114,7 @@ export default function Navbar({ onScrollToSection }: NavbarProps) {
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 shrink-0">
                     <img 
-                      src="/assets/logo.png" 
+                      src={logoImage} 
                       alt="Rupaka Studio Logo" 
                       className="h-full w-full object-contain"
                     />
