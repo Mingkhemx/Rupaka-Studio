@@ -42,20 +42,24 @@ export default function Navbar({ onScrollToSection }: NavbarProps) {
           initial={{ y: -50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.5, ease: 'easeOut' }}
-          className="pointer-events-auto w-full max-w-[950px] flex items-center justify-between bg-black/30 backdrop-blur-3xl rounded-[28px] px-7 py-3 shadow-2xl border border-white/15 h-[80px] hover:bg-black/40 transition-all duration-300"
+          className="pointer-events-auto w-full max-w-[950px] flex items-center justify-between bg-black/30 backdrop-blur-3xl rounded-[28px] px-7 py-2 shadow-2xl border border-white/15 h-[88px] hover:bg-black/40 transition-all duration-300"
         >
           {/* Logo */}
           <div className="flex items-center gap-8 pl-1">
             <button 
               onClick={() => onScrollToSection('hero')}
-              className="shrink-0 hover:opacity-80 transition-opacity cursor-pointer"
+              className="shrink-0 hover:opacity-80 transition-opacity cursor-pointer flex items-center gap-3"
               title="Rupaka Studio - Home"
             >
               <img 
                 src={logoImage} 
                 alt="Rupaka Studio Logo" 
-                className="h-[64px] w-auto"
+                className="h-[72px] w-auto"
               />
+              <div className="hidden sm:flex flex-col items-start">
+                <span className="font-display font-black text-lg text-white leading-none">Rupaka</span>
+                <span className="font-display text-xs text-white/60 font-semibold tracking-widest">STUDIO</span>
+              </div>
             </button>
             <nav className="hidden md:flex items-center gap-8">
               {navLinks.map((link) => (
