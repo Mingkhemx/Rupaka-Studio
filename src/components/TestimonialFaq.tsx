@@ -38,16 +38,17 @@ export default function TestimonialFaq() {
     <section className="py-24 sm:py-32 px-6 sm:px-10 max-w-[1440px] mx-auto bg-page-bg border-t border-line-grey/25">
       
       {/* 1. TESTIMONIAL SLIDER */}
-      <div className="flex flex-col items-center text-center mb-28 max-w-[1100px] mx-auto">
-        <span className="font-display text-xs font-bold uppercase tracking-widest text-accent-coral mb-4">
-          Testimoni & Suara Klien
-        </span>
+      <div className="flex flex-col items-center justify-center text-center mb-28 w-full">
+        <div className="max-w-[1100px] w-full px-4">
+          <span className="font-display text-xs font-bold uppercase tracking-widest text-accent-coral mb-4 inline-block w-full">
+            Testimoni & Suara Klien
+          </span>
         
         {/* Testimonial Quote Canvas */}
-        <div className="relative w-full py-10 px-4">
+        <div className="relative w-full py-10 px-4 flex justify-center">
           <Quote className="absolute top-0 left-1/2 -translate-x-1/2 text-line-grey/20" size={100} strokeWidth={1} />
           
-          <div className="relative z-10">
+          <div className="relative z-10 max-w-4xl">
             {/* Rating Stars */}
             <div className="flex items-center justify-center gap-1 mb-8">
               {[...Array(activeTestimonial.rating)].map((_, i) => (
@@ -62,7 +63,7 @@ export default function TestimonialFaq() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -15 }}
                 transition={{ duration: 0.5 }}
-                className="font-display text-2xl sm:text-3xl md:text-[38px] leading-[1.3] text-balance tracking-tight text-text-dark font-light italic max-w-4xl"
+                className="font-display text-2xl sm:text-3xl md:text-[38px] leading-[1.3] text-balance tracking-tight text-text-dark font-light italic"
               >
                 "{activeTestimonial.content}"
               </motion.h3>
@@ -71,7 +72,7 @@ export default function TestimonialFaq() {
         </div>
 
         {/* Client Profile Box */}
-        <div className="flex flex-col items-center gap-4 mt-8 mx-auto">
+        <div className="flex flex-col items-center gap-4 mt-8 mx-auto w-full justify-center">
           <div className="w-14 h-14 rounded-full bg-[#E9E8E4] flex items-center justify-center text-text-dark/40 shadow-sm shrink-0 border border-line-grey/30">
             <UserCircle size={28} strokeWidth={1.5} />
           </div>
@@ -82,7 +83,7 @@ export default function TestimonialFaq() {
         </div>
 
         {/* Testimonial Carousel Navigation Controls */}
-        <div className="flex items-center gap-3.5 mt-10">
+        <div className="flex items-center justify-center gap-3.5 mt-10 w-full">
           <button
             onClick={prevTestimonial}
             className="w-11 h-11 rounded-full border border-line-grey/40 hover:bg-black-dark hover:text-white-soft flex items-center justify-center text-text-dark transition-all duration-300 cursor-pointer"
@@ -107,6 +108,7 @@ export default function TestimonialFaq() {
           >
             <ArrowRight size={16} />
           </button>
+        </div>
         </div>
       </div>
 
