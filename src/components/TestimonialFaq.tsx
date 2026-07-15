@@ -71,11 +71,11 @@ export default function TestimonialFaq() {
         </div>
 
         {/* Client Profile Box */}
-        <div className="flex flex-col sm:flex-row items-center gap-4 mt-8">
+        <div className="flex flex-col items-center gap-4 mt-8 mx-auto">
           <div className="w-14 h-14 rounded-full bg-[#E9E8E4] flex items-center justify-center text-text-dark/40 shadow-sm shrink-0 border border-line-grey/30">
             <UserCircle size={28} strokeWidth={1.5} />
           </div>
-          <div className="text-center sm:text-left">
+          <div className="text-center">
             <p className="font-display text-sm font-bold text-text-dark">{activeTestimonial.name}</p>
             <p className="font-display text-xs text-muted-grey font-medium mt-0.5">{activeTestimonial.role}</p>
           </div>

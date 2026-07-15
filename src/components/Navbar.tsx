@@ -24,6 +24,7 @@ export default function Navbar({ onScrollToSection }: NavbarProps) {
   }, []);
 
   const navLinks = [
+    { name: 'Home', target: 'hero' },
     { name: 'Layanan', target: 'layanan' },
     { name: 'Portofolio', target: 'portofolio' },
     { name: 'Tentang Kami', target: 'tentang' },
