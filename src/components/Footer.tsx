@@ -13,8 +13,8 @@ export default function Footer() {
         <div className="max-w-4xl mx-auto flex flex-col items-center text-center">
           <div className="relative z-10 flex flex-col items-center">
             {/* Elegant logo anchor */}
-            <div className="w-12 h-12 rounded-full border border-text-dark flex items-center justify-center mb-10 bg-white shadow-sm">
-              <span className="text-text-dark font-display font-extrabold text-xl leading-none">R</span>
+            <div className="w-12 h-12 rounded-full border border-accent-coral flex items-center justify-center mb-10 bg-accent-coral/10 shadow-sm">
+              <span className="text-accent-coral font-display font-extrabold text-xl leading-none">R</span>
             </div>
 
             <h2 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold text-text-dark tracking-tighter leading-[1.08] mb-8 max-w-3xl text-balance">
@@ -27,7 +27,7 @@ export default function Footer() {
 
             <button
               onClick={handleWhatsAppChat}
-              className="bg-black text-white hover:bg-gray-800 font-display rounded-full transition-all duration-300 flex items-center justify-center gap-2.5 px-10 text-xs h-[54px] font-bold uppercase tracking-wider shadow-xl cursor-pointer"
+              className="bg-accent-coral text-white hover:bg-accent-coral/90 font-display rounded-full transition-all duration-300 flex items-center justify-center gap-2.5 px-10 text-xs h-[54px] font-bold uppercase tracking-wider shadow-xl cursor-pointer"
             >
               <MessageCircle size={15} />
               Chat Sekarang via WhatsApp
@@ -37,15 +37,15 @@ export default function Footer() {
       </section>
 
       {/* 2. MAIN FOOTER */}
-      <footer className="bg-black-dark text-white-soft pt-24 pb-12 px-6 sm:px-10 rounded-t-[40px] md:rounded-t-[60px] relative z-20">
+      <footer className="bg-primary-dark text-white-soft pt-24 pb-12 px-6 sm:px-10 rounded-t-[40px] md:rounded-t-[60px] relative z-20 border-t border-accent-coral/20">
         <div className="max-w-[1440px] mx-auto">
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 lg:gap-16 mb-20">
             {/* Logo and Brand column */}
             <div className="lg:col-span-2 flex flex-col gap-6">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center shrink-0 bg-white/5">
-                  <span className="text-white font-display font-black text-lg leading-none">R</span>
+                <div className="w-10 h-10 rounded-full border border-accent-coral flex items-center justify-center shrink-0 bg-accent-coral/10">
+                  <span className="text-accent-coral font-display font-black text-lg leading-none">R</span>
                 </div>
                 <div>
                   <h4 className="font-display text-base font-bold tracking-tight text-white leading-none">Rupaka Studio</h4>
@@ -61,21 +61,21 @@ export default function Footer() {
               <div className="flex gap-3 mt-2">
                 <button 
                   onClick={() => window.open('https://instagram.com', '_blank', 'noreferrer')}
-                  className="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center hover:bg-white/10 transition-colors text-white/60 hover:text-white cursor-pointer"
+                  className="w-9 h-9 rounded-full border border-accent-coral/30 flex items-center justify-center hover:bg-accent-coral/20 transition-colors text-accent-coral/60 hover:text-accent-coral cursor-pointer"
                   aria-label="Instagram Link"
                 >
                   <Share2 size={14} />
                 </button>
                 <button 
                   onClick={() => window.open('https://behance.net', '_blank', 'noreferrer')}
-                  className="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center hover:bg-white/10 transition-colors text-white/60 hover:text-white cursor-pointer"
+                  className="w-9 h-9 rounded-full border border-accent-coral/30 flex items-center justify-center hover:bg-accent-coral/20 transition-colors text-accent-coral/60 hover:text-accent-coral cursor-pointer"
                   aria-label="Behance Link"
                 >
                   <Globe size={14} />
                 </button>
                 <button 
                   onClick={() => window.open('https://github.com', '_blank', 'noreferrer')}
-                  className="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center hover:bg-white/10 transition-colors text-white/60 hover:text-white cursor-pointer"
+                  className="w-9 h-9 rounded-full border border-accent-coral/30 flex items-center justify-center hover:bg-accent-coral/20 transition-colors text-accent-coral/60 hover:text-accent-coral cursor-pointer"
                   aria-label="Github Link"
                 >
                   <Command size={14} />
@@ -124,7 +124,7 @@ export default function Footer() {
           </div>
 
           {/* Bottom license and credits */}
-          <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
+          <div className="pt-8 border-t border-accent-coral/20 flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
             <p className="font-display text-[10px] text-white/40 font-medium">
               © 2026 Rupaka Studio. Seluruh hak cipta dilindungi undang-undang.
             </p>

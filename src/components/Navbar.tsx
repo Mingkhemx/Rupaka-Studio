@@ -42,22 +42,22 @@ export default function Navbar({ onScrollToSection }: NavbarProps) {
           initial={{ y: -50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.5, ease: 'easeOut' }}
-          className="pointer-events-auto w-full max-w-[760px] flex items-center justify-between bg-black/95 backdrop-blur-xl rounded-full px-2 py-2 shadow-2xl border border-white/10 h-[56px]"
+          className="pointer-events-auto w-full max-w-[760px] flex items-center justify-between bg-gradient-to-r from-primary-dark via-primary-blue to-primary-dark backdrop-blur-xl rounded-full px-2 py-2 shadow-2xl border border-primary-blue/30 h-[56px]"
         >
           {/* Logo */}
           <div className="flex items-center gap-3 pl-3">
             <button 
               onClick={() => onScrollToSection('hero')}
-              className="w-[34px] h-[34px] rounded-full border border-primary-dark/80 flex items-center justify-center shrink-0 bg-primary-blue/10 hover:bg-primary-blue/20 transition-all cursor-pointer"
+              className="w-[34px] h-[34px] rounded-full border border-accent-coral flex items-center justify-center shrink-0 bg-white/10 hover:bg-accent-coral/20 transition-all cursor-pointer"
             >
-              <span className="text-primary-blue font-display font-bold text-sm leading-none">R</span>
+              <span className="text-white font-display font-bold text-sm leading-none">R</span>
             </button>
             <nav className="hidden md:flex items-center gap-5">
               {navLinks.map((link) => (
                 <button
                   key={link.target}
                   onClick={() => onScrollToSection(link.target)}
-                  className="font-body text-[11px] text-white-soft/80 hover:text-white-soft transition-colors duration-300 font-medium uppercase tracking-wider cursor-pointer"
+                  className="font-body text-[11px] text-white hover:text-accent-coral transition-colors duration-300 font-medium uppercase tracking-wider cursor-pointer"
                 >
                   {link.name}
                 </button>
@@ -69,7 +69,7 @@ export default function Navbar({ onScrollToSection }: NavbarProps) {
           <div className="flex items-center gap-2">
             <button 
               onClick={handleWhatsAppChat}
-              className="font-display rounded-full bg-white/10 hover:bg-white text-white hover:text-black transition-all duration-300 shrink-0 flex items-center gap-1.5 px-4 text-[10px] h-[36px] font-bold uppercase tracking-wider cursor-pointer"
+              className="font-display rounded-full bg-accent-coral hover:bg-accent-coral/90 text-white transition-all duration-300 shrink-0 flex items-center gap-1.5 px-4 text-[10px] h-[36px] font-bold uppercase tracking-wider cursor-pointer shadow-lg"
             >
               <MessageSquare size={12} />
               <span>Chat WhatsApp</span>
@@ -103,12 +103,12 @@ export default function Navbar({ onScrollToSection }: NavbarProps) {
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
               onClick={(e) => e.stopPropagation()}
-              className="w-full max-w-[280px] bg-black-dark h-full p-8 flex flex-col justify-between border-l border-white/10 shadow-2xl"
+              className="w-full max-w-[280px] bg-gradient-to-b from-primary-dark to-primary-dark/90 h-full p-8 flex flex-col justify-between border-l border-accent-coral/30 shadow-2xl"
             >
               <div className="space-y-8 mt-12">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center bg-white/5">
-                    <span className="text-white font-display font-bold text-lg">R</span>
+                  <div className="w-10 h-10 rounded-full border border-accent-coral flex items-center justify-center bg-accent-coral/10">
+                    <span className="text-accent-coral font-display font-bold text-lg">R</span>
                   </div>
                   <div>
                     <h3 className="text-white font-display font-bold leading-none">Rupaka</h3>
@@ -138,7 +138,7 @@ export default function Navbar({ onScrollToSection }: NavbarProps) {
                     handleWhatsAppChat();
                     setIsMobileMenuOpen(false);
                   }}
-                  className="w-full justify-center bg-white text-black font-display rounded-full py-3 text-xs font-bold uppercase tracking-wider flex items-center gap-2 shadow-xl hover:bg-gray-100 transition-colors"
+                  className="w-full justify-center bg-accent-coral text-white font-display rounded-full py-3 text-xs font-bold uppercase tracking-wider flex items-center gap-2 shadow-xl hover:bg-accent-coral/90 transition-colors"
                 >
                   <MessageSquare size={14} />
                   <span>Hubungi Kami</span>

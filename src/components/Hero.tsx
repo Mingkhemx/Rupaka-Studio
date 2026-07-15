@@ -31,10 +31,10 @@ export default function Hero({ onScrollToSection }: HeroProps) {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-soft-card border border-line-grey/30 mb-8"
+          className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-primary-dark/10 border border-primary-dark/30 mb-8"
         >
           <Sparkles size={11} className="text-accent-coral animate-pulse" />
-          <span className="font-display text-[10px] font-bold uppercase tracking-wider text-text-dark">
+          <span className="font-display text-[10px] font-bold uppercase tracking-wider text-primary-dark">
             Partner Digital Kreatif UMKM
           </span>
         </motion.div>
@@ -68,7 +68,7 @@ export default function Hero({ onScrollToSection }: HeroProps) {
         >
           <button
             onClick={handleWhatsAppChat}
-            className="bg-black-dark text-white font-display rounded-full hover:bg-gray-800 transition-all duration-300 shrink-0 flex items-center justify-center gap-2 px-8 text-xs h-[52px] font-bold uppercase tracking-wider shadow-xl cursor-pointer"
+            className="bg-primary-dark text-white font-display rounded-full hover:bg-primary-blue transition-all duration-300 shrink-0 flex items-center justify-center gap-2 px-8 text-xs h-[52px] font-bold uppercase tracking-wider shadow-xl cursor-pointer"
           >
             <MessageCircle size={15} />
             Chat via WhatsApp
