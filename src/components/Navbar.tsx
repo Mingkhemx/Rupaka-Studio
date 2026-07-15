@@ -37,15 +37,15 @@ export default function Navbar({ onScrollToSection }: NavbarProps) {
 
   return (
     <>
-      <header className="fixed top-[24px] left-0 right-0 z-50 flex items-center justify-center px-4 w-full pointer-events-none">
+      <header className="fixed top-[16px] left-0 right-0 z-50 flex items-center justify-center px-4 w-full pointer-events-none">
         <motion.div 
           initial={{ y: -50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.5, ease: 'easeOut' }}
-          className="pointer-events-auto w-full max-w-[760px] flex items-center justify-between bg-gradient-to-r from-primary-dark via-primary-blue to-primary-dark backdrop-blur-xl rounded-full px-2 py-2 shadow-2xl border border-primary-blue/30 h-[56px]"
+          className="pointer-events-auto w-full max-w-[900px] flex items-center justify-between bg-white/10 backdrop-blur-2xl rounded-[28px] px-6 py-4 shadow-2xl border border-white/20 h-[72px] hover:bg-white/15 transition-all duration-300"
         >
           {/* Logo */}
-          <div className="flex items-center gap-3 pl-3">
+          <div className="flex items-center gap-6 pl-2">
             <button 
               onClick={() => onScrollToSection('hero')}
               className="shrink-0 hover:opacity-80 transition-opacity cursor-pointer"
@@ -54,10 +54,10 @@ export default function Navbar({ onScrollToSection }: NavbarProps) {
               <img 
                 src={logoImage} 
                 alt="Rupaka Studio Logo" 
-                className="h-[40px] w-auto"
+                className="h-[50px] w-auto"
               />
             </button>
-            <nav className="hidden md:flex items-center gap-5">
+            <nav className="hidden md:flex items-center gap-7">
               {navLinks.map((link) => (
                 <button
                   key={link.target}
@@ -74,7 +74,7 @@ export default function Navbar({ onScrollToSection }: NavbarProps) {
           <div className="flex items-center gap-2">
             <button 
               onClick={handleWhatsAppChat}
-              className="font-display rounded-full bg-accent-coral hover:bg-accent-coral/90 text-white transition-all duration-300 shrink-0 flex items-center gap-1.5 px-4 text-[10px] h-[36px] font-bold uppercase tracking-wider cursor-pointer shadow-lg"
+              className="font-display rounded-full bg-accent-coral hover:bg-accent-coral/90 text-white transition-all duration-300 shrink-0 flex items-center gap-2 px-6 text-[11px] h-[40px] font-bold uppercase tracking-wider cursor-pointer shadow-lg hover:shadow-2xl"
             >
               <MessageSquare size={12} />
               <span>Chat WhatsApp</span>
@@ -112,7 +112,7 @@ export default function Navbar({ onScrollToSection }: NavbarProps) {
             >
               <div className="space-y-8 mt-12">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 shrink-0">
+                  <div className="w-12 h-12 shrink-0">
                     <img 
                       src={logoImage} 
                       alt="Rupaka Studio Logo" 
