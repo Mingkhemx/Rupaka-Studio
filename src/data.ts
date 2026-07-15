@@ -149,23 +149,23 @@ export const FAQ_ITEMS: FaqItem[] = [
 export const TESTIMONIAL_ITEMS: TestimonialItem[] = [
   {
     id: 'test-1',
-    name: 'Budi Hartono',
-    role: 'Pemilik "Kopi Janji Jogja"',
-    content: 'Puas sekali dengan poster promosi Rupaka Studio! Harganya ramah kantong buat kami yang baru merintis usaha kopi, tapi desainnya terlihat sangat elegan seperti buatan agensi ternama.',
+    name: 'Tiara',
+    role: 'Owner Dapoer Kyutier',
+    content: 'Hai rupaka terima kasih yaa sdh dibuatin daftar menu ini...seneng sekali dg model menu gini..simple but beautiful 😍😍next we LL order again for new design ❤️',
     rating: 5
   },
   {
     id: 'test-2',
-    name: 'Siti Rahma',
-    role: 'Owner "Catering Dapur Mama"',
-    content: 'Awalnya ragu karena harganya murah sekali Rp50.000, tapi ternyata pengerjaannya sangat cepat dan komunikatif. Stiker kemasan jualan saya sekarang jadi makin rapi.',
+    name: 'Lanjar',
+    role: 'Owner Roemah Panggang',
+    content: 'Suka sekali dengan desain ini...paduan warnanya cantik,susunan bahasanya bagus dan paduan antara gmbar dan tulisan terlihat rapi sekali...terima kasih untuk rupaka studio',
     rating: 5
   },
   {
     id: 'test-3',
-    name: 'Yanto Wijaya',
-    role: 'Pengrajin Bambu "Sleman Craft"',
-    content: 'Landing page buatan Rupaka membuat katalog produk bambu saya terlihat jauh lebih bernilai tinggi. Sekarang kalau ada pembeli nanya katalog, tinggal kasih link saja.',
+    name: 'Budi Hartono',
+    role: 'Pemilik "Kopi Janji Jogja"',
+    content: 'Puas sekali dengan poster promosi Rupaka Studio! Harganya ramah kantong buat kami yang baru merintis usaha kopi, tapi desainnya terlihat sangat elegan seperti buatan agensi ternama.',
     rating: 5
   }
 ];
