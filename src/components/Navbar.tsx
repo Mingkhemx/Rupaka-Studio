@@ -26,7 +26,6 @@ export default function Navbar({ onScrollToSection }: NavbarProps) {
     { name: 'Layanan', target: 'layanan' },
     { name: 'Portofolio', target: 'portofolio' },
     { name: 'Tentang Kami', target: 'tentang' },
-    { name: 'Hitung Biaya', target: 'estimator' },
     { name: 'Blog & Update', target: 'blog' },
   ];
 
