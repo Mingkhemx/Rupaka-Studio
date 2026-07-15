@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+
+@theme {
+  --color-page-bg: #FAF9F5;
+  --color-panel-bg: #F0EFEB;
+  --color-soft-card: #E9E8E4;
+  --color-soft-card-2: #F4F3EF;
+  --color-text-dark: #1B1B1B;
+  --color-muted-grey: #8C8880;
+  --color-muted-light: #BDBAB2;
+  --color-line-grey: #D9D7D0;
+  --color-black-dark: #181818;
+  --color-deep-black: #151515;
+  --color-white-card: #FFFDF8;
+  --color-white-soft: #FAF9F5;
+
+  --font-display: "Space Grotesk", "Poppins", sans-serif;
+  --font-body: "Plus Jakarta Sans", sans-serif;
+}
+
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(calc(-50% - 25px)); }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: scroll 25s linear infinite;
+}
+
+.marquee-container {
+  overflow: hidden;
+  width: 100%;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #FAF9F5;
+}
+::-webkit-scrollbar-thumb {
+  background: #D9D7D0;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #8C8880;
+}
+
