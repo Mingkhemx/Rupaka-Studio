@@ -42,7 +42,7 @@ export default function Navbar({ onScrollToSection }: NavbarProps) {
           initial={{ y: -50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.5, ease: 'easeOut' }}
-          className="pointer-events-auto w-full max-w-[900px] flex items-center justify-between bg-white/10 backdrop-blur-2xl rounded-[28px] px-6 py-4 shadow-2xl border border-white/20 h-[72px] hover:bg-white/15 transition-all duration-300"
+          className="pointer-events-auto w-full max-w-[900px] flex items-center justify-between bg-black/30 backdrop-blur-3xl rounded-[28px] px-6 py-4 shadow-2xl border border-white/15 h-[72px] hover:bg-black/40 transition-all duration-300"
         >
           {/* Logo */}
           <div className="flex items-center gap-6 pl-2">
