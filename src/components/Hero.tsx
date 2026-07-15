@@ -33,7 +33,7 @@ export default function Hero({ onScrollToSection }: HeroProps) {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-soft-card border border-line-grey/30 mb-8"
         >
-          <Sparkles size={11} className="text-[#FF4B2B] animate-pulse" />
+          <Sparkles size={11} className="text-accent-coral animate-pulse" />
           <span className="font-display text-[10px] font-bold uppercase tracking-wider text-text-dark">
             Partner Digital Kreatif UMKM
           </span>
@@ -46,7 +46,7 @@ export default function Hero({ onScrollToSection }: HeroProps) {
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
           className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-[76px] leading-[1.08] text-balance max-w-5xl mb-6 text-text-dark tracking-tighter font-bold"
         >
-          Desain Digital <span className="bg-gradient-to-r from-black-dark via-gray-700 to-[#FF4B2B] bg-clip-text text-transparent">Low-Cost, High-Impact</span> untuk UMKM Indonesia
+          Desain Digital <span className="bg-gradient-to-r from-primary-dark via-primary-blue to-accent-coral bg-clip-text text-transparent">Low-Cost, High-Impact</span> untuk UMKM Indonesia
         </motion.h1>
 
         {/* Subtitle */}

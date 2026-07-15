@@ -89,7 +89,7 @@ Mohon info rekening pembayaran dan nomor antrean pengerjaan. Terima kasih!`;
         
         {/* Left Column: Heading text & dynamic overview info */}
         <div className="lg:col-span-5 flex flex-col justify-center">
-          <span className="font-display text-xs font-bold uppercase tracking-widest text-[#FF4B2B] mb-3">
+          <span className="font-display text-xs font-bold uppercase tracking-widest text-accent-coral mb-3">
             Wizard Brief & Budget
           </span>
           <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-text-dark leading-tight mb-6">
@@ -101,7 +101,7 @@ Mohon info rekening pembayaran dan nomor antrean pengerjaan. Terima kasih!`;
 
           <div className="space-y-4">
             <div className="flex items-start gap-3.5 p-4 bg-panel-bg rounded-2xl border border-line-grey/25">
-              <Sparkles size={16} className="text-[#FF4B2B] mt-0.5 shrink-0" />
+              <Sparkles size={16} className="text-accent-coral mt-0.5 shrink-0" />
               <div>
                 <h5 className="font-display font-bold text-xs text-text-dark uppercase tracking-wider">Tanpa Biaya Sembunyi</h5>
                 <p className="font-body text-[11px] text-muted-grey mt-0.5">Semua detail biaya tertera jelas sebelum pengerjaan brief dimulai.</p>
@@ -109,7 +109,7 @@ Mohon info rekening pembayaran dan nomor antrean pengerjaan. Terima kasih!`;
             </div>
 
             <div className="flex items-start gap-3.5 p-4 bg-panel-bg rounded-2xl border border-line-grey/25">
-              <Clock size={16} className="text-[#8A2387] mt-0.5 shrink-0" />
+              <Clock size={16} className="text-accent-purple mt-0.5 shrink-0" />
               <div>
                 <h5 className="font-display font-bold text-xs text-text-dark uppercase tracking-wider">Garansi Pengerjaan Tepat Waktu</h5>
                 <p className="font-body text-[11px] text-muted-grey mt-0.5">Paket express kami jamin selesai dalam 24 jam atau potongan harga 50%.</p>
@@ -120,7 +120,7 @@ Mohon info rekening pembayaran dan nomor antrean pengerjaan. Terima kasih!`;
 
         {/* Right Column: Form Estimator Area */}
         <div className="lg:col-span-7 bg-white-card rounded-[32px] border border-line-grey/30 p-6 sm:p-10 shadow-xl relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-[150px] h-[150px] bg-gradient-to-bl from-[#FF4B2B]/5 to-transparent pointer-events-none rounded-full" />
+          <div className="absolute top-0 right-0 w-[150px] h-[150px] bg-gradient-to-bl from-accent-coral/5 to-transparent pointer-events-none rounded-full" />
           
           <div className="flex items-center justify-between mb-8 pb-4 border-b border-line-grey/20">
             <div className="flex items-center gap-2">
@@ -245,7 +245,7 @@ Mohon info rekening pembayaran dan nomor antrean pengerjaan. Terima kasih!`;
                       Prioritas utama selesai maksimal 24 jam.
                     </p>
                   </div>
-                  <span className="font-display text-xs font-extrabold text-[#FF4B2B]">
+                  <span className="font-display text-xs font-extrabold text-accent-coral">
                     {formData.designType === 'website' ? '+Rp 100k' : '+Rp 35k'}
                   </span>
                 </button>

@@ -48,9 +48,9 @@ export default function Navbar({ onScrollToSection }: NavbarProps) {
           <div className="flex items-center gap-3 pl-3">
             <button 
               onClick={() => onScrollToSection('hero')}
-              className="w-[34px] h-[34px] rounded-full border border-page-bg/80 flex items-center justify-center shrink-0 bg-white/10 hover:bg-white/20 transition-all cursor-pointer"
+              className="w-[34px] h-[34px] rounded-full border border-primary-dark/80 flex items-center justify-center shrink-0 bg-primary-blue/10 hover:bg-primary-blue/20 transition-all cursor-pointer"
             >
-              <span className="text-page-bg font-display font-bold text-sm leading-none">R</span>
+              <span className="text-primary-blue font-display font-bold text-sm leading-none">R</span>
             </button>
             <nav className="hidden md:flex items-center gap-5">
               {navLinks.map((link) => (
@@ -124,7 +124,7 @@ export default function Navbar({ onScrollToSection }: NavbarProps) {
                         onScrollToSection(link.target);
                         setIsMobileMenuOpen(false);
                       }}
-                      className="font-display text-sm text-white/75 hover:text-white text-left font-medium uppercase tracking-widest border-b border-white/5 pb-2 cursor-pointer transition-colors"
+                      className="font-display text-sm text-white/75 hover:text-white text-left font-medium uppercase tracking-widest border-b border-accent-coral/20 pb-2 cursor-pointer transition-colors"
                     >
                       {link.name}
                     </button>

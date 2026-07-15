@@ -97,7 +97,7 @@ export default function Features() {
           
           <div className="flex items-center justify-between mb-8 relative z-10">
             <div className="flex items-center gap-2">
-              <div className="w-2.5 h-2.5 rounded-full bg-[#FF4B2B] animate-pulse" />
+              <div className="w-2.5 h-2.5 rounded-full bg-accent-coral animate-pulse" />
               <span className="font-display font-extrabold text-[10px] text-text-dark uppercase tracking-widest">
                 Layanan Utama Kami
               </span>
@@ -107,41 +107,41 @@ export default function Features() {
 
           <div className="space-y-4 relative z-10">
             <div className="flex items-center gap-4 p-4 bg-white-card/80 hover:bg-white-card rounded-2xl transition-all duration-300 border border-line-grey/20 cursor-pointer group/item hover:translate-x-1 hover:shadow-md">
-              <div className="w-10 h-10 rounded-full bg-[#FF4B2B]/10 flex items-center justify-center text-[#FF4B2B]">
+              <div className="w-10 h-10 rounded-full bg-accent-coral/10 flex items-center justify-center text-accent-coral">
                 <BadgeDollarSign size={18} />
               </div>
               <div>
-                <h5 className="font-display font-bold text-sm text-text-dark group-hover/item:text-[#FF4B2B] transition-colors">Poster Promosi</h5>
+                <h5 className="font-display font-bold text-sm text-text-dark group-hover/item:text-accent-coral transition-colors">Poster Promosi</h5>
                 <p className="text-[11px] text-muted-grey mt-0.5">Sosial media feed, flyer, baliho, menu resto.</p>
               </div>
             </div>
 
             <div className="flex items-center gap-4 p-4 bg-white-card/80 hover:bg-white-card rounded-2xl transition-all duration-300 border border-line-grey/20 cursor-pointer group/item hover:translate-x-1 hover:shadow-md">
-              <div className="w-10 h-10 rounded-full bg-[#8A2387]/10 flex items-center justify-center text-[#8A2387]">
+              <div className="w-10 h-10 rounded-full bg-accent-purple/10 flex items-center justify-center text-accent-purple">
                 <Layers size={18} />
               </div>
               <div>
-                <h5 className="font-display font-bold text-sm text-text-dark group-hover/item:text-[#8A2387] transition-colors">Logo & Kemasan Produk</h5>
+                <h5 className="font-display font-bold text-sm text-text-dark group-hover/item:text-accent-purple transition-colors">Logo & Kemasan Produk</h5>
                 <p className="text-[11px] text-muted-grey mt-0.5">Identitas merek, stiker box, segel label.</p>
               </div>
             </div>
 
             <div className="flex items-center gap-4 p-4 bg-white-card/80 hover:bg-white-card rounded-2xl transition-all duration-300 border border-line-grey/20 cursor-pointer group/item hover:translate-x-1 hover:shadow-md">
-              <div className="w-10 h-10 rounded-full bg-[#F27121]/10 flex items-center justify-center text-[#F27121]">
+              <div className="w-10 h-10 rounded-full bg-accent-orange/10 flex items-center justify-center text-accent-orange">
                 <Sparkles size={18} />
               </div>
               <div>
-                <h5 className="font-display font-bold text-sm text-text-dark group-hover/item:text-[#F27121] transition-colors">Digital Product Accents</h5>
+                <h5 className="font-display font-bold text-sm text-text-dark group-hover/item:text-accent-orange transition-colors">Digital Product Accents</h5>
                 <p className="text-[11px] text-muted-grey mt-0.5">Stiker cutting, kartu ucapan, digital planner.</p>
               </div>
             </div>
 
             <div className="flex items-center gap-4 p-4 bg-white-card/80 hover:bg-white-card rounded-2xl transition-all duration-300 border border-line-grey/20 cursor-pointer group/item hover:translate-x-1 hover:shadow-md">
-              <div className="w-10 h-10 rounded-full bg-[#11998e]/10 flex items-center justify-center text-[#11998e]">
+              <div className="w-10 h-10 rounded-full bg-accent-green/10 flex items-center justify-center text-accent-green">
                 <Layers size={18} />
               </div>
               <div>
-                <h5 className="font-display font-bold text-sm text-text-dark group-hover/item:text-[#11998e] transition-colors">Custom Landing Page</h5>
+                <h5 className="font-display font-bold text-sm text-text-dark group-hover/item:text-accent-green transition-colors">Custom Landing Page</h5>
                 <p className="text-[11px] text-muted-grey mt-0.5">Website katalog, portofolio profil UMKM.</p>
               </div>
             </div>
@@ -155,7 +155,7 @@ export default function Features() {
 
         {/* Right Info List */}
         <div className="flex flex-col justify-center h-full">
-          <span className="font-display text-xs font-bold uppercase tracking-widest text-[#FF4B2B] mb-3">
+          <span className="font-display text-xs font-bold uppercase tracking-widest text-accent-coral mb-3">
             Kelebihan Kami
           </span>
           <h3 className="font-display text-3xl md:text-4xl font-bold tracking-tight text-text-dark mb-10 leading-tight">
@@ -194,7 +194,7 @@ export default function Features() {
         
         {/* Left: Pricing details */}
         <div className="flex flex-col justify-center h-full order-2 lg:order-1">
-          <span className="font-display text-xs font-bold uppercase tracking-widest text-[#FF4B2B] mb-3">
+          <span className="font-display text-xs font-bold uppercase tracking-widest text-accent-coral mb-3">
             Pilihan Paket
           </span>
           <h3 className="font-display text-3xl md:text-4xl font-bold tracking-tight text-text-dark mb-8 leading-tight">
@@ -204,7 +204,7 @@ export default function Features() {
           <div className="space-y-8 pl-1 border-l border-line-grey/40">
             <div className="hover:pl-4 transition-all duration-300 py-1">
               <div className="flex items-center gap-2 mb-2">
-                <Flame size={14} className="text-[#FF4B2B]" />
+                <Flame size={14} className="text-accent-coral" />
                 <h4 className="font-display text-base sm:text-lg font-extrabold text-text-dark">
                   Skema Project-Based (Eceran)
                 </h4>
@@ -241,7 +241,7 @@ export default function Features() {
         </div>
 
         {/* Right: Awesome Interactive Chat Mockup */}
-        <div className="bg-gradient-to-br from-[#E0EAFC] to-[#CFDEF3] rounded-[32px] md:rounded-[40px] p-4 sm:p-8 min-h-[600px] flex flex-col justify-between border border-line-grey/30 shadow-inner order-1 lg:order-2">
+        <div className="bg-gradient-to-br from-primary-blue to-primary-blue rounded-[32px] md:rounded-[40px] p-4 sm:p-8 min-h-[600px] flex flex-col justify-between border border-line-grey/30 shadow-inner order-1 lg:order-2">
           
           {/* Chat Simulator Top Options */}
           <div className="bg-white/60 backdrop-blur-md rounded-2xl p-3.5 mb-6 border border-white/50 flex flex-col gap-2 shadow-sm">
@@ -301,7 +301,7 @@ export default function Features() {
           {/* Interactive Chat Footer Accent */}
           <div className="mt-6 pt-4 border-t border-white/30 flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-full bg-gradient-to-r from-[#FF416C] to-[#FF4B2B] flex items-center justify-center text-white shadow-md animate-pulse">
+              <div className="w-8 h-8 rounded-full bg-gradient-to-r from-accent-coral to-accent-coral flex items-center justify-center text-white shadow-md animate-pulse">
                 <Sparkles size={12} />
               </div>
               <span className="font-display text-[10px] font-bold tracking-widest uppercase text-text-dark/70">

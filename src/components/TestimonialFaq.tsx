@@ -30,7 +30,7 @@ export default function TestimonialFaq() {
       
       {/* 1. TESTIMONIAL SLIDER */}
       <div className="flex flex-col items-center text-center mb-28 max-w-[1100px] mx-auto">
-        <span className="font-display text-xs font-bold uppercase tracking-widest text-[#FF4B2B] mb-4">
+        <span className="font-display text-xs font-bold uppercase tracking-widest text-accent-coral mb-4">
           Testimoni & Suara Klien
         </span>
         
@@ -159,7 +159,7 @@ export default function TestimonialFaq() {
         </div>
 
         {/* Call to action card for custom queries */}
-        <div className="mt-12 bg-gradient-to-br from-[#E0EAFC] to-[#CFDEF3] rounded-[24px] p-6 flex flex-col sm:flex-row items-center justify-between gap-4 border border-line-grey/25 shadow-sm">
+        <div className="mt-12 bg-gradient-to-br from-primary-blue to-primary-blue rounded-[24px] p-6 flex flex-col sm:flex-row items-center justify-between gap-4 border border-line-grey/25 shadow-sm">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-full bg-black/5 flex items-center justify-center text-text-dark">
               <MessageSquare size={16} />
