@@ -241,83 +241,90 @@ export default function Features() {
         </div>
 
         {/* Right: Awesome Interactive Chat Mockup */}
-        <div className="bg-gradient-to-br from-primary-blue to-primary-blue rounded-[32px] md:rounded-[40px] p-4 sm:p-8 min-h-[600px] flex flex-col justify-between border border-line-grey/30 shadow-inner order-1 lg:order-2">
+        <div className="bg-gradient-to-br from-primary-blue via-primary-blue to-primary-blue rounded-[32px] md:rounded-[40px] p-4 sm:p-8 min-h-[600px] flex flex-col justify-between border border-line-grey/30 shadow-inner order-1 lg:order-2 relative overflow-hidden">
           
+          {/* WhatsApp-like Header */}
+          <div className="mb-6 pb-4 border-b border-white/20">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center text-white font-display font-bold text-sm">R</div>
+              <div className="flex-1">
+                <h4 className="font-display text-sm font-bold text-white">Rupaka Studio</h4>
+                <p className="text-xs text-white/60">Aktif 2 menit lalu</p>
+              </div>
+            </div>
+          </div>
+
           {/* Chat Simulator Top Options */}
-          <div className="bg-white/60 backdrop-blur-md rounded-2xl p-3.5 mb-6 border border-white/50 flex flex-col gap-2 shadow-sm">
-            <span className="font-display text-[9px] font-extrabold uppercase tracking-wider text-muted-grey text-center">
-              Pilih contoh bisnis untuk memulai simulasi konsultasi:
+          <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-3 mb-6 border border-white/20 flex flex-col gap-2 shadow-sm">
+            <span className="font-display text-[9px] font-bold uppercase tracking-wider text-white/70 text-center">
+              Pilih kasus:
             </span>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-1">
               <button
                 onClick={() => handlePresetChange('kopi')}
-                className={`py-2 px-2.5 rounded-xl font-display text-[10px] font-bold uppercase transition-all tracking-wider cursor-pointer ${chatPreset === 'kopi' ? 'bg-black text-white shadow-md' : 'bg-white/70 text-text-dark hover:bg-white'}`}
+                className={`py-2 px-2.5 rounded-lg font-display text-[10px] font-bold uppercase transition-all tracking-wider cursor-pointer ${chatPreset === 'kopi' ? 'bg-white text-primary-blue shadow-md' : 'bg-white/20 text-white hover:bg-white/30'}`}
               >
                 ☕ Kopi
               </button>
               <button
                 onClick={() => handlePresetChange('kripik')}
-                className={`py-2 px-2.5 rounded-xl font-display text-[10px] font-bold uppercase transition-all tracking-wider cursor-pointer ${chatPreset === 'kripik' ? 'bg-black text-white shadow-md' : 'bg-white/70 text-text-dark hover:bg-white'}`}
+                className={`py-2 px-2.5 rounded-lg font-display text-[10px] font-bold uppercase transition-all tracking-wider cursor-pointer ${chatPreset === 'kripik' ? 'bg-white text-primary-blue shadow-md' : 'bg-white/20 text-white hover:bg-white/30'}`}
               >
                 🍌 Keripik
               </button>
               <button
                 onClick={() => handlePresetChange('butik')}
-                className={`py-2 px-2.5 rounded-xl font-display text-[10px] font-bold uppercase transition-all tracking-wider cursor-pointer ${chatPreset === 'butik' ? 'bg-black text-white shadow-md' : 'bg-white/70 text-text-dark hover:bg-white'}`}
+                className={`py-2 px-2.5 rounded-lg font-display text-[10px] font-bold uppercase transition-all tracking-wider cursor-pointer ${chatPreset === 'butik' ? 'bg-white text-primary-blue shadow-md' : 'bg-white/20 text-white hover:bg-white/30'}`}
               >
                 👗 Butik
               </button>
               <button
                 onClick={() => handlePresetChange('web')}
-                className={`py-2 px-2.5 rounded-xl font-display text-[10px] font-bold uppercase transition-all tracking-wider cursor-pointer ${chatPreset === 'web' ? 'bg-black text-white shadow-md' : 'bg-white/70 text-text-dark hover:bg-white'}`}
+                className={`py-2 px-2.5 rounded-lg font-display text-[10px] font-bold uppercase transition-all tracking-wider cursor-pointer ${chatPreset === 'web' ? 'bg-white text-primary-blue shadow-md' : 'bg-white/20 text-white hover:bg-white/30'}`}
               >
-                🌐 Web Katalog
+                🌐 Web
               </button>
             </div>
           </div>
 
-          {/* Messages Container */}
-          <div className="flex-grow flex flex-col gap-4 overflow-y-auto px-1 max-h-[300px] min-h-[250px] justify-center">
+          {/* Messages Container - WhatsApp Style */}
+          <div className="flex-grow flex flex-col gap-3 overflow-y-auto px-1 max-h-[300px] min-h-[250px] justify-end">
             {messages.map((msg, index) => (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                className={`max-w-[85%] flex flex-col p-3.5 rounded-2xl border text-xs leading-relaxed shadow-sm ${msg.sender === 'user' 
-                  ? 'bg-white/90 text-text-dark border-white/50 self-start rounded-tl-none' 
-                  : 'bg-black/95 text-white-soft border-white/10 self-end rounded-tr-none'}`}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+                className={`max-w-[80%] flex flex-col ${msg.sender === 'user' ? 'self-end' : 'self-start'}`}
               >
-                <div className="flex items-center gap-1.5 mb-1.5 justify-between">
-                  <span className="font-display text-[9px] font-bold tracking-widest uppercase opacity-60">
-                    {msg.sender === 'user' ? 'Pertanyaan Klien' : 'Respon Rupaka Studio'}
-                  </span>
-                  <span className="text-[8px] opacity-40">{msg.time}</span>
+                <div className={`px-4 py-2.5 rounded-2xl text-xs leading-relaxed shadow-sm ${msg.sender === 'user' 
+                  ? 'bg-accent-coral text-white rounded-br-none' 
+                  : 'bg-white/95 text-text-dark rounded-bl-none'}`}
+                >
+                  <p className="font-body">{msg.text}</p>
                 </div>
-                <p className="font-body text-xs">{msg.text}</p>
+                <span className={`text-[8px] mt-1 ${msg.sender === 'user' ? 'text-right text-white/70 pr-2' : 'text-left text-white/70 pl-2'}`}>{msg.time}</span>
               </motion.div>
             ))}
           </div>
 
-          {/* Interactive Chat Footer Accent */}
-          <div className="mt-6 pt-4 border-t border-white/30 flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-full bg-gradient-to-r from-accent-coral to-accent-coral flex items-center justify-center text-white shadow-md animate-pulse">
-                <Sparkles size={12} />
-              </div>
-              <span className="font-display text-[10px] font-bold tracking-widest uppercase text-text-dark/70">
-                Pengerjaan Cepat & Hemat
-              </span>
-            </div>
-            
+          {/* Interactive Chat Footer */}
+          <div className="mt-6 pt-4 border-t border-white/20 flex items-center gap-2">
+            <input 
+              type="text" 
+              placeholder="Tulis pertanyaan..." 
+              className="flex-1 bg-white/10 border border-white/20 rounded-full px-4 py-2.5 text-xs text-white placeholder-white/50 focus:outline-none focus:border-white/40 transition-colors"
+              disabled
+            />
             <button 
               onClick={() => {
                 const textParam = encodeURIComponent(`Halo Rupaka Studio, saya tertarik melanjutkan diskusi mengenai paket ${chatPreset === 'kopi' ? 'Poster Promosi Warung Kopi' : chatPreset === 'kripik' ? 'Logo dan Kemasan Produk Makanan' : chatPreset === 'butik' ? 'Subscription Konten Feed IG Bulanan' : 'Pembuatan Custom Website Landing Page'}.`);
                 window.open(`https://wa.me/628123456789?text=${textParam}`, '_blank', 'noreferrer');
               }}
-              className="px-4 py-2 bg-black text-white font-display text-[9px] font-bold uppercase tracking-wider rounded-full hover:bg-gray-800 transition-colors flex items-center gap-1 cursor-pointer"
+              className="w-10 h-10 bg-white rounded-full flex items-center justify-center text-primary-blue hover:bg-white/90 transition-colors flex-shrink-0 cursor-pointer shadow-md"
+              title="Kirim ke WhatsApp"
             >
-              <span>Lanjut WhatsApp</span>
-              <ChevronRight size={10} />
+              <Send size={16} className="translate-x-0.5" />
             </button>
           </div>
           
