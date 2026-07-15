@@ -42,10 +42,10 @@ export default function Navbar({ onScrollToSection }: NavbarProps) {
           initial={{ y: -50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.5, ease: 'easeOut' }}
-          className="pointer-events-auto w-full max-w-[900px] flex items-center justify-between bg-black/30 backdrop-blur-3xl rounded-[28px] px-6 py-4 shadow-2xl border border-white/15 h-[72px] hover:bg-black/40 transition-all duration-300"
+          className="pointer-events-auto w-full max-w-[950px] flex items-center justify-between bg-black/30 backdrop-blur-3xl rounded-[28px] px-7 py-3 shadow-2xl border border-white/15 h-[80px] hover:bg-black/40 transition-all duration-300"
         >
           {/* Logo */}
-          <div className="flex items-center gap-6 pl-2">
+          <div className="flex items-center gap-8 pl-1">
             <button 
               onClick={() => onScrollToSection('hero')}
               className="shrink-0 hover:opacity-80 transition-opacity cursor-pointer"
@@ -54,10 +54,10 @@ export default function Navbar({ onScrollToSection }: NavbarProps) {
               <img 
                 src={logoImage} 
                 alt="Rupaka Studio Logo" 
-                className="h-[50px] w-auto"
+                className="h-[64px] w-auto"
               />
             </button>
-            <nav className="hidden md:flex items-center gap-7">
+            <nav className="hidden md:flex items-center gap-8">
               {navLinks.map((link) => (
                 <button
                   key={link.target}
@@ -112,7 +112,7 @@ export default function Navbar({ onScrollToSection }: NavbarProps) {
             >
               <div className="space-y-8 mt-12">
                 <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 shrink-0">
+                  <div className="w-14 h-14 shrink-0">
                     <img 
                       src={logoImage} 
                       alt="Rupaka Studio Logo" 
