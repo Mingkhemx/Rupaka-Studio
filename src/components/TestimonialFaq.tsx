@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { FAQ_ITEMS, TESTIMONIAL_ITEMS } from '../data';
 import { ChevronDown, MessageSquare, Star, Quote, ArrowLeft, ArrowRight, UserCircle } from 'lucide-react';
@@ -6,6 +6,15 @@ import { ChevronDown, MessageSquare, Star, Quote, ArrowLeft, ArrowRight, UserCir
 export default function TestimonialFaq() {
   const [openFaq, setOpenFaq] = useState<string | null>('faq-1');
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
+
+  // Auto-rotation testimonial setiap 5 detik
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTestimonial((prev) => (prev + 1) % TESTIMONIAL_ITEMS.length);
+    }, 5000); // 5 detik
+
+    return () => clearInterval(interval);
+  }, []);
 
   const toggleFaq = (id: string) => {
     if (openFaq === id) {

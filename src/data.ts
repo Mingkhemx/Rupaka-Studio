@@ -160,12 +160,5 @@ export const TESTIMONIAL_ITEMS: TestimonialItem[] = [
     role: 'Owner Roemah Panggang',
     content: 'Suka sekali dengan desain ini...paduan warnanya cantik,susunan bahasanya bagus dan paduan antara gmbar dan tulisan terlihat rapi sekali...terima kasih untuk rupaka studio',
     rating: 5
-  },
-  {
-    id: 'test-3',
-    name: 'Budi Hartono',
-    role: 'Pemilik "Kopi Janji Jogja"',
-    content: 'Puas sekali dengan poster promosi Rupaka Studio! Harganya ramah kantong buat kami yang baru merintis usaha kopi, tapi desainnya terlihat sangat elegan seperti buatan agensi ternama.',
-    rating: 5
   }
 ];
