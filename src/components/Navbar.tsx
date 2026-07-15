@@ -42,13 +42,13 @@ export default function Navbar({ onScrollToSection }: NavbarProps) {
           initial={{ y: -50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.5, ease: 'easeOut' }}
-          className="pointer-events-auto w-full max-w-[950px] flex items-center justify-between bg-black/30 backdrop-blur-3xl rounded-[28px] px-7 py-2 shadow-2xl border border-white/15 h-[88px] hover:bg-black/40 transition-all duration-300"
+          className="pointer-events-auto w-full max-w-[950px] flex items-center justify-center bg-black/30 backdrop-blur-3xl rounded-[28px] px-7 py-2 shadow-2xl border border-white/15 h-[88px] hover:bg-black/40 transition-all duration-300"
         >
-          {/* Logo */}
-          <div className="flex items-center gap-8 pl-1">
+          {/* Logo - Left */}
+          <div className="absolute left-6 flex items-center gap-8 pl-1">
             <button 
               onClick={() => onScrollToSection('hero')}
-              className="shrink-0 hover:opacity-80 transition-opacity cursor-pointer flex items-center gap-3"
+              className="shrink-0 hover:opacity-80 transition-opacity cursor-pointer"
               title="Rupaka Studio - Home"
             >
               <img 
@@ -56,26 +56,24 @@ export default function Navbar({ onScrollToSection }: NavbarProps) {
                 alt="Rupaka Studio Logo" 
                 className="h-[72px] w-auto"
               />
-              <div className="hidden sm:flex flex-col items-start">
-                <span className="font-display font-black text-lg text-white leading-none">Rupaka</span>
-                <span className="font-display text-xs text-white/60 font-semibold tracking-widest">STUDIO</span>
-              </div>
             </button>
-            <nav className="hidden md:flex items-center gap-8">
-              {navLinks.map((link) => (
-                <button
-                  key={link.target}
-                  onClick={() => onScrollToSection(link.target)}
-                  className="font-body text-[11px] text-white hover:text-accent-coral transition-colors duration-300 font-medium uppercase tracking-wider cursor-pointer"
-                >
-                  {link.name}
-                </button>
-              ))}
-            </nav>
           </div>
 
+          {/* Menu - Center */}
+          <nav className="hidden md:flex items-center gap-8">
+            {navLinks.map((link) => (
+              <button
+                key={link.target}
+                onClick={() => onScrollToSection(link.target)}
+                className="font-body text-[11px] text-white hover:text-accent-coral transition-colors duration-300 font-medium uppercase tracking-wider cursor-pointer"
+              >
+                {link.name}
+              </button>
+            ))}
+          </nav>
+
           {/* Right Controls */}
-          <div className="flex items-center gap-2">
+          <div className="absolute right-6 flex items-center gap-2">
             <button 
               onClick={handleWhatsAppChat}
               className="font-display rounded-full bg-accent-coral hover:bg-accent-coral/90 text-white transition-all duration-300 shrink-0 flex items-center gap-2 px-6 text-[11px] h-[40px] font-bold uppercase tracking-wider cursor-pointer shadow-lg hover:shadow-2xl"
