@@ -1,6 +1,12 @@
 import { useState } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Sparkles, Sliders, ToggleLeft, ToggleRight, CheckCircle2, ShieldCheck, HeartHandshake } from 'lucide-react';
+import posterRumahPanggang from '../assets/Poster Rumah panggang 1.png';
+import logoSaky from '../assets/Logo saky.png';
+import mockupLogo from '../assets/Mockup logo.png';
+import mascotRupaka from '../assets/mascot website rupaka.png';
+import mascotSaky from '../assets/mascot saky.png';
 
 export default function CollageSection() {
   const [aiEnabled, setAiEnabled] = useState(true);
@@ -43,7 +49,7 @@ export default function CollageSection() {
             <img
               alt="Poster Rumah Panggang"
               className="w-full h-full object-cover select-none"
-              src={require('../assets/Poster Rumah panggang 1.png').default}
+              src={posterRumahPanggang}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black-dark/40 to-transparent pointer-events-none" />
             <span className="absolute bottom-3 left-3 bg-white/25 backdrop-blur-md text-[9px] font-bold text-white uppercase tracking-wider px-2.5 py-1 rounded-full border border-white/20">
@@ -91,7 +97,7 @@ export default function CollageSection() {
           <img
             alt="Logo Saky Branding"
             className="w-full h-full object-cover select-none"
-            src={require('../assets/Logo saky.png').default}
+            src={logoSaky}
           />
           <div className="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/50 backdrop-blur-md border border-white/50 flex items-center justify-center shadow-lg hover:scale-110 transition-transform">
             <Sparkles size={14} className="text-text-dark" />
@@ -151,7 +157,7 @@ export default function CollageSection() {
           <img
             alt="Mockup Logo Design"
             className="w-full h-full object-cover select-none"
-            src={require('../assets/Mockup logo.png').default}
+            src={mockupLogo}
           />
           <div className="absolute top-4 left-4 bg-white/70 backdrop-blur-xl px-4 py-2 rounded-full border border-white/50 shadow-md flex items-center gap-2">
             <div className="w-2.5 h-2.5 rounded-full bg-green-500 animate-ping absolute" />
@@ -232,7 +238,7 @@ export default function CollageSection() {
             <img
               alt="Mascot Website Rupaka"
               className="w-full h-full object-cover"
-              src={require('../assets/mascot website rupaka.png').default}
+              src={mascotRupaka}
             />
             <span className="absolute top-3 left-3 bg-white/80 backdrop-blur-md text-[9px] font-bold text-text-dark uppercase tracking-wider px-3 py-1 rounded-full shadow-md">
               Karya Rupaka
@@ -252,7 +258,7 @@ export default function CollageSection() {
             <img
               alt="Mascot Saky Design"
               className="w-full h-full object-cover"
-              src={require('../assets/mascot saky.png').default}
+              src={mascotSaky}
             />
           </div>
           <div className="mt-4">
