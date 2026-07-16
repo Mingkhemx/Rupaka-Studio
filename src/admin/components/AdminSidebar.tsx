@@ -12,6 +12,7 @@ import {
   X
 } from 'lucide-react';
 import { logout } from '../services';
+import logoImg from '../../assets/logo.png';
 
 const MENU_ITEMS = [
   { icon: LayoutDashboard, label: 'Dashboard', path: '/admin' },
@@ -130,18 +131,16 @@ function SidebarContent({
           style={{
             width: 40,
             height: 40,
-            background: '#f97316',
-            borderRadius: 8,
+            background: '#fff',
+            borderRadius: '50%',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            fontWeight: 700,
-            fontSize: 18,
-            color: '#000',
-            flexShrink: 0
+            flexShrink: 0,
+            padding: 4
           }}
         >
-          R
+          <img src={logoImg} alt="Rupaka Logo" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
         </div>
         <div>
           <div style={{ fontWeight: 700, fontSize: 15, color: '#fff' }}>Rupaka</div>
