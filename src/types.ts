@@ -4,7 +4,6 @@ export interface PortfolioItem {
   category: 'poster' | 'banner' | 'kemasan';
   image: string;
   description: string;
-  price: string;
   features: string[];
 }
 

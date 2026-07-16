@@ -1,20 +1,22 @@
 import { useState, useEffect } from 'react';
-import { Plus, Trash2, Edit2 } from 'lucide-react';
+import { Plus, Trash2, Edit2, Upload, X } from 'lucide-react';
 import { PortfolioItem } from '../types';
-import { getFirebaseDb } from '../lib/firebase';
+import { getFirebaseDb, getFirebaseStorage } from '../lib/firebase';
 import { collection, addDoc, updateDoc, deleteDoc, doc, onSnapshot } from 'firebase/firestore';
+import { ref, uploadBytes, getDownloadURL, deleteObject } from 'firebase/storage';
 
 export default function PortfolioManager() {
   const [portfolio, setPortfolio] = useState<PortfolioItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
+  const [uploading, setUploading] = useState(false);
+  const [imageFile, setImageFile] = useState<File | null>(null);
   const [formData, setFormData] = useState<Partial<PortfolioItem>>({
     title: '',
     category: 'poster',
     image: '',
     description: '',
-    price: '',
     features: []
   });
 
@@ -44,16 +46,77 @@ export default function PortfolioManager() {
       category: 'poster',
       image: '',
       description: '',
-      price: '',
       features: []
     });
+    setImageFile(null);
     setIsModalOpen(true);
   };
 
   const handleEdit = (item: PortfolioItem) => {
     setEditingId(item.id);
     setFormData(item);
+    setImageFile(null);
     setIsModalOpen(true);
+  };
+
+  // Image compression function
+  const compressImage = (file: File, maxWidth = 800, quality = 0.7): Promise<Blob> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = (event) => {
+        const img = new Image();
+        img.src = event.target?.result as string;
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          let width = img.width;
+          let height = img.height;
+
+          if (width > maxWidth) {
+            height = (height * maxWidth) / width;
+            width = maxWidth;
+          }
+
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          if (!ctx) {
+            reject(new Error('Failed to get canvas context'));
+            return;
+          }
+          ctx.drawImage(img, 0, 0, width, height);
+          canvas.toBlob(
+            (blob) => {
+              if (blob) resolve(blob);
+              else reject(new Error('Failed to compress image'));
+            },
+            'image/jpeg',
+            quality
+          );
+        };
+        img.onerror = () => reject(new Error('Failed to load image'));
+      };
+      reader.onerror = () => reject(new Error('Failed to read file'));
+    });
+  };
+
+  const uploadImage = async (file: File): Promise<string> => {
+    const compressed = await compressImage(file);
+    const storage = getFirebaseStorage();
+    const fileName = `portfolio/${Date.now()}_${file.name}`;
+    const storageRef = ref(storage, fileName);
+    await uploadBytes(storageRef, compressed);
+    return getDownloadURL(storageRef);
+  };
+
+  const deleteImage = async (imageUrl: string) => {
+    try {
+      const storage = getFirebaseStorage();
+      const storageRef = ref(storage, imageUrl);
+      await deleteObject(storageRef);
+    } catch (error) {
+      console.error('Failed to delete image:', error);
+    }
   };
 
   const handleSave = async () => {
@@ -62,28 +125,55 @@ export default function PortfolioManager() {
       return;
     }
 
+    if (!formData.image && !imageFile) {
+      alert('Masukkan URL gambar atau upload gambar');
+      return;
+    }
+
     try {
+      setUploading(true);
+      let imageUrl = formData.image;
+
+      // Upload image if file is selected
+      if (imageFile) {
+        imageUrl = await uploadImage(imageFile);
+      }
+
       const db = getFirebaseDb();
       
       if (editingId) {
+        // Delete old image if it exists and is different
+        const oldItem = portfolio.find(item => item.id === editingId);
+        if (oldItem && oldItem.image !== imageUrl && oldItem.image.startsWith('https://firebasestorage.googleapis.com')) {
+          await deleteImage(oldItem.image);
+        }
+
         // Update existing document
         const docRef = doc(db, 'portfolios', editingId);
-        await updateDoc(docRef, formData as any);
+        await updateDoc(docRef, { ...formData, image: imageUrl });
       } else {
         // Add new document
-        await addDoc(collection(db, 'portfolios'), formData);
+        await addDoc(collection(db, 'portfolios'), { ...formData, image: imageUrl });
       }
       
       setIsModalOpen(false);
+      setImageFile(null);
     } catch (error) {
       console.error('Error saving portfolio:', error);
       alert('Gagal menyimpan data');
+    } finally {
+      setUploading(false);
     }
   };
 
   const handleDelete = async (id: string) => {
     if (confirm('Hapus item ini?')) {
       try {
+        const item = portfolio.find(item => item.id === id);
+        if (item && item.image.startsWith('https://firebasestorage.googleapis.com')) {
+          await deleteImage(item.image);
+        }
+
         const db = getFirebaseDb();
         await deleteDoc(doc(db, 'portfolios', id));
       } catch (error) {
@@ -126,9 +216,6 @@ export default function PortfolioManager() {
                   <h4 className="font-display font-bold text-text-dark">{item.title}</h4>
                   <p className="font-body text-xs text-muted-grey capitalize">{item.category}</p>
                 </div>
-                <span className="bg-primary-dark/10 text-primary-dark text-xs font-bold px-2 py-1 rounded">
-                  {item.price}
-                </span>
               </div>
               <p className="font-body text-sm text-muted-grey mb-3 line-clamp-2">{item.description}</p>
               {item.features && item.features.length > 0 && (
@@ -204,16 +291,55 @@ export default function PortfolioManager() {
                 </select>
               </div>
 
-              {/* Image URL */}
+              {/* Image URL or Upload */}
               <div>
-                <label className="font-display text-sm font-bold text-text-dark mb-2 block">Image URL</label>
-                <input
-                  type="text"
-                  value={formData.image || ''}
-                  onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-                  className="w-full border border-line-grey/40 rounded-lg px-4 py-2 font-body text-sm focus:outline-none focus:border-primary-dark"
-                  placeholder="https://..."
-                />
+                <label className="font-display text-sm font-bold text-text-dark mb-2 block">Gambar</label>
+                <div className="space-y-3">
+                  <div>
+                    <p className="font-body text-xs text-muted-grey mb-2">Upload gambar (akan dikompres otomatis):</p>
+                    <div className="flex items-center gap-3">
+                      <label className="flex-1 flex items-center gap-2 border-2 border-dashed border-line-grey/40 rounded-lg px-4 py-3 cursor-pointer hover:border-primary-dark transition-colors">
+                        <Upload size={16} className="text-muted-grey" />
+                        <span className="font-body text-sm text-muted-grey">
+                          {imageFile ? imageFile.name : 'Pilih file'}
+                        </span>
+                        <input
+                          type="file"
+                          accept="image/*"
+                          onChange={(e) => {
+                            const file = e.target.files?.[0];
+                            if (file) setImageFile(file);
+                          }}
+                          className="hidden"
+                        />
+                      </label>
+                      {imageFile && (
+                        <button
+                          type="button"
+                          onClick={() => setImageFile(null)}
+                          className="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-colors"
+                        >
+                          <X size={16} />
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="flex-1 h-px bg-line-grey/30"></div>
+                    <span className="font-body text-xs text-muted-grey">atau</span>
+                    <div className="flex-1 h-px bg-line-grey/30"></div>
+                  </div>
+                  <div>
+                    <p className="font-body text-xs text-muted-grey mb-2">URL gambar:</p>
+                    <input
+                      type="text"
+                      value={formData.image || ''}
+                      onChange={(e) => setFormData({ ...formData, image: e.target.value })}
+                      className="w-full border border-line-grey/40 rounded-lg px-4 py-2 font-body text-sm focus:outline-none focus:border-primary-dark"
+                      placeholder="https://..."
+                    />
+                  </div>
+                </div>
               </div>
 
               {/* Description */}
@@ -225,18 +351,6 @@ export default function PortfolioManager() {
                   className="w-full border border-line-grey/40 rounded-lg px-4 py-2 font-body text-sm focus:outline-none focus:border-primary-dark resize-none"
                   rows={3}
                   placeholder="Deskripsi singkat"
-                />
-              </div>
-
-              {/* Price */}
-              <div>
-                <label className="font-display text-sm font-bold text-text-dark mb-2 block">Harga</label>
-                <input
-                  type="text"
-                  value={formData.price || ''}
-                  onChange={(e) => setFormData({ ...formData, price: e.target.value })}
-                  className="w-full border border-line-grey/40 rounded-lg px-4 py-2 font-body text-sm focus:outline-none focus:border-primary-dark"
-                  placeholder="Rp 50.000"
                 />
               </div>
 
@@ -257,15 +371,17 @@ export default function PortfolioManager() {
             <div className="flex gap-3 mt-6">
               <button
                 onClick={() => setIsModalOpen(false)}
-                className="flex-1 bg-line-grey/20 text-text-dark hover:bg-line-grey/30 font-body py-2 rounded-lg transition-colors cursor-pointer"
+                disabled={uploading}
+                className="flex-1 bg-line-grey/20 text-text-dark hover:bg-line-grey/30 font-body py-2 rounded-lg transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Batal
               </button>
               <button
                 onClick={handleSave}
-                className="flex-1 bg-primary-dark text-white hover:bg-primary-blue font-body py-2 rounded-lg transition-colors cursor-pointer"
+                disabled={uploading}
+                className="flex-1 bg-primary-dark text-white hover:bg-primary-blue font-body py-2 rounded-lg transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {editingId ? 'Update' : 'Simpan'}
+                {uploading ? 'Uploading...' : (editingId ? 'Update' : 'Simpan')}
               </button>
             </div>
           </div>
