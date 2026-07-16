@@ -1,4 +1,5 @@
 import { MessageCircle, Share2, Globe, Sparkles, Command } from 'lucide-react';
+import logoImg from '../assets/logo.png';
 
 export default function Footer() {
   const handleWhatsAppChat = () => {
@@ -39,8 +40,8 @@ export default function Footer() {
             {/* Logo and Brand column */}
             <div className="lg:col-span-2 flex flex-col gap-6">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center shrink-0 bg-white/5">
-                  <span className="text-white font-display font-black text-lg leading-none">R</span>
+                <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center shrink-0 p-1.5 shadow-inner">
+                  <img src={logoImg} alt="Rupaka Logo" className="w-full h-full object-contain" />
                 </div>
                 <div>
                   <h4 className="font-display text-base font-bold tracking-tight text-white leading-none">Rupaka Studio</h4>

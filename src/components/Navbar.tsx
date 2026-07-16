@@ -43,17 +43,17 @@ export default function Navbar({ onScrollToSection }: NavbarProps) {
           initial={{ y: -50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.5, ease: 'easeOut' }}
-          className="pointer-events-auto w-full max-w-[900px] flex items-center justify-between bg-black/75 backdrop-blur-xl rounded-[40px] px-4 py-3 shadow-2xl border border-white/10 min-h-[90px]"
+          className="pointer-events-auto w-full max-w-[1200px] flex items-center justify-between bg-black/75 backdrop-blur-xl rounded-[40px] px-6 py-3 shadow-2xl border border-white/10 min-h-[90px]"
         >
           {/* Logo */}
-          <div className="flex items-center gap-6 pl-2">
+          <div className="flex items-center gap-12 pl-2">
             <button 
               onClick={() => onScrollToSection('hero')}
               className="flex items-center justify-center shrink-0 cursor-pointer hover:scale-105 transition-transform bg-white rounded-full p-2 w-[76px] h-[76px] shadow-inner"
             >
               <img src={logoImg} alt="Rupaka Logo" className="w-full h-full object-contain" />
             </button>
-            <nav className="hidden md:flex items-center gap-6">
+            <nav className="hidden md:flex items-center gap-8">
               {navLinks.map((link) => (
                 <button
                   key={link.target}
@@ -108,8 +108,8 @@ export default function Navbar({ onScrollToSection }: NavbarProps) {
             >
               <div className="space-y-8 mt-12">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center bg-white/5">
-                    <span className="text-white font-display font-bold text-lg">R</span>
+                  <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center shrink-0 p-1.5 shadow-inner">
+                    <img src={logoImg} alt="Rupaka Logo" className="w-full h-full object-contain" />
                   </div>
                   <div>
                     <h3 className="text-white font-display font-bold leading-none">Rupaka</h3>
