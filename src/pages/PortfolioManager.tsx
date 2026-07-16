@@ -1,30 +1,12 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Plus, Trash2, Edit2 } from 'lucide-react';
 import { PortfolioItem } from '../types';
-
-const DUMMY_PORTFOLIO: PortfolioItem[] = [
-  {
-    id: 'port-1',
-    title: 'Poster Promosi Rumah Panggang',
-    category: 'poster',
-    image: 'https://via.placeholder.com/300x200?text=Poster+1',
-    description: 'Poster promosi cetak dan digital beresolusi tinggi',
-    price: 'Rp 50.000',
-    features: ['Format file siap cetak (PDF, PNG)', 'Revisi maksimal 2 kali']
-  },
-  {
-    id: 'port-2',
-    title: 'Logo Brand Cafe',
-    category: 'banner',
-    image: 'https://via.placeholder.com/300x200?text=Logo+1',
-    description: 'Desain logo modern untuk brand cafe',
-    price: 'Rp 150.000',
-    features: ['Master file vektor', 'Panduan warna & tipografi']
-  }
-];
+import { getFirebaseDb } from '../lib/firebase';
+import { collection, addDoc, updateDoc, deleteDoc, doc, onSnapshot } from 'firebase/firestore';
 
 export default function PortfolioManager() {
-  const [portfolio, setPortfolio] = useState<PortfolioItem[]>(DUMMY_PORTFOLIO);
+  const [portfolio, setPortfolio] = useState<PortfolioItem[]>([]);
+  const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [formData, setFormData] = useState<Partial<PortfolioItem>>({
@@ -35,6 +17,25 @@ export default function PortfolioManager() {
     price: '',
     features: []
   });
+
+  useEffect(() => {
+    const db = getFirebaseDb();
+    const portfolioCollection = collection(db, 'portfolios');
+    
+    const unsubscribe = onSnapshot(portfolioCollection, (snapshot) => {
+      const items = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      } as PortfolioItem));
+      setPortfolio(items);
+      setLoading(false);
+    }, (error) => {
+      console.error('Error fetching portfolio:', error);
+      setLoading(false);
+    });
+
+    return unsubscribe;
+  }, []);
 
   const handleAdd = () => {
     setEditingId(null);
@@ -55,50 +56,64 @@ export default function PortfolioManager() {
     setIsModalOpen(true);
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     if (!formData.title) {
       alert('Judul tidak boleh kosong');
       return;
     }
 
-    if (editingId) {
-      // Update
-      setPortfolio(portfolio.map(item => 
-        item.id === editingId ? { ...item, ...formData } : item
-      ));
-    } else {
-      // Add new
-      const newItem: PortfolioItem = {
-        ...formData as PortfolioItem,
-        id: 'port-' + Date.now()
-      };
-      setPortfolio([...portfolio, newItem]);
+    try {
+      const db = getFirebaseDb();
+      
+      if (editingId) {
+        // Update existing document
+        const docRef = doc(db, 'portfolios', editingId);
+        await updateDoc(docRef, formData as any);
+      } else {
+        // Add new document
+        await addDoc(collection(db, 'portfolios'), formData);
+      }
+      
+      setIsModalOpen(false);
+    } catch (error) {
+      console.error('Error saving portfolio:', error);
+      alert('Gagal menyimpan data');
     }
-
-    setIsModalOpen(false);
   };
 
-  const handleDelete = (id: string) => {
+  const handleDelete = async (id: string) => {
     if (confirm('Hapus item ini?')) {
-      setPortfolio(portfolio.filter(item => item.id !== id));
+      try {
+        const db = getFirebaseDb();
+        await deleteDoc(doc(db, 'portfolios', id));
+      } catch (error) {
+        console.error('Error deleting portfolio:', error);
+        alert('Gagal menghapus data');
+      }
     }
   };
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-8">
-        <div>
-          <h3 className="font-display text-xl font-bold text-text-dark">Manajemen Portfolio</h3>
-          <p className="font-body text-sm text-muted-grey mt-1">Total: {portfolio.length} items</p>
+      {loading ? (
+        <div className="flex items-center justify-center py-12">
+          <p className="text-muted-grey">Loading...</p>
         </div>
-        <button
-          onClick={handleAdd}
-          className="bg-accent-coral text-white hover:bg-accent-coral/90 font-display px-6 py-2 rounded-lg flex items-center gap-2 cursor-pointer transition-all"
-        >
-          <Plus size={20} />
-          Tambah Item
-        </button>
-      </div>
+      ) : (
+        <>
+          <div className="flex justify-between items-center mb-8">
+            <div>
+              <h3 className="font-display text-xl font-bold text-text-dark">Manajemen Portfolio</h3>
+              <p className="font-body text-sm text-muted-grey mt-1">Total: {portfolio.length} items</p>
+            </div>
+            <button
+              onClick={handleAdd}
+              className="bg-accent-coral text-white hover:bg-accent-coral/90 font-display px-6 py-2 rounded-lg flex items-center gap-2 cursor-pointer transition-all"
+            >
+              <Plus size={20} />
+              Tambah Item
+            </button>
+          </div>
 
       {/* Portfolio Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -255,6 +270,8 @@ export default function PortfolioManager() {
             </div>
           </div>
         </div>
+      )}
+        </>
       )}
     </div>
   );

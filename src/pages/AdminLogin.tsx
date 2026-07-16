@@ -2,6 +2,8 @@ import React from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Lock, Mail } from 'lucide-react';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { getFirebaseAuth } from '../lib/firebase';
 
 export default function AdminLogin() {
   const navigate = useNavigate();
@@ -10,23 +12,20 @@ export default function AdminLogin() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
     setLoading(true);
 
-    // Dummy auth - any email/password works for demo
-    setTimeout(() => {
-      if (email && password) {
-        // Store dummy token in localStorage
-        localStorage.setItem('adminToken', 'dummy-token-' + Date.now());
-        localStorage.setItem('adminEmail', email);
-        navigate('/admin/dashboard');
-      } else {
-        setError('Email dan password harus diisi');
-        setLoading(false);
-      }
-    }, 500);
+    try {
+      const auth = getFirebaseAuth();
+      await signInWithEmailAndPassword(auth, email, password);
+      navigate('/admin/dashboard');
+    } catch (err: any) {
+      setError(err.message || 'Login gagal. Periksa email dan password Anda.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -78,13 +77,6 @@ export default function AdminLogin() {
             </div>
           )}
 
-          {/* Demo Credentials Info */}
-          <div className="bg-blue-50 border border-blue-200 rounded-[12px] p-3">
-            <p className="font-body text-xs text-blue-700">
-              <strong>Demo Mode:</strong> Gunakan email dan password apapun untuk login
-            </p>
-          </div>
-
           {/* Submit Button */}
           <button
             type="submit"
@@ -96,7 +88,7 @@ export default function AdminLogin() {
         </form>
 
         <p className="text-center font-body text-xs text-muted-grey mt-6">
-          Ini adalah panel admin untuk demo. Data disimpan di localStorage.
+          Login menggunakan Firebase Authentication
         </p>
       </div>
     </div>
