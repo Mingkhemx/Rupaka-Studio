@@ -12,8 +12,8 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
   },
   {
     id: 'port-2',
-    title: 'Redesain Logo & Kemasan Keripik Tempe Jogja',
-    category: 'logo',
+    title: 'Desain Kemasan Keripik Tempe Jogja',
+    category: 'kemasan',
     image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuABa0q5BJ_DreMgIZGB-8at3sYpuFks_tT431tznVrVWB2C49LzdUC651wzXTj9LD-7VYCWRRpo9bqyyAQ_b54KnjtoPjXSRfeIXbBgjwHXIr8Ojo51Y8MG8CC0mGtvupgQSf4RnLcvReiqPWlUs5L2KkemFlhV-MfAQAzfyxIvGWfFM2Orh3ChuU5A6sOS2VBQbJyPWAQcwMlr6YWpCbln_V8DC4Yo90e6mK4QAINc-FrScaJ_KPin-t6UJ12p4Dnl5CbWpvGS2GiO',
     description: 'Identitas visual baru yang berkarakter untuk memperkuat branding UMKM makanan tradisional agar tampil menarik di rak supermarket modern.',
     price: 'Rp 150.000',
@@ -21,21 +21,21 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
   },
   {
     id: 'port-3',
-    title: 'Stiker Branding & Digital Planner Kuliner',
-    category: 'custom',
+    title: 'Banner Promosi Festival Kuliner',
+    category: 'banner',
     image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCAsZf4UPkmlE6_mXYyjLE0rRS6z3wyPwTyXyHBEx2fzb_1GTK9oiAbqHMYNp1BpaU32inyxnVzpmayXVCbCKB_1Vo5pWerZ__YxCtY56FNpcHMwYf9urWgXAJQyGfscYHxMbULHWIsDeg5XCImbVDEPCwNhnAFC1xNYFgDTRv4KBYk1lGhIhBi4Pez_FSe2stW1TrgJkEhZUjpZcpgdrnwOaIDJo-2fibASWue5TrVKAp0CiX5ahI1LePNwx8xkgPfEO5mMALLcQWo',
-    description: 'Produk pelengkap branding berupa stiker segel kemasan dan planner digital untuk merencanakan konten promosi harian usaha.',
+    description: 'Banner format besar yang menarik perhatian dengan warna cerah dan tata letak yang informatif untuk mempromosikan acara atau diskon spesial.',
     price: 'Rp 75.000',
-    features: ['Format stiker cutting die-cut', 'File resolusi tinggi siap cetak', 'Warna akurat CMYK', 'Termasuk elemen ilustrasi original']
+    features: ['File resolusi tinggi siap cetak (Spanduk/Baliho)', 'Warna akurat CMYK', 'Pengerjaan cepat', 'Desain komunikatif']
   },
   {
     id: 'port-4',
-    title: 'Landing Page Portfolio Produk Kerajinan Bambu',
-    category: 'website',
+    title: 'Desain Kemasan Botol Kopi Susu',
+    category: 'kemasan',
     image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuB5cY_8WSiYE8XLX9-TC1PN-9mihq_rEdAuIWhtvcYj7w3Jym37KSRruLnz0ZQY5zy1_DktUdT0RLTDQ4dIOGeKAvBWKyz6Fg4AS8M9VGl8uRkbhFz7qmqDNDpZ-CnVzYng1m39Wxi--hMoM4aMjONRhxBfdlgygDuhMZXzobuhZkCisfF6llXxrL9fOU48PhgyUNZx5V5gH-adc6HxffpgIWavNNpFCUnafc-d7HEDWlEQx3S8yVrTddmzqlMzQIOc0ib4Bxpxxe-W',
-    description: 'Website satu halaman interaktif dan responsif untuk memamerkan katalog produk kerajinan bambu lokal Jogja ke pasar nasional.',
-    price: 'Rp 450.000',
-    features: ['Desain responsif HP & Desktop', 'Integrasi WhatsApp direct chat', 'SEO On-Page dasar', 'Hosting ringan & pemeliharaan mudah']
+    description: 'Label kemasan botol minimalis yang elegan untuk produk minuman kekinian, lengkap dengan informasi nilai gizi dan komposisi.',
+    price: 'Rp 100.000',
+    features: ['Desain label sesuai ukuran botol', 'Format siap cetak sticker', 'Mockup botol realistis', 'Bebas revisi minor']
   }
 ];
 

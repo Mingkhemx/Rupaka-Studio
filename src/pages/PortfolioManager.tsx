@@ -15,7 +15,7 @@ const DUMMY_PORTFOLIO: PortfolioItem[] = [
   {
     id: 'port-2',
     title: 'Logo Brand Cafe',
-    category: 'logo',
+    category: 'banner',
     image: 'https://via.placeholder.com/300x200?text=Logo+1',
     description: 'Desain logo modern untuk brand cafe',
     price: 'Rp 150.000',

@@ -5,15 +5,14 @@ import { PortfolioItem } from '../types';
 import { X, Check, MessageSquare, ArrowUpRight, Award } from 'lucide-react';
 
 export default function Portfolio() {
-  const [selectedCategory, setSelectedCategory] = useState<'all' | 'poster' | 'logo' | 'website' | 'custom'>('all');
+  const [selectedCategory, setSelectedCategory] = useState<'all' | 'poster' | 'banner' | 'kemasan'>('all');
   const [selectedProject, setSelectedProject] = useState<PortfolioItem | null>(null);
 
   const categories = [
     { id: 'all', name: 'Semua' },
-    { id: 'poster', name: 'Poster Promosi' },
-    { id: 'logo', name: 'Logo & Kemasan' },
-    { id: 'website', name: 'Custom Website' },
-    { id: 'custom', name: 'Custom Request' }
+    { id: 'poster', name: 'Poster' },
+    { id: 'banner', name: 'Banner' },
+    { id: 'kemasan', name: 'Kemasan Product' }
   ];
 
   const filteredItems = selectedCategory === 'all' 
@@ -82,7 +81,7 @@ export default function Portfolio() {
               <div className="relative z-10 flex justify-between items-end">
                 <div className="max-w-[75%]">
                   <span className="font-display text-[9px] font-bold text-[#E08E9B] bg-white px-2.5 py-1 rounded-full uppercase tracking-widest shadow-sm inline-block mb-3.5">
-                    {item.category === 'custom' ? 'Custom Accent' : item.category}
+                    {item.category}
                   </span>
                   <h4 className="font-display text-lg sm:text-xl font-bold mb-1.5 text-white group-hover:text-[#E08E9B] transition-colors leading-tight">
                     {item.title}

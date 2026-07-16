@@ -12,7 +12,7 @@ import {
 } from '../services';
 import type { AdminPortfolioItem } from '../types';
 
-const CATEGORIES = ['poster', 'logo', 'website', 'custom'] as const;
+const CATEGORIES = ['poster', 'banner', 'kemasan'] as const;
 const PER_PAGE = 10;
 
 // ─── Inline Modal ─────────────────────────────────────────────────────────────

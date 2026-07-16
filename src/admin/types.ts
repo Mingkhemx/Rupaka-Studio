@@ -4,7 +4,7 @@ import React from 'react';
 export interface AdminPortfolioItem {
   id: string;
   title: string;
-  category: 'poster' | 'logo' | 'website' | 'custom';
+  category: 'poster' | 'banner' | 'kemasan';
   image: string;
   description: string;
   price: string;
