@@ -89,11 +89,16 @@ export default function Hero({ onScrollToSection }: HeroProps) {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.5 }}
           className="w-full max-w-[1280px] relative z-10 aspect-[16/9] md:aspect-[21/9] flex items-center justify-center"
+          style={{ backgroundColor: 'transparent' }}
         >
           <img
             alt="Rupaka Studio Transparent"
-            className="w-auto h-full object-contain select-none drop-shadow-none"
+            className="w-auto h-full object-contain select-none"
             src={rupakaTransparent}
+            style={{ 
+              filter: 'drop-shadow(0px 0px 0px transparent)',
+              mixBlendMode: 'multiply'
+            }}
           />
         </motion.div>
       </div>
