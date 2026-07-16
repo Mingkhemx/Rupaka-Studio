@@ -92,7 +92,7 @@ export default function Hero({ onScrollToSection }: HeroProps) {
         >
           <img
             alt="Mascot Rupaka Studio"
-            className="h-[80%] md:h-[90%] w-auto object-contain select-none mix-blend-multiply"
+            className="h-full w-full object-contain select-none mix-blend-multiply scale-110 md:scale-125"
             src={mascotImage}
           />
         </motion.div>
