@@ -85,7 +85,7 @@ export default function Features() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 xl:gap-24 items-center mb-36">
         
         {/* Left Interactive Services Card */}
-        <div className="bg-gradient-to-br from-soft-card-2 to-soft-card rounded-[32px] md:rounded-[40px] p-6 sm:p-10 min-h-[550px] flex flex-col justify-between relative overflow-hidden border border-line-grey/30 shadow-sm group">
+        <div className="bg-gradient-to-br from-soft-card-2 to-soft-card rounded-[32px] md:rounded-[40px] p-6 sm:p-10 min-h-[550px] flex flex-col justify-between relative border border-line-grey/30 shadow-sm group">
           <div className="absolute top-0 right-0 w-[200px] h-[200px] bg-white-card/20 rounded-full blur-3xl pointer-events-none transition-all group-hover:bg-white-card/30" />
           
           <div className="flex items-center justify-between mb-8 relative z-10">
@@ -98,20 +98,22 @@ export default function Features() {
             <Layers size={16} className="text-muted-grey" />
           </div>
 
-          <div className="space-y-4 relative z-10">
+          <div className="space-y-4 relative z-10" style={{ overflow: 'visible' }}>
             {serviceItems.map((service) => (
               <motion.div
                 key={service.id}
                 drag
                 dragElastic={0.2}
+                dragConstraints={false}
                 dragTransition={{ power: 0.3, restDelta: 0.001 }}
                 whileHover={{ scale: 1.02 }}
                 whileDrag={{ 
                   scale: 1.05,
                   boxShadow: '0 20px 40px rgba(0,0,0,0.15)',
-                  zIndex: 50
+                  zIndex: 999
                 }}
-                className="flex items-center gap-4 p-4 bg-white-card/80 hover:bg-white-card rounded-2xl transition-all duration-300 border border-line-grey/20 cursor-grab active:cursor-grabbing group/item hover:shadow-md"
+                className="flex items-center gap-4 p-4 bg-white-card/80 hover:bg-white-card rounded-2xl transition-all duration-300 border border-line-grey/20 cursor-grab active:cursor-grabbing group/item hover:shadow-md relative"
+                style={{ touchAction: 'none' }}
               >
                 <div className="text-muted-grey/40 group-hover/item:text-muted-grey transition-colors">
                   <GripVertical size={18} />
