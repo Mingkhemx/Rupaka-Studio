@@ -85,6 +85,9 @@ function FormModal({ open, editing, onClose, onSave }: FormModalProps) {
     try {
       const url = await uploadImage(file, 'blogs');
       setForm((prev) => ({ ...prev, image: url }));
+    } catch (error) {
+      console.error('Image upload error:', error);
+      alert(error instanceof Error ? error.message : 'Gagal upload gambar');
     } finally {
       setUploading(false);
     }
