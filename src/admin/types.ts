@@ -7,7 +7,6 @@ export interface AdminPortfolioItem {
   category: 'poster' | 'banner' | 'kemasan';
   image: string;
   description: string;
-  price: string;
   features: string[];
   status: 'published' | 'draft';
   createdAt: string;

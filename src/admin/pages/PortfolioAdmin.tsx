@@ -21,7 +21,6 @@ const PER_PAGE = 10;
 interface PortfolioFormData {
   title: string;
   category: string;
-  price: string;
   description: string;
   image: string;
   features: string;
@@ -31,7 +30,6 @@ interface PortfolioFormData {
 const emptyForm: PortfolioFormData = {
   title: '',
   category: 'poster',
-  price: '',
   description: '',
   image: '',
   features: '',
@@ -42,7 +40,6 @@ function itemToForm(item: AdminPortfolioItem): PortfolioFormData {
   return {
     title: item.title,
     category: item.category,
-    price: item.price,
     description: item.description,
     image: item.image,
     features: item.features.join(', '),
@@ -160,19 +157,13 @@ function FormModal({ open, editing, onClose, onSave }: FormModalProps) {
             <input style={inputStyle} value={form.title} onChange={e => set('title', e.target.value)} placeholder="Judul portfolio" required />
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
-            <div>
-              <label style={labelStyle}>Kategori *</label>
-              <select style={inputStyle} value={form.category} onChange={e => set('category', e.target.value)} required>
-                {CATEGORIES.map(c => (
-                  <option key={c} value={c}>{c.charAt(0).toUpperCase() + c.slice(1)}</option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <label style={labelStyle}>Harga *</label>
-              <input style={inputStyle} value={form.price} onChange={e => set('price', e.target.value)} placeholder="e.g. Rp 150.000" required />
-            </div>
+          <div>
+            <label style={labelStyle}>Kategori *</label>
+            <select style={inputStyle} value={form.category} onChange={e => set('category', e.target.value)} required>
+              {CATEGORIES.map(c => (
+                <option key={c} value={c}>{c.charAt(0).toUpperCase() + c.slice(1)}</option>
+              ))}
+            </select>
           </div>
 
           <div>
@@ -430,7 +421,7 @@ export function PortfolioAdmin() {
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
             <thead>
               <tr style={{ background: '#f9fafb', borderBottom: '1px solid #f3f4f6' }}>
-                {['Preview', 'Judul', 'Kategori', 'Harga', 'Status', 'Aksi'].map(h => (
+                {['Preview', 'Judul', 'Kategori', 'Status', 'Aksi'].map(h => (
                   <th key={h} style={{ padding: '11px 16px', textAlign: 'left', fontWeight: 600, color: '#374151', whiteSpace: 'nowrap' }}>{h}</th>
                 ))}
               </tr>
@@ -438,7 +429,7 @@ export function PortfolioAdmin() {
             <tbody>
               {paginated.length === 0 ? (
                 <tr>
-                  <td colSpan={6} style={{ padding: '32px 16px', textAlign: 'center', color: '#9ca3af' }}>
+                  <td colSpan={5} style={{ padding: '32px 16px', textAlign: 'center', color: '#9ca3af' }}>
                     Tidak ada data
                   </td>
                 </tr>
@@ -457,7 +448,6 @@ export function PortfolioAdmin() {
                   </td>
                   <td style={{ padding: '11px 16px', fontWeight: 500, color: '#111827' }}>{item.title}</td>
                   <td style={{ padding: '11px 16px', color: '#374151', textTransform: 'capitalize' }}>{item.category}</td>
-                  <td style={{ padding: '11px 16px', color: '#374151' }}>{item.price}</td>
                   <td style={{ padding: '11px 16px' }}>
                     <span style={{
                       fontSize: 11, fontWeight: 700, padding: '3px 10px', borderRadius: 20,
