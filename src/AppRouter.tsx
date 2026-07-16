@@ -24,7 +24,7 @@ export default function AppRouter() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />} />
-        <Route path="/admin/login" element={<AdminApp />} />
+        <Route path="/admin/login/*" element={<AdminApp />} />
         <Route
           path="/admin/*"
           element={
