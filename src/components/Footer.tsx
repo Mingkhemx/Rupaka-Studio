@@ -36,7 +36,16 @@ export default function Footer() {
       <footer className="bg-primary-dark text-white-soft pt-24 pb-12 px-6 sm:px-10 rounded-t-[40px] md:rounded-t-[60px] relative z-20 border-t border-accent-coral/20">
         <div className="max-w-[1440px] mx-auto">
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 lg:gap-16 mb-20">
+          {/* Background watermark logo */}
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-5 overflow-hidden">
+            <img 
+              src={logoImage}
+              alt="Rupaka Studio Watermark"
+              className="w-[600px] h-auto object-contain"
+            />
+          </div>
+
+          <div className="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 lg:gap-16 mb-20">
             {/* Logo and Brand column */}
             <div className="lg:col-span-2 flex flex-col gap-6">
               <div className="flex items-center gap-4">
@@ -124,7 +133,7 @@ export default function Footer() {
           </div>
 
           {/* Bottom license and credits */}
-          <div className="pt-8 border-t border-accent-coral/20 flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
+          <div className="pt-8 border-t border-accent-coral/20 flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left relative z-10">
             <p className="font-display text-[10px] text-white/40 font-medium">
               © 2026 Rupaka Studio. Seluruh hak cipta dilindungi undang-undang.
             </p>
