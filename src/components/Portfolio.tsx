@@ -6,17 +6,16 @@ import { PortfolioItem } from '../types';
 import { X, Check, MessageSquare, ArrowUpRight, Award, ChevronDown } from 'lucide-react';
 
 export default function Portfolio() {
-  const [selectedCategory, setSelectedCategory] = useState<'all' | 'poster' | 'logo' | 'website' | 'custom'>('all');
+  const [selectedCategory, setSelectedCategory] = useState<'all' | 'poster' | 'banner' | 'kemasan'>('all');
   const [selectedProject, setSelectedProject] = useState<PortfolioItem | null>(null);
   const [showMore, setShowMore] = useState(false);
   const itemsPerPage = 6;
 
   const categories = [
     { id: 'all', name: 'Semua' },
-    { id: 'poster', name: 'Poster Promosi' },
-    { id: 'logo', name: 'Logo & Kemasan' },
-    { id: 'website', name: 'Custom Website' },
-    { id: 'custom', name: 'Custom Request' }
+    { id: 'poster', name: 'Poster' },
+    { id: 'banner', name: 'Banner' },
+    { id: 'kemasan', name: 'Kemasan Product' }
   ];
 
   const filteredItems = selectedCategory === 'all' 

@@ -35,63 +35,9 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     features: ['Paket 4-6 desain poster', 'Tema customizable', 'Revisi unlimited', 'Format cetak dan digital']
   },
   {
-    id: 'port-3',
-    title: 'Kemasan Produk BASRENG Rhadika',
-    category: 'logo',
-    image: basrengPackaging,
-    description: 'Desain kemasan produk snack yang eye-catching dengan branding yang kuat untuk meningkatkan penjualan di retail.',
-    price: 'Rp 180.000',
-    features: ['Master file vektor (AI, EPS, SVG)', 'Panduan warna & tipografi', 'Visualisasi mock-up produk 3D', 'Lisensi komersial penuh']
-  },
-  {
-    id: 'port-4',
-    title: 'Logo Saky - Identitas Visual Unik',
-    category: 'logo',
-    image: logoSaky,
-    description: 'Desain logo berkarakter yang kuat dan mudah diingat untuk branding UMKM makanan tradisional yang berkualitas.',
-    price: 'Rp 150.000',
-    features: ['Logo master file vektor', 'Aplikasi di berbagai media', 'Brand guideline lengkap', 'Black-white & color version']
-  },
-  {
-    id: 'port-5',
-    title: 'Logo Aurra - Brand Modern',
-    category: 'logo',
-    image: logoAurra,
-    description: 'Identitas visual modern dengan logo minimalis yang cocok untuk brand fashion dan lifestyle contemporary.',
-    price: 'Rp 200.000',
-    features: ['Logo dalam berbagai format', 'Favicon & app icon', 'Social media template', 'Aplikasi logo di media cetak']
-  },
-  {
-    id: 'port-6',
-    title: 'Logo Lynix - Tech Brand Identity',
-    category: 'logo',
-    image: logoLynix,
-    description: 'Desain logo futuristik untuk startup teknologi dengan karakter yang strong dan memorable di berbagai platform.',
-    price: 'Rp 200.000',
-    features: ['Logo dalam berbagai format', 'Favicon & app icon', 'Vertical & horizontal layout', 'Warna & black-white version']
-  },
-  {
-    id: 'port-7',
-    title: 'Logo Rupaka Studio - Brand Mark',
-    category: 'logo',
-    image: logoRupaka,
-    description: 'Logo brand Rupaka Studio sendiri yang mencerminkan identitas sebagai studio desain terpercaya untuk UMKM Indonesia.',
-    price: 'Rp 250.000',
-    features: ['Logo master file vektor', 'Brand guidelines lengkap', 'Aplikasi lintas media', 'Lisensi komersial penuh']
-  },
-  {
-    id: 'port-8',
-    title: 'Mockup Logo - Presentasi Klien',
-    category: 'custom',
-    image: mockupLogoPng,
-    description: 'Visualisasi mockup 3D profesional untuk menampilkan hasil desain logo kepada klien dengan perspektif yang menarik.',
-    price: 'Rp 100.000',
-    features: ['Mockup 3D realistis', 'Multiple angle views', 'Background customizable', 'High resolution export']
-  },
-  {
     id: 'port-9',
     title: 'Campaign Banner Series 1',
-    category: 'poster',
+    category: 'banner',
     image: banner1,
     description: 'Serangkaian banner promosi untuk kampanye media sosial yang eye-catching dan sesuai brand guidelines klien.',
     price: 'Rp 120.000',
@@ -100,7 +46,7 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
   {
     id: 'port-10',
     title: 'Campaign Banner Series 2',
-    category: 'poster',
+    category: 'banner',
     image: banner2,
     description: 'Banner promosi dengan desain berani untuk meningkatkan engagement di berbagai platform media sosial.',
     price: 'Rp 120.000',
@@ -109,48 +55,22 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
   {
     id: 'port-11',
     title: 'Campaign Banner Series 3',
-    category: 'poster',
+    category: 'banner',
     image: banner3,
     description: 'Banner kampanye ketiga dengan konsep visual yang fresh dan menarik perhatian target audience dengan cepat.',
     price: 'Rp 120.000',
     features: ['Desain responsif semua ukuran', 'Copy writing optimization', 'CTA button design', 'A/B test version']
   },
   {
-    id: 'port-12',
-    title: 'Mascot Saky - Character Design',
-    category: 'custom',
-    image: mascotSaky,
-    description: 'Desain karakter mascot yang cute dan memorable untuk branding produk makanan dan merchandise tambahan.',
-    price: 'Rp 300.000',
-    features: ['Character design sheet', 'Multiple pose & expression', 'Merchandise mockup', 'Animation-ready format']
-  },
-  {
-    id: 'port-13',
-    title: 'Mascot Rupaka Website - Brand Character',
-    category: 'custom',
-    image: mascotRupaka,
-    description: 'Karakter mascot khusus untuk website dan marketing material Rupaka Studio sebagai brand ambassador yang friendly.',
-    price: 'Rp 350.000',
-    features: ['Detailed character design', 'Multiple poses available', 'Website integration ready', 'Social media format']
-  },
-  {
-    id: 'port-14',
-    title: 'Maskot General - Versatile Character',
-    category: 'custom',
-    image: maskot,
-    description: 'Desain karakter yang versatile dan bisa digunakan untuk berbagai kebutuhan branding dan marketing campaign.',
-    price: 'Rp 280.000',
-    features: ['Flexible character design', 'Multiple variations', 'Merchandise-ready', 'Animation compatible']
-  },
-  {
-    id: 'port-15',
-    title: 'Mockup Logo Alternatif - JPEG Version',
-    category: 'custom',
-    image: mockupLogoJpeg,
-    description: 'Presentasi mockup alternatif dalam format JPEG untuk fleksibilitas lebih dalam menampilkan hasil desain kepada klien.',
-    price: 'Rp 100.000',
-    features: ['High quality mockup', 'Realistic presentation', 'Easy file sharing', 'Quick preview format']
+    id: 'port-3',
+    title: 'Kemasan Produk BASRENG Rhadika',
+    category: 'kemasan',
+    image: basrengPackaging,
+    description: 'Desain kemasan produk snack yang eye-catching dengan branding yang kuat untuk meningkatkan penjualan di retail.',
+    price: 'Rp 180.000',
+    features: ['Master file vektor (AI, EPS, SVG)', 'Panduan warna & tipografi', 'Visualisasi mock-up produk 3D', 'Lisensi komersial penuh']
   }
+];
 ];
 
 export const BLOG_POSTS: BlogPost[] = [
