@@ -51,13 +51,17 @@ export default function CollageSection() {
         <motion.div
           drag
           dragElastic={0.2}
+          dragMomentum={false}
           onDragEnd={(event, info) => {
             setCardPositions(prev => ({
               ...prev,
               'top-left': { x: info.offset.x, y: info.offset.y }
             }));
           }}
-          animate={{ y: hoveredCard === 'top-left' ? -10 : 0, x: cardPositions['top-left'].x, y: cardPositions['top-left'].y }}
+          animate={{ 
+            x: cardPositions['top-left'].x,
+            y: cardPositions['top-left'].y
+          }}
           onMouseEnter={() => setHoveredCard('top-left')}
           onMouseLeave={() => setHoveredCard(null)}
           className="absolute rounded-[32px] overflow-hidden bg-white-card/40 backdrop-blur-xl border border-white/40 shadow-2xl transition-shadow duration-300 hover:shadow-[0_40px_80px_rgba(0,0,0,0.1)] p-4 cursor-grab active:cursor-grabbing"
@@ -108,13 +112,17 @@ export default function CollageSection() {
         <motion.div
           drag
           dragElastic={0.2}
+          dragMomentum={false}
           onDragEnd={(event, info) => {
             setCardPositions(prev => ({
               ...prev,
               'top-right': { x: info.offset.x, y: info.offset.y }
             }));
           }}
-          animate={{ y: hoveredCard === 'top-right' ? -10 : 0, x: cardPositions['top-right'].x, y: cardPositions['top-right'].y }}
+          animate={{ 
+            x: cardPositions['top-right'].x,
+            y: cardPositions['top-right'].y
+          }}
           onMouseEnter={() => setHoveredCard('top-right')}
           onMouseLeave={() => setHoveredCard(null)}
           className="absolute rounded-[32px] overflow-hidden bg-white-card/40 backdrop-blur-xl border border-white/40 shadow-2xl cursor-grab active:cursor-grabbing"
@@ -185,13 +193,17 @@ export default function CollageSection() {
         <motion.div
           drag
           dragElastic={0.2}
+          dragMomentum={false}
           onDragEnd={(event, info) => {
             setCardPositions(prev => ({
               ...prev,
               'mid-right': { x: info.offset.x, y: info.offset.y }
             }));
           }}
-          animate={{ y: hoveredCard === 'mid-right' ? -10 : 0, x: cardPositions['mid-right'].x, y: cardPositions['mid-right'].y }}
+          animate={{ 
+            x: cardPositions['mid-right'].x,
+            y: cardPositions['mid-right'].y
+          }}
           onMouseEnter={() => setHoveredCard('mid-right')}
           onMouseLeave={() => setHoveredCard(null)}
           className="absolute rounded-[32px] overflow-hidden bg-white-card/40 backdrop-blur-xl border border-white/40 shadow-2xl cursor-grab active:cursor-grabbing"
