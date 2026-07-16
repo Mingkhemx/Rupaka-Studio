@@ -57,45 +57,60 @@ export default function Portfolio() {
       {/* Portfolio Responsive Grid */}
       <motion.div 
         layout
-        className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full"
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full"
       >
         <AnimatePresence mode="popLayout">
-          {filteredItems.map((item) => (
+          {filteredItems.map((item, index) => (
             <motion.div
               layout
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ duration: 0.4 }}
+              transition={{ duration: 0.4, delay: index * 0.05 }}
               key={item.id}
               onClick={() => setSelectedProject(item)}
-              className="relative h-[320px] sm:h-[400px] rounded-[24px] sm:rounded-[32px] p-6 sm:p-8 flex flex-col justify-end group overflow-hidden shadow-sm border border-line-grey/20 cursor-pointer"
+              className="relative h-[280px] sm:h-[350px] rounded-[28px] overflow-hidden group cursor-pointer shadow-lg hover:shadow-2xl transition-all duration-300"
             >
+              {/* Image with overlay */}
               <img
                 alt={item.title}
-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 src={item.image}
                 referrerPolicy="no-referrer"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black-dark/85 via-black-dark/40 to-transparent transition-opacity duration-300" />
               
-              <div className="relative z-10 flex justify-between items-end">
-                <div className="max-w-[75%]">
-                  <span className="font-display text-[9px] font-bold text-accent-coral bg-white px-2.5 py-1 rounded-full uppercase tracking-widest shadow-sm inline-block mb-3.5">
+              {/* Gradient overlays */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black-dark/90 via-black-dark/40 to-transparent group-hover:via-black-dark/50 transition-all duration-300" />
+              <div className="absolute inset-0 bg-gradient-to-r from-primary-blue/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              
+              {/* Content */}
+              <div className="absolute inset-0 p-6 sm:p-7 flex flex-col justify-between">
+                {/* Top badge */}
+                <div className="flex items-center justify-between">
+                  <span className="font-display text-[8px] font-bold text-white bg-accent-coral/90 backdrop-blur-sm px-3 py-1.5 rounded-full uppercase tracking-widest shadow-lg">
                     {item.category === 'custom' ? 'Custom Accent' : item.category}
                   </span>
-                  <h4 className="font-display text-lg sm:text-xl font-bold mb-1.5 text-white group-hover:text-accent-coral transition-colors leading-tight">
+                  <div className="w-9 h-9 rounded-full bg-white/10 backdrop-blur-md hover:bg-accent-coral/90 transition-all group-hover:scale-110 flex items-center justify-center text-white border border-white/20 shadow-md">
+                    <ArrowUpRight size={15} />
+                  </div>
+                </div>
+
+                {/* Bottom content */}
+                <div>
+                  <h4 className="font-display text-base sm:text-lg font-bold mb-2 text-white group-hover:text-accent-coral transition-colors leading-tight">
                     {item.title}
                   </h4>
-                  <p className="font-body text-[11px] text-white/70 line-clamp-1">
+                  <p className="font-body text-[10px] text-white/75 line-clamp-2 leading-relaxed">
                     {item.description}
                   </p>
-                </div>
-                
-                <div className="w-10 h-10 rounded-full bg-white/10 hover:bg-accent-coral hover:scale-110 transition-all flex items-center justify-center text-white border border-white/25">
-                  <ArrowUpRight size={16} />
+                  <p className="font-display text-[10px] font-bold text-accent-coral mt-3 tracking-wider">
+                    {item.price}
+                  </p>
                 </div>
               </div>
+
+              {/* Border shine effect */}
+              <div className="absolute inset-0 rounded-[28px] border-2 border-white/0 group-hover:border-white/20 transition-all duration-300 pointer-events-none" />
             </motion.div>
           ))}
         </AnimatePresence>
