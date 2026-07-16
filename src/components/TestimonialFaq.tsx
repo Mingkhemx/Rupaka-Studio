@@ -193,7 +193,7 @@ export default function TestimonialFaq() {
             </div>
           </div>
           <button
-            onClick={() => window.open('https://wa.me/6282143609712?text=Halo%20Rupaka%20Studio%2C%20ada%20hal%20yang%20ingin%20saya%20tanyakan%20mengenai%20layanan%20desain.', '_blank', 'noreferrer')}
+            onClick={() => window.open('https://wa.me/62856043235122?text=Halo%20Rupaka%20Studio%2C%20ada%20hal%20yang%20ingin%20saya%20tanyakan%20mengenai%20layanan%20desain.', '_blank', 'noreferrer')}
             className="bg-accent-coral text-white hover:bg-accent-coral/90 font-display text-xs font-bold uppercase tracking-widest px-6 py-3 rounded-full cursor-pointer flex items-center gap-2 shadow-sm transition-all duration-300 flex-shrink-0"
           >
             <MessageSquare size={14} />
