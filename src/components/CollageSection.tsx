@@ -36,11 +36,20 @@ export default function CollageSection() {
       <div className="hidden lg:block relative w-full h-[850px] mt-12 z-10">
         {/* 1. Top-left Card: Progress Bar glassmorphism */}
         <motion.div
-          animate={{ y: hoveredCard === 'top-left' ? -10 : 0 }}
+          drag
+          dragElastic={0.2}
+          dragConstraints={false}
+          dragTransition={{ power: 0.3, restDelta: 0.001 }}
+          whileHover={{ scale: 1.02 }}
+          whileDrag={{ 
+            scale: 1.05,
+            boxShadow: '0 40px 80px rgba(0,0,0,0.2)',
+            zIndex: 999
+          }}
           onMouseEnter={() => setHoveredCard('top-left')}
-          onMouseLeave={() => setHoveredCard('top-left')}
-          className="absolute rounded-[32px] overflow-hidden bg-white-card/40 backdrop-blur-xl border border-white/40 shadow-2xl transition-shadow duration-300 hover:shadow-[0_40px_80px_rgba(0,0,0,0.1)] p-4 cursor-pointer"
-          style={{ left: '12%', top: '8%', width: '360px', height: '280px', zIndex: 20 }}
+          onMouseLeave={() => setHoveredCard(null)}
+          className="absolute rounded-[32px] overflow-hidden bg-white-card/40 backdrop-blur-xl border border-white/40 shadow-2xl transition-shadow duration-300 hover:shadow-[0_40px_80px_rgba(0,0,0,0.1)] p-4 cursor-grab active:cursor-grabbing"
+          style={{ left: '12%', top: '8%', width: '360px', height: '280px', zIndex: 20, touchAction: 'none' }}
         >
           <div className="relative w-full h-[180px] rounded-2xl overflow-hidden mb-4">
             <img
@@ -85,11 +94,20 @@ export default function CollageSection() {
 
         {/* 2. Top-right Tall Card: Image & icon badge */}
         <motion.div
-          animate={{ y: hoveredCard === 'top-right' ? -10 : 0 }}
+          drag
+          dragElastic={0.2}
+          dragConstraints={false}
+          dragTransition={{ power: 0.3, restDelta: 0.001 }}
+          whileHover={{ scale: 1.02 }}
+          whileDrag={{ 
+            scale: 1.05,
+            boxShadow: '0 40px 80px rgba(0,0,0,0.2)',
+            zIndex: 999
+          }}
           onMouseEnter={() => setHoveredCard('top-right')}
           onMouseLeave={() => setHoveredCard(null)}
-          className="absolute rounded-[32px] overflow-hidden bg-white-card/40 backdrop-blur-xl border border-white/40 shadow-2xl cursor-pointer"
-          style={{ right: '14%', top: '12%', width: '300px', height: '340px', zIndex: 10 }}
+          className="absolute rounded-[32px] overflow-hidden bg-white-card/40 backdrop-blur-xl border border-white/40 shadow-2xl cursor-grab active:cursor-grabbing"
+          style={{ right: '14%', top: '12%', width: '300px', height: '340px', zIndex: 10, touchAction: 'none' }}
         >
           <img
             alt="Vibrant Branding Artwork"
@@ -107,9 +125,18 @@ export default function CollageSection() {
 
         {/* 3. Mid-left: Interactive Glass Toggle Card */}
         <motion.div
-          className="absolute rounded-[28px] overflow-hidden bg-white/30 backdrop-blur-2xl border border-white/50 shadow-[0_12px_40px_rgba(0,0,0,0.06)] flex flex-col p-6 cursor-pointer"
-          style={{ left: '8%', top: '48%', width: '280px', zIndex: 30 }}
-          whileTap={{ scale: 0.98 }}
+          drag
+          dragElastic={0.2}
+          dragConstraints={false}
+          dragTransition={{ power: 0.3, restDelta: 0.001 }}
+          whileHover={{ scale: 1.02 }}
+          whileDrag={{ 
+            scale: 1.05,
+            boxShadow: '0 40px 80px rgba(0,0,0,0.2)',
+            zIndex: 999
+          }}
+          className="absolute rounded-[28px] overflow-hidden bg-white/30 backdrop-blur-2xl border border-white/50 shadow-[0_12px_40px_rgba(0,0,0,0.06)] flex flex-col p-6 cursor-grab active:cursor-grabbing"
+          style={{ left: '8%', top: '48%', width: '280px', zIndex: 30, touchAction: 'none' }}
         >
           <div className="flex items-center justify-between mb-4">
             <span className="font-display text-xs font-bold text-text-dark uppercase tracking-widest">
@@ -145,11 +172,20 @@ export default function CollageSection() {
 
         {/* 4. Mid-right: Product Quality Image with real pulse tag */}
         <motion.div
-          animate={{ y: hoveredCard === 'mid-right' ? -10 : 0 }}
+          drag
+          dragElastic={0.2}
+          dragConstraints={false}
+          dragTransition={{ power: 0.3, restDelta: 0.001 }}
+          whileHover={{ scale: 1.02 }}
+          whileDrag={{ 
+            scale: 1.05,
+            boxShadow: '0 40px 80px rgba(0,0,0,0.2)',
+            zIndex: 999
+          }}
           onMouseEnter={() => setHoveredCard('mid-right')}
           onMouseLeave={() => setHoveredCard(null)}
-          className="absolute rounded-[32px] overflow-hidden bg-white-card/40 backdrop-blur-xl border border-white/40 shadow-2xl cursor-pointer"
-          style={{ right: '10%', top: '56%', width: '350px', height: '240px', zIndex: 15 }}
+          className="absolute rounded-[32px] overflow-hidden bg-white-card/40 backdrop-blur-xl border border-white/40 shadow-2xl cursor-grab active:cursor-grabbing"
+          style={{ right: '10%', top: '56%', width: '350px', height: '240px', zIndex: 15, touchAction: 'none' }}
         >
           <img
             alt="Creative Studio Setup"
@@ -163,30 +199,6 @@ export default function CollageSection() {
               Kualitas Agensi
             </span>
           </div>
-        </motion.div>
-
-        {/* 5. Bottom-center: Extra Feature Card */}
-        <motion.div
-          drag
-          dragElastic={0.2}
-          dragConstraints={false}
-          dragTransition={{ power: 0.3, restDelta: 0.001 }}
-          whileHover={{ scale: 1.02 }}
-          whileDrag={{ 
-            scale: 1.05,
-            boxShadow: '0 40px 80px rgba(0,0,0,0.2)',
-            zIndex: 999
-          }}
-          className="absolute rounded-[28px] overflow-hidden bg-white/40 backdrop-blur-2xl border border-white/50 shadow-[0_12px_40px_rgba(0,0,0,0.06)] flex flex-col p-5 cursor-grab active:cursor-grabbing items-center text-center"
-          style={{ left: '42%', top: '72%', width: '250px', zIndex: 25, touchAction: 'none' }}
-        >
-          <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-blue-500 to-cyan-400 flex items-center justify-center mb-3 shadow-lg">
-            <HeartHandshake size={22} className="text-white" />
-          </div>
-          <h4 className="font-display text-sm font-bold text-text-dark mb-1.5 tracking-wide">Dukungan Penuh</h4>
-          <p className="text-[10px] text-muted-grey leading-relaxed">
-            Konsultasi desain tanpa batas. Kami siap mendengar dan mewujudkan visi brand UMKM Anda.
-          </p>
         </motion.div>
       </div>
 
