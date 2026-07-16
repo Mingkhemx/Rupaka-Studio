@@ -88,7 +88,7 @@ export default function Hero({ onScrollToSection }: HeroProps) {
           initial={{ opacity: 0, y: 60, scale: 0.96 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.5 }}
-          className="w-full max-w-[1280px] bg-gradient-to-b from-soft-card to-page-bg overflow-hidden shadow-[0_32px_64px_-16px_rgba(0,0,0,0.12)] relative z-10 rounded-[24px] md:rounded-[40px] aspect-[16/9] md:aspect-[21/9] flex items-center justify-center"
+          className="w-full max-w-[1280px] bg-page-bg overflow-hidden shadow-[0_32px_64px_-16px_rgba(0,0,0,0.12)] relative z-10 rounded-[24px] md:rounded-[40px] aspect-[16/9] md:aspect-[21/9] flex items-center justify-center"
         >
           <img
             alt="Rupaka Studio Mascot"
