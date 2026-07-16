@@ -8,10 +8,20 @@ import mockupLogo from '../assets/Mockup logo.png';
 import mascotRupaka from '../assets/mascot website rupaka.png';
 import mascotSaky from '../assets/mascot saky.png';
 
+interface CardPosition {
+  [key: string]: { x: number; y: number };
+}
+
 export default function CollageSection() {
   const [aiEnabled, setAiEnabled] = useState(true);
   const [designProgress, setDesignProgress] = useState(95);
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
+  const [cardPositions, setCardPositions] = useState<CardPosition>({
+    'top-left': { x: 0, y: 0 },
+    'top-right': { x: 0, y: 0 },
+    'mid-left': { x: 0, y: 0 },
+    'mid-right': { x: 0, y: 0 },
+  });
 
   return (
     <section id="tentang" className="relative min-h-[1100px] lg:min-h-[1400px] w-full max-w-[1728px] mx-auto overflow-hidden bg-page-bg py-24 flex flex-col justify-center">
@@ -39,10 +49,18 @@ export default function CollageSection() {
       <div className="hidden lg:block relative w-full h-[850px] mt-12 z-10">
         {/* 1. Top-left Card: Progress Bar glassmorphism */}
         <motion.div
-          animate={{ y: hoveredCard === 'top-left' ? -10 : 0 }}
+          drag
+          dragElastic={0.2}
+          onDragEnd={(event, info) => {
+            setCardPositions(prev => ({
+              ...prev,
+              'top-left': { x: info.offset.x, y: info.offset.y }
+            }));
+          }}
+          animate={{ y: hoveredCard === 'top-left' ? -10 : 0, x: cardPositions['top-left'].x, y: cardPositions['top-left'].y }}
           onMouseEnter={() => setHoveredCard('top-left')}
-          onMouseLeave={() => setHoveredCard('top-left')}
-          className="absolute rounded-[32px] overflow-hidden bg-white-card/40 backdrop-blur-xl border border-white/40 shadow-2xl transition-shadow duration-300 hover:shadow-[0_40px_80px_rgba(0,0,0,0.1)] p-4 cursor-pointer"
+          onMouseLeave={() => setHoveredCard(null)}
+          className="absolute rounded-[32px] overflow-hidden bg-white-card/40 backdrop-blur-xl border border-white/40 shadow-2xl transition-shadow duration-300 hover:shadow-[0_40px_80px_rgba(0,0,0,0.1)] p-4 cursor-grab active:cursor-grabbing"
           style={{ left: '12%', top: '8%', width: '360px', height: '280px', zIndex: 20 }}
         >
           <div className="relative w-full h-[180px] rounded-2xl overflow-hidden mb-4">
