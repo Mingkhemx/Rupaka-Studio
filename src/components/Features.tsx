@@ -14,7 +14,6 @@ import {
   Send 
 } from 'lucide-react';
 import chatImage from '../assets/chat.png';
-import mascotImage from '../assets/mascot website rupaka.png';
 
 export default function Features() {
   const [activeFeature, setActiveFeature] = useState(0);
@@ -246,8 +245,8 @@ export default function Features() {
         {/* Right: Chat Screenshot Image */}
         <div className="rounded-[32px] md:rounded-[40px] overflow-hidden border border-line-grey/30 shadow-lg order-1 lg:order-2">
           <img 
-            src={mascotImage}
-            alt="Rupaka Studio Mascot"
+            src={chatImage}
+            alt="Rupaka Studio Chat Interface"
             className="w-full h-auto object-cover"
           />
         </div>
