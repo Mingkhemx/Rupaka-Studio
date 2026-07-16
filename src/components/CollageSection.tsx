@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Sparkles, Sliders, ToggleLeft, ToggleRight, CheckCircle2, ShieldCheck, HeartHandshake } from 'lucide-react';
 import posterRumahPanggang from '../assets/Poster Rumah panggang 1.png';
-import logoSaky from '../assets/Logo saky.png';
+import maskot from '../assets/maskot.png';
 import mockupLogo from '../assets/Mockup logo.png';
 
 export default function CollageSection() {
@@ -94,7 +94,7 @@ export default function CollageSection() {
           <img
             alt="Vibrant Branding Artwork"
             className="w-full h-full object-cover select-none"
-            src={logoSaky}
+            src={maskot}
           />
           <div className="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/50 backdrop-blur-md border border-white/50 flex items-center justify-center shadow-lg hover:scale-110 transition-transform">
             <Sparkles size={14} className="text-text-dark" />
@@ -255,7 +255,7 @@ export default function CollageSection() {
             <img
               alt="Indonesian local branding typography"
               className="w-full h-full object-cover"
-              src={logoSaky}
+              src={maskot}
             />
           </div>
           <div className="mt-4">
