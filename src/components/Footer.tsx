@@ -37,7 +37,7 @@ export default function Footer() {
         <div className="max-w-[1440px] mx-auto">
           
           {/* Background watermark logo */}
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-5 overflow-hidden">
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-10 overflow-hidden">
             <img 
               src={logoImage}
               alt="Rupaka Studio Watermark"
