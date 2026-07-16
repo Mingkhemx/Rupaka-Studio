@@ -95,7 +95,6 @@ export default function Hero({ onScrollToSection }: HeroProps) {
             className="w-auto h-full object-contain select-none"
             src={rupakaTransparent}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black-dark/30 via-transparent to-transparent pointer-events-none" />
         </motion.div>
       </div>
 
