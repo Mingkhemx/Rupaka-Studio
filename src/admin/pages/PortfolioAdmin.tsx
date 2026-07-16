@@ -51,12 +51,13 @@ interface FormModalProps {
   open: boolean;
   editing: AdminPortfolioItem | null;
   onClose: () => void;
-  onSave: (data: PortfolioFormData) => void;
+  onSave: (data: PortfolioFormData) => Promise<boolean>;
 }
 
 function FormModal({ open, editing, onClose, onSave }: FormModalProps) {
   const [form, setForm] = useState<PortfolioFormData>(emptyForm);
   const [uploading, setUploading] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
     setForm(editing ? itemToForm(editing) : emptyForm);
@@ -76,10 +77,26 @@ function FormModal({ open, editing, onClose, onSave }: FormModalProps) {
 
   const set = (k: keyof PortfolioFormData, v: string) => setForm(prev => ({ ...prev, [k]: v }));
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     console.log('Form submitted, form data:', form);
-    onSave(form);
+    
+    // Validate required fields
+    if (!form.title || !form.category || !form.description || !form.status) {
+      console.error('Missing required fields:', { title: form.title, category: form.category, description: form.description, status: form.status });
+      alert('Mohon lengkapi semua field yang wajib diisi');
+      return;
+    }
+    
+    setSubmitting(true);
+    try {
+      const success = await onSave(form);
+      if (!success) {
+        console.error('Save failed');
+      }
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const inputStyle: React.CSSProperties = {
@@ -226,6 +243,7 @@ function FormModal({ open, editing, onClose, onSave }: FormModalProps) {
             </button>
             <button
               type="submit"
+              disabled={submitting || uploading}
               style={{
                 padding: '9px 20px',
                 background: '#f97316',
@@ -234,10 +252,11 @@ function FormModal({ open, editing, onClose, onSave }: FormModalProps) {
                 color: '#fff',
                 fontSize: 14,
                 fontWeight: 600,
-                cursor: 'pointer'
+                cursor: (submitting || uploading) ? 'not-allowed' : 'pointer',
+                opacity: (submitting || uploading) ? 0.6 : 1
               }}
             >
-              {editing ? 'Update' : 'Tambah'}
+              {submitting ? 'Menyimpan...' : (editing ? 'Update' : 'Tambah')}
             </button>
           </div>
         </form>
@@ -343,7 +362,7 @@ export function PortfolioAdmin() {
   const paginated = filtered.slice((page - 1) * PER_PAGE, page * PER_PAGE);
 
   const handleSave = async (data: PortfolioFormData) => {
-    console.log('Form data:', data);
+    console.log('handleSave called with data:', data);
     
     const payload = {
       ...data,
@@ -364,9 +383,11 @@ export function PortfolioAdmin() {
       }
       setFormOpen(false);
       await refresh();
+      return true;
     } catch (error) {
       console.error('Error saving portfolio:', error);
       showToast('Gagal menyimpan portfolio: ' + (error instanceof Error ? error.message : 'Unknown error'), 'error');
+      return false;
     }
   };
 
