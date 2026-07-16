@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { useState } from 'react';
+import { motion, AnimatePresence, Reorder } from 'motion/react';
 import { 
   BadgeDollarSign, 
   Sparkles, 
@@ -10,12 +11,45 @@ import {
   CheckCircle2, 
   Gift, 
   Flame, 
-  Send 
+  Send,
+  GripVertical
 } from 'lucide-react';
 import chatImg from '../assets/chat.png';
 
+const serviceItems = [
+  {
+    id: 'poster',
+    icon: BadgeDollarSign,
+    title: 'Poster Promosi',
+    desc: 'Sosial media feed, flyer, baliho, menu resto.',
+    color: '#E08E9B'
+  },
+  {
+    id: 'logo',
+    icon: Layers,
+    title: 'Logo & Kemasan Produk',
+    desc: 'Identitas merek, stiker box, segel label.',
+    color: '#8A2387'
+  },
+  {
+    id: 'digital',
+    icon: Sparkles,
+    title: 'Digital Product Accents',
+    desc: 'Stiker cutting, kartu ucapan, digital planner.',
+    color: '#E08E9B'
+  },
+  {
+    id: 'website',
+    icon: Layers,
+    title: 'Custom Landing Page',
+    desc: 'Website katalog, portofolio profil UMKM.',
+    color: '#11998e'
+  }
+];
+
 export default function Features() {
   const [activeFeature, setActiveFeature] = useState(0);
+  const [services, setServices] = useState(serviceItems);
 
   const featureList = [
     {
@@ -66,45 +100,42 @@ export default function Features() {
           </div>
 
           <div className="space-y-4 relative z-10">
-            <div className="flex items-center gap-4 p-4 bg-white-card/80 hover:bg-white-card rounded-2xl transition-all duration-300 border border-line-grey/20 cursor-pointer group/item hover:translate-x-1 hover:shadow-md">
-              <div className="w-10 h-10 rounded-full bg-[#E08E9B]/10 flex items-center justify-center text-[#E08E9B]">
-                <BadgeDollarSign size={18} />
-              </div>
-              <div>
-                <h5 className="font-display font-bold text-sm text-text-dark group-hover/item:text-[#E08E9B] transition-colors">Poster Promosi</h5>
-                <p className="text-[11px] text-muted-grey mt-0.5">Sosial media feed, flyer, baliho, menu resto.</p>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-4 p-4 bg-white-card/80 hover:bg-white-card rounded-2xl transition-all duration-300 border border-line-grey/20 cursor-pointer group/item hover:translate-x-1 hover:shadow-md">
-              <div className="w-10 h-10 rounded-full bg-[#8A2387]/10 flex items-center justify-center text-[#8A2387]">
-                <Layers size={18} />
-              </div>
-              <div>
-                <h5 className="font-display font-bold text-sm text-text-dark group-hover/item:text-[#8A2387] transition-colors">Logo & Kemasan Produk</h5>
-                <p className="text-[11px] text-muted-grey mt-0.5">Identitas merek, stiker box, segel label.</p>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-4 p-4 bg-white-card/80 hover:bg-white-card rounded-2xl transition-all duration-300 border border-line-grey/20 cursor-pointer group/item hover:translate-x-1 hover:shadow-md">
-              <div className="w-10 h-10 rounded-full bg-[#E08E9B]/10 flex items-center justify-center text-[#E08E9B]">
-                <Sparkles size={18} />
-              </div>
-              <div>
-                <h5 className="font-display font-bold text-sm text-text-dark group-hover/item:text-[#E08E9B] transition-colors">Digital Product Accents</h5>
-                <p className="text-[11px] text-muted-grey mt-0.5">Stiker cutting, kartu ucapan, digital planner.</p>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-4 p-4 bg-white-card/80 hover:bg-white-card rounded-2xl transition-all duration-300 border border-line-grey/20 cursor-pointer group/item hover:translate-x-1 hover:shadow-md">
-              <div className="w-10 h-10 rounded-full bg-[#11998e]/10 flex items-center justify-center text-[#11998e]">
-                <Layers size={18} />
-              </div>
-              <div>
-                <h5 className="font-display font-bold text-sm text-text-dark group-hover/item:text-[#11998e] transition-colors">Custom Landing Page</h5>
-                <p className="text-[11px] text-muted-grey mt-0.5">Website katalog, portofolio profil UMKM.</p>
-              </div>
-            </div>
+            <Reorder.Group 
+              axis="y" 
+              values={services} 
+              onReorder={setServices}
+              className="space-y-4"
+            >
+              {services.map((service) => (
+                <Reorder.Item 
+                  key={service.id} 
+                  value={service}
+                  className="flex items-center gap-4 p-4 bg-white-card/80 hover:bg-white-card rounded-2xl transition-all duration-300 border border-line-grey/20 cursor-grab active:cursor-grabbing group/item hover:shadow-md"
+                >
+                  <div className="text-muted-grey/40 group-hover/item:text-muted-grey transition-colors">
+                    <GripVertical size={18} />
+                  </div>
+                  <div 
+                    className="w-10 h-10 rounded-full flex items-center justify-center shrink-0 group-hover/item:scale-110 transition-transform"
+                    style={{ 
+                      backgroundColor: `${service.color}15`,
+                      color: service.color
+                    }}
+                  >
+                    {service.icon && <service.icon size={18} />}
+                  </div>
+                  <div className="flex-1">
+                    <h5 
+                      className="font-display font-bold text-sm text-text-dark transition-colors group-hover/item:text-opacity-80"
+                      style={{ color: service.color + 'cc' }}
+                    >
+                      {service.title}
+                    </h5>
+                    <p className="text-[11px] text-muted-grey mt-0.5">{service.desc}</p>
+                  </div>
+                </Reorder.Item>
+              ))}
+            </Reorder.Group>
           </div>
 
           <div className="mt-8 pt-4 border-t border-line-grey/30 flex items-center justify-between text-muted-grey text-[10px] uppercase font-bold tracking-wider relative z-10">
