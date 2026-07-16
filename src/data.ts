@@ -1,77 +1,41 @@
 import { PortfolioItem, BlogPost, FaqItem, TestimonialItem } from './types';
-import posterRumahPanggang1 from './assets/Poster Rumah panggang 1.png';
-import posterRumahPanggang2 from './assets/Poster Rumah panggang 2.png';
-import basrengPackaging from './assets/BASRENG_Rhadika_Snack_packaging_…_202607151429.jpeg';
-import logoSaky from './assets/Logo saky.png';
-import logoAurra from './assets/logo aurra.jpeg';
-import logoLynix from './assets/logo lynix.jpeg';
-import logoRupaka from './assets/logo.png';
-import mockupLogoJpeg from './assets/Mockup logo.jpeg';
-import mockupLogoPng from './assets/Mockup logo.png';
-import banner1 from './assets/Banner 1.png';
-import banner2 from './assets/Banner 2.png';
-import banner3 from './assets/Banner3.png';
-import mascotSaky from './assets/mascot saky.png';
-import mascotRupaka from './assets/mascot website rupaka.png';
-import maskot from './assets/maskot.png';
-import blogUmkm from './assets/umkm.jpg';
-import blogBranding from './assets/branding.jpg';
-import blogAi from './assets/ai.jpg';
 
 export const PORTFOLIO_ITEMS: PortfolioItem[] = [
   {
     id: 'port-1',
-    title: 'Poster Promosi Rumah Panggang',
+    title: 'Poster Promosi Warung Kopi Estetik',
     category: 'poster',
-    image: posterRumahPanggang1,
-    description: 'Poster promosi cetak dan digital beresolusi tinggi dengan desain menarik untuk rumah panggang dengan gaya modern minimalis.',
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuChKRPJn1gSFDrt1GQDzfiU4I3yCzTQVQeuNO8ytisTcKlK31yEv5K86cdWMKJBg3GC95w5q1ERJKHJLKU3w-6SojCl15IPwtoKItbHfym_OWSwde4Lc_X0Q39r2NUE_oZu-ti8_Zs_OibuoUCAcJYE-cSQuZwNsvFjQJC5rdU9maW6xzUq0FkX5WNlRsxq4L4CR7oinVYlFK6v9BDjMPShHM5UEvXrG_3JYGqBIWaiRdb9MTmRBmaZdMBZC44wnynC-oFH9TaZlB9Q',
+    description: 'Poster promosi cetak dan digital beresolusi tinggi dengan gaya minimalis, cocok untuk menu baru atau kampanye spesial di Instagram.',
     price: 'Rp 50.000',
     features: ['Format file siap cetak (PDF, PNG)', 'Revisi maksimal 2 kali', 'Pengerjaan 1-2 hari kerja', 'Gaya desain custom modern']
   },
   {
     id: 'port-2',
-    title: 'Poster Series Rumah Panggang Vol. 2',
-    category: 'poster',
-    image: posterRumahPanggang2,
-    description: 'Koleksi poster promosi kedua untuk kampanye berkelanjutan dengan tema dan style yang konsisten dengan brand identity.',
-    price: 'Rp 120.000',
-    features: ['Paket 4-6 desain poster', 'Tema customizable', 'Revisi unlimited', 'Format cetak dan digital']
-  },
-  {
-    id: 'port-9',
-    title: 'Campaign Banner Series 1',
-    category: 'banner',
-    image: banner1,
-    description: 'Serangkaian banner promosi untuk kampanye media sosial yang eye-catching dan sesuai brand guidelines klien.',
-    price: 'Rp 120.000',
-    features: ['3-5 variasi banner', 'Ukuran untuk Instagram, TikTok, Facebook', 'HD resolution 1080px', 'Source file PSD tersedia']
-  },
-  {
-    id: 'port-10',
-    title: 'Campaign Banner Series 2',
-    category: 'banner',
-    image: banner2,
-    description: 'Banner promosi dengan desain berani untuk meningkatkan engagement di berbagai platform media sosial.',
-    price: 'Rp 120.000',
-    features: ['3-5 variasi banner', 'Animasi-ready design', 'Brand color palette', 'Multiple format export']
-  },
-  {
-    id: 'port-11',
-    title: 'Campaign Banner Series 3',
-    category: 'banner',
-    image: banner3,
-    description: 'Banner kampanye ketiga dengan konsep visual yang fresh dan menarik perhatian target audience dengan cepat.',
-    price: 'Rp 120.000',
-    features: ['Desain responsif semua ukuran', 'Copy writing optimization', 'CTA button design', 'A/B test version']
+    title: 'Redesain Logo & Kemasan Keripik Tempe Jogja',
+    category: 'logo',
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuABa0q5BJ_DreMgIZGB-8at3sYpuFks_tT431tznVrVWB2C49LzdUC651wzXTj9LD-7VYCWRRpo9bqyyAQ_b54KnjtoPjXSRfeIXbBgjwHXIr8Ojo51Y8MG8CC0mGtvupgQSf4RnLcvReiqPWlUs5L2KkemFlhV-MfAQAzfyxIvGWfFM2Orh3ChuU5A6sOS2VBQbJyPWAQcwMlr6YWpCbln_V8DC4Yo90e6mK4QAINc-FrScaJ_KPin-t6UJ12p4Dnl5CbWpvGS2GiO',
+    description: 'Identitas visual baru yang berkarakter untuk memperkuat branding UMKM makanan tradisional agar tampil menarik di rak supermarket modern.',
+    price: 'Rp 150.000',
+    features: ['Master file vektor (AI, EPS, SVG)', 'Panduan warna & tipografi', 'Visualisasi mock-up produk 3D', 'Lisensi komersial penuh']
   },
   {
     id: 'port-3',
-    title: 'Kemasan Produk BASRENG Rhadika',
-    category: 'kemasan',
-    image: basrengPackaging,
-    description: 'Desain kemasan produk snack yang eye-catching dengan branding yang kuat untuk meningkatkan penjualan di retail.',
-    price: 'Rp 180.000',
-    features: ['Master file vektor (AI, EPS, SVG)', 'Panduan warna & tipografi', 'Visualisasi mock-up produk 3D', 'Lisensi komersial penuh']
+    title: 'Stiker Branding & Digital Planner Kuliner',
+    category: 'custom',
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCAsZf4UPkmlE6_mXYyjLE0rRS6z3wyPwTyXyHBEx2fzb_1GTK9oiAbqHMYNp1BpaU32inyxnVzpmayXVCbCKB_1Vo5pWerZ__YxCtY56FNpcHMwYf9urWgXAJQyGfscYHxMbULHWIsDeg5XCImbVDEPCwNhnAFC1xNYFgDTRv4KBYk1lGhIhBi4Pez_FSe2stW1TrgJkEhZUjpZcpgdrnwOaIDJo-2fibASWue5TrVKAp0CiX5ahI1LePNwx8xkgPfEO5mMALLcQWo',
+    description: 'Produk pelengkap branding berupa stiker segel kemasan dan planner digital untuk merencanakan konten promosi harian usaha.',
+    price: 'Rp 75.000',
+    features: ['Format stiker cutting die-cut', 'File resolusi tinggi siap cetak', 'Warna akurat CMYK', 'Termasuk elemen ilustrasi original']
+  },
+  {
+    id: 'port-4',
+    title: 'Landing Page Portfolio Produk Kerajinan Bambu',
+    category: 'website',
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuB5cY_8WSiYE8XLX9-TC1PN-9mihq_rEdAuIWhtvcYj7w3Jym37KSRruLnz0ZQY5zy1_DktUdT0RLTDQ4dIOGeKAvBWKyz6Fg4AS8M9VGl8uRkbhFz7qmqDNDpZ-CnVzYng1m39Wxi--hMoM4aMjONRhxBfdlgygDuhMZXzobuhZkCisfF6llXxrL9fOU48PhgyUNZx5V5gH-adc6HxffpgIWavNNpFCUnafc-d7HEDWlEQx3S8yVrTddmzqlMzQIOc0ib4Bxpxxe-W',
+    description: 'Website satu halaman interaktif dan responsif untuk memamerkan katalog produk kerajinan bambu lokal Jogja ke pasar nasional.',
+    price: 'Rp 450.000',
+    features: ['Desain responsif HP & Desktop', 'Integrasi WhatsApp direct chat', 'SEO On-Page dasar', 'Hosting ringan & pemeliharaan mudah']
   }
 ];
 
@@ -81,7 +45,7 @@ export const BLOG_POSTS: BlogPost[] = [
     title: '5 Tips Desain Poster yang Menjual untuk UMKM',
     category: 'Insights',
     date: '12 Jan 2026',
-    image: blogUmkm,
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuChKRPJn1gSFDrt1GQDzfiU4I3yCzTQVQeuNO8ytisTcKlK31yEv5K86cdWMKJBg3GC95w5q1ERJKHJLKU3w-6SojCl15IPwtoKItbHfym_OWSwde4Lc_X0Q39r2NUE_oZu-ti8_Zs_OibuoUCAcJYE-cSQuZwNsvFjQJC5rdU9maW6xzUq0FkX5WNlRsxq4L4CR7oinVYlFK6v9BDjMPShHM5UEvXrG_3JYGqBIWaiRdb9MTmRBmaZdMBZC44wnynC-oFH9TaZlB9Q',
     readTime: '4 Menit Baca',
     author: 'Adi Setyo',
     content: `
@@ -108,7 +72,7 @@ Setelah pelanggan melihat poster Anda, apa yang harus mereka lakukan? Berikan in
     title: 'Kenapa Branding Penting untuk Usaha Kecil?',
     category: 'Branding',
     date: '08 Jan 2026',
-    image: blogBranding,
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCAsZf4UPkmlE6_mXYyjLE0rRS6z3wyPwTyXyHBEx2fzb_1GTK9oiAbqHMYNp1BpaU32inyxnVzpmayXVCbCKB_1Vo5pWerZ__YxCtY56FNpcHMwYf9urWgXAJQyGfscYHxMbULHWIsDeg5XCImbVDEPCwNhnAFC1xNYFgDTRv4KBYk1lGhIhBi4Pez_FSe2stW1TrgJkEhZUjpZcpgdrnwOaIDJo-2fibASWue5TrVKAp0CiX5ahI1LePNwx8xkgPfEO5mMALLcQWo',
     readTime: '5 Menit Baca',
     author: 'Rina Kartika',
     content: `
@@ -136,7 +100,7 @@ Di Rupaka Studio, kami memahami tantangan budget UMKM. Itulah mengapa kami menye
     title: 'Bagaimana AI Membantu Produksi Desain Lebih Cepat',
     category: 'Teknologi',
     date: '24 Des 2025',
-    image: blogAi,
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuB5cY_8WSiYE8XLX9-TC1PN-9mihq_rEdAuIWhtvcYj7w3Jym37KSRruLnz0ZQY5zy1_DktUdT0RLTDQ4dIOGeKAvBWKyz6Fg4AS8M9VGl8uRkbhFz7qmqDNDpZ-CnVzYng1m39Wxi--hMoM4aMjONRhxBfdlgygDuhMZXzobuhZkCisfF6llXxrL9fOU48PhgyUNZx5V5gH-adc6HxffpgIWavNNpFCUnafc-d7HEDWlEQx3S8yVrTddmzqlMzQIOc0ib4Bxpxxe-W',
     readTime: '6 Menit Baca',
     author: 'Yusuf Nur',
     content: `
@@ -185,16 +149,23 @@ export const FAQ_ITEMS: FaqItem[] = [
 export const TESTIMONIAL_ITEMS: TestimonialItem[] = [
   {
     id: 'test-1',
-    name: 'Tiara',
-    role: 'Owner Dapoer Kyutier',
-    content: 'Hai rupaka terima kasih yaa sdh dibuatin daftar menu ini...seneng sekali dg model menu gini..simple but beautiful 😍😍next we LL order again for new design ❤️',
+    name: 'Budi Hartono',
+    role: 'Pemilik "Kopi Janji Jogja"',
+    content: 'Puas sekali dengan poster promosi Rupaka Studio! Harganya ramah kantong buat kami yang baru merintis usaha kopi, tapi desainnya terlihat sangat elegan seperti buatan agensi ternama.',
     rating: 5
   },
   {
     id: 'test-2',
-    name: 'Lanjar',
-    role: 'Owner Roemah Panggang',
-    content: 'Suka sekali dengan desain ini...paduan warnanya cantik,susunan bahasanya bagus dan paduan antara gmbar dan tulisan terlihat rapi sekali...terima kasih untuk rupaka studio',
+    name: 'Siti Rahma',
+    role: 'Owner "Catering Dapur Mama"',
+    content: 'Awalnya ragu karena harganya murah sekali Rp50.000, tapi ternyata pengerjaannya sangat cepat dan komunikatif. Stiker kemasan jualan saya sekarang jadi makin rapi.',
+    rating: 5
+  },
+  {
+    id: 'test-3',
+    name: 'Yanto Wijaya',
+    role: 'Pengrajin Bambu "Sleman Craft"',
+    content: 'Landing page buatan Rupaka membuat katalog produk bambu saya terlihat jauh lebih bernilai tinggi. Sekarang kalau ada pembeli nanya katalog, tinggal kasih link saja.',
     rating: 5
   }
 ];

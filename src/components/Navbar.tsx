@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Menu, X, MessageSquare, ExternalLink } from 'lucide-react';
-import logoImage from '../assets/logo.png';
 
 interface NavbarProps {
   onScrollToSection: (sectionId: string) => void;
@@ -24,60 +23,53 @@ export default function Navbar({ onScrollToSection }: NavbarProps) {
   }, []);
 
   const navLinks = [
-    { name: 'Home', target: 'hero' },
     { name: 'Layanan', target: 'layanan' },
     { name: 'Portofolio', target: 'portofolio' },
     { name: 'Tentang Kami', target: 'tentang' },
+    { name: 'Hitung Biaya', target: 'estimator' },
     { name: 'Blog & Update', target: 'blog' },
   ];
 
   const handleWhatsAppChat = () => {
-    const waUrl = `https://wa.me/62856043235?text=Halo%20Rupaka%20Studio%2C%20saya%20tertarik%20untuk%20berdiskusi%20mengenai%20desain%20untuk%20UMKM%20saya.`;
+    const waUrl = `https://wa.me/628123456789?text=Halo%20Rupaka%20Studio%2C%20saya%20tertarik%20untuk%20berdiskusi%20mengenai%20desain%20untuk%20UMKM%20saya.`;
     window.open(waUrl, '_blank', 'noreferrer');
   };
 
   return (
     <>
-      <header className="fixed top-[16px] left-0 right-0 z-50 flex items-center justify-center px-4 w-full pointer-events-none">
+      <header className="fixed top-[24px] left-0 right-0 z-50 flex items-center justify-center px-4 w-full pointer-events-none">
         <motion.div 
           initial={{ y: -50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.5, ease: 'easeOut' }}
-          className="pointer-events-auto w-full max-w-[950px] flex items-center justify-center bg-black/30 backdrop-blur-3xl rounded-[28px] px-7 py-2 shadow-2xl border border-white/15 h-[88px] hover:bg-black/40 transition-all duration-300"
+          className="pointer-events-auto w-full max-w-[760px] flex items-center justify-between bg-black/95 backdrop-blur-xl rounded-full px-2 py-2 shadow-2xl border border-white/10 h-[56px]"
         >
-          {/* Logo - Left */}
-          <div className="absolute left-6 flex items-center gap-8 pl-1">
+          {/* Logo */}
+          <div className="flex items-center gap-3 pl-3">
             <button 
               onClick={() => onScrollToSection('hero')}
-              className="shrink-0 hover:opacity-80 transition-opacity cursor-pointer"
-              title="Rupaka Studio - Home"
+              className="w-[34px] h-[34px] rounded-full border border-page-bg/80 flex items-center justify-center shrink-0 bg-white/10 hover:bg-white/20 transition-all cursor-pointer"
             >
-              <img 
-                src={logoImage} 
-                alt="Rupaka Studio Logo" 
-                className="h-[72px] w-auto"
-              />
+              <span className="text-page-bg font-display font-bold text-sm leading-none">R</span>
             </button>
+            <nav className="hidden md:flex items-center gap-5">
+              {navLinks.map((link) => (
+                <button
+                  key={link.target}
+                  onClick={() => onScrollToSection(link.target)}
+                  className="font-body text-[11px] text-white-soft/80 hover:text-white-soft transition-colors duration-300 font-medium uppercase tracking-wider cursor-pointer"
+                >
+                  {link.name}
+                </button>
+              ))}
+            </nav>
           </div>
 
-          {/* Menu - Center */}
-          <nav className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <button
-                key={link.target}
-                onClick={() => onScrollToSection(link.target)}
-                className="font-body text-[11px] text-white hover:text-accent-coral transition-colors duration-300 font-medium uppercase tracking-wider cursor-pointer"
-              >
-                {link.name}
-              </button>
-            ))}
-          </nav>
-
           {/* Right Controls */}
-          <div className="absolute right-6 flex items-center gap-2">
+          <div className="flex items-center gap-2">
             <button 
               onClick={handleWhatsAppChat}
-              className="font-display rounded-full bg-accent-coral hover:bg-accent-coral/90 text-white transition-all duration-300 shrink-0 flex items-center gap-2 px-6 text-[11px] h-[40px] font-bold uppercase tracking-wider cursor-pointer shadow-lg hover:shadow-2xl"
+              className="font-display rounded-full bg-white/10 hover:bg-white text-white hover:text-black transition-all duration-300 shrink-0 flex items-center gap-1.5 px-4 text-[10px] h-[36px] font-bold uppercase tracking-wider cursor-pointer"
             >
               <MessageSquare size={12} />
               <span>Chat WhatsApp</span>
@@ -111,16 +103,12 @@ export default function Navbar({ onScrollToSection }: NavbarProps) {
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
               onClick={(e) => e.stopPropagation()}
-              className="w-full max-w-[280px] bg-gradient-to-b from-primary-dark to-primary-dark/90 h-full p-8 flex flex-col justify-between border-l border-accent-coral/30 shadow-2xl"
+              className="w-full max-w-[280px] bg-black-dark h-full p-8 flex flex-col justify-between border-l border-white/10 shadow-2xl"
             >
               <div className="space-y-8 mt-12">
                 <div className="flex items-center gap-3">
-                  <div className="w-14 h-14 shrink-0">
-                    <img 
-                      src={logoImage} 
-                      alt="Rupaka Studio Logo" 
-                      className="h-full w-full object-contain"
-                    />
+                  <div className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center bg-white/5">
+                    <span className="text-white font-display font-bold text-lg">R</span>
                   </div>
                   <div>
                     <h3 className="text-white font-display font-bold leading-none">Rupaka</h3>
@@ -136,7 +124,7 @@ export default function Navbar({ onScrollToSection }: NavbarProps) {
                         onScrollToSection(link.target);
                         setIsMobileMenuOpen(false);
                       }}
-                      className="font-display text-sm text-white/75 hover:text-white text-left font-medium uppercase tracking-widest border-b border-accent-coral/20 pb-2 cursor-pointer transition-colors"
+                      className="font-display text-sm text-white/75 hover:text-white text-left font-medium uppercase tracking-widest border-b border-white/5 pb-2 cursor-pointer transition-colors"
                     >
                       {link.name}
                     </button>
@@ -150,7 +138,7 @@ export default function Navbar({ onScrollToSection }: NavbarProps) {
                     handleWhatsAppChat();
                     setIsMobileMenuOpen(false);
                   }}
-                  className="w-full justify-center bg-accent-coral text-white font-display rounded-full py-3 text-xs font-bold uppercase tracking-wider flex items-center gap-2 shadow-xl hover:bg-accent-coral/90 transition-colors"
+                  className="w-full justify-center bg-white text-black font-display rounded-full py-3 text-xs font-bold uppercase tracking-wider flex items-center gap-2 shadow-xl hover:bg-gray-100 transition-colors"
                 >
                   <MessageSquare size={14} />
                   <span>Hubungi Kami</span>

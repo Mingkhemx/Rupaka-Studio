@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   BadgeDollarSign, 
@@ -13,7 +12,6 @@ import {
   Flame, 
   Send 
 } from 'lucide-react';
-import chatImage from '../assets/chat.png';
 
 export default function Features() {
   const [activeFeature, setActiveFeature] = useState(0);
@@ -99,7 +97,7 @@ export default function Features() {
           
           <div className="flex items-center justify-between mb-8 relative z-10">
             <div className="flex items-center gap-2">
-              <div className="w-2.5 h-2.5 rounded-full bg-accent-coral animate-pulse" />
+              <div className="w-2.5 h-2.5 rounded-full bg-[#FF4B2B] animate-pulse" />
               <span className="font-display font-extrabold text-[10px] text-text-dark uppercase tracking-widest">
                 Layanan Utama Kami
               </span>
@@ -109,41 +107,41 @@ export default function Features() {
 
           <div className="space-y-4 relative z-10">
             <div className="flex items-center gap-4 p-4 bg-white-card/80 hover:bg-white-card rounded-2xl transition-all duration-300 border border-line-grey/20 cursor-pointer group/item hover:translate-x-1 hover:shadow-md">
-              <div className="w-10 h-10 rounded-full bg-accent-coral/10 flex items-center justify-center text-accent-coral">
+              <div className="w-10 h-10 rounded-full bg-[#FF4B2B]/10 flex items-center justify-center text-[#FF4B2B]">
                 <BadgeDollarSign size={18} />
               </div>
               <div>
-                <h5 className="font-display font-bold text-sm text-text-dark group-hover/item:text-accent-coral transition-colors">Poster Promosi</h5>
+                <h5 className="font-display font-bold text-sm text-text-dark group-hover/item:text-[#FF4B2B] transition-colors">Poster Promosi</h5>
                 <p className="text-[11px] text-muted-grey mt-0.5">Sosial media feed, flyer, baliho, menu resto.</p>
               </div>
             </div>
 
             <div className="flex items-center gap-4 p-4 bg-white-card/80 hover:bg-white-card rounded-2xl transition-all duration-300 border border-line-grey/20 cursor-pointer group/item hover:translate-x-1 hover:shadow-md">
-              <div className="w-10 h-10 rounded-full bg-accent-purple/10 flex items-center justify-center text-accent-purple">
+              <div className="w-10 h-10 rounded-full bg-[#8A2387]/10 flex items-center justify-center text-[#8A2387]">
                 <Layers size={18} />
               </div>
               <div>
-                <h5 className="font-display font-bold text-sm text-text-dark group-hover/item:text-accent-purple transition-colors">Logo & Kemasan Produk</h5>
+                <h5 className="font-display font-bold text-sm text-text-dark group-hover/item:text-[#8A2387] transition-colors">Logo & Kemasan Produk</h5>
                 <p className="text-[11px] text-muted-grey mt-0.5">Identitas merek, stiker box, segel label.</p>
               </div>
             </div>
 
             <div className="flex items-center gap-4 p-4 bg-white-card/80 hover:bg-white-card rounded-2xl transition-all duration-300 border border-line-grey/20 cursor-pointer group/item hover:translate-x-1 hover:shadow-md">
-              <div className="w-10 h-10 rounded-full bg-accent-orange/10 flex items-center justify-center text-accent-orange">
+              <div className="w-10 h-10 rounded-full bg-[#F27121]/10 flex items-center justify-center text-[#F27121]">
                 <Sparkles size={18} />
               </div>
               <div>
-                <h5 className="font-display font-bold text-sm text-text-dark group-hover/item:text-accent-orange transition-colors">Digital Product Accents</h5>
+                <h5 className="font-display font-bold text-sm text-text-dark group-hover/item:text-[#F27121] transition-colors">Digital Product Accents</h5>
                 <p className="text-[11px] text-muted-grey mt-0.5">Stiker cutting, kartu ucapan, digital planner.</p>
               </div>
             </div>
 
             <div className="flex items-center gap-4 p-4 bg-white-card/80 hover:bg-white-card rounded-2xl transition-all duration-300 border border-line-grey/20 cursor-pointer group/item hover:translate-x-1 hover:shadow-md">
-              <div className="w-10 h-10 rounded-full bg-accent-green/10 flex items-center justify-center text-accent-green">
+              <div className="w-10 h-10 rounded-full bg-[#11998e]/10 flex items-center justify-center text-[#11998e]">
                 <Layers size={18} />
               </div>
               <div>
-                <h5 className="font-display font-bold text-sm text-text-dark group-hover/item:text-accent-green transition-colors">Custom Landing Page</h5>
+                <h5 className="font-display font-bold text-sm text-text-dark group-hover/item:text-[#11998e] transition-colors">Custom Landing Page</h5>
                 <p className="text-[11px] text-muted-grey mt-0.5">Website katalog, portofolio profil UMKM.</p>
               </div>
             </div>
@@ -157,7 +155,7 @@ export default function Features() {
 
         {/* Right Info List */}
         <div className="flex flex-col justify-center h-full">
-          <span className="font-display text-xs font-bold uppercase tracking-widest text-accent-coral mb-3">
+          <span className="font-display text-xs font-bold uppercase tracking-widest text-[#FF4B2B] mb-3">
             Kelebihan Kami
           </span>
           <h3 className="font-display text-3xl md:text-4xl font-bold tracking-tight text-text-dark mb-10 leading-tight">
@@ -196,7 +194,7 @@ export default function Features() {
         
         {/* Left: Pricing details */}
         <div className="flex flex-col justify-center h-full order-2 lg:order-1">
-          <span className="font-display text-xs font-bold uppercase tracking-widest text-accent-coral mb-3">
+          <span className="font-display text-xs font-bold uppercase tracking-widest text-[#FF4B2B] mb-3">
             Pilihan Paket
           </span>
           <h3 className="font-display text-3xl md:text-4xl font-bold tracking-tight text-text-dark mb-8 leading-tight">
@@ -206,7 +204,7 @@ export default function Features() {
           <div className="space-y-8 pl-1 border-l border-line-grey/40">
             <div className="hover:pl-4 transition-all duration-300 py-1">
               <div className="flex items-center gap-2 mb-2">
-                <Flame size={14} className="text-accent-coral" />
+                <Flame size={14} className="text-[#FF4B2B]" />
                 <h4 className="font-display text-base sm:text-lg font-extrabold text-text-dark">
                   Skema Project-Based (Eceran)
                 </h4>
@@ -242,13 +240,87 @@ export default function Features() {
           </div>
         </div>
 
-        {/* Right: Chat Screenshot Image */}
-        <div className="rounded-[32px] md:rounded-[40px] overflow-hidden border border-line-grey/30 shadow-lg order-1 lg:order-2">
-          <img 
-            src={chatImage}
-            alt="Rupaka Studio Chat Interface"
-            className="w-full h-auto object-cover"
-          />
+        {/* Right: Awesome Interactive Chat Mockup */}
+        <div className="bg-gradient-to-br from-[#E0EAFC] to-[#CFDEF3] rounded-[32px] md:rounded-[40px] p-4 sm:p-8 min-h-[600px] flex flex-col justify-between border border-line-grey/30 shadow-inner order-1 lg:order-2">
+          
+          {/* Chat Simulator Top Options */}
+          <div className="bg-white/60 backdrop-blur-md rounded-2xl p-3.5 mb-6 border border-white/50 flex flex-col gap-2 shadow-sm">
+            <span className="font-display text-[9px] font-extrabold uppercase tracking-wider text-muted-grey text-center">
+              Pilih contoh bisnis untuk memulai simulasi konsultasi:
+            </span>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-1">
+              <button
+                onClick={() => handlePresetChange('kopi')}
+                className={`py-2 px-2.5 rounded-xl font-display text-[10px] font-bold uppercase transition-all tracking-wider cursor-pointer ${chatPreset === 'kopi' ? 'bg-black text-white shadow-md' : 'bg-white/70 text-text-dark hover:bg-white'}`}
+              >
+                ☕ Kopi
+              </button>
+              <button
+                onClick={() => handlePresetChange('kripik')}
+                className={`py-2 px-2.5 rounded-xl font-display text-[10px] font-bold uppercase transition-all tracking-wider cursor-pointer ${chatPreset === 'kripik' ? 'bg-black text-white shadow-md' : 'bg-white/70 text-text-dark hover:bg-white'}`}
+              >
+                🍌 Keripik
+              </button>
+              <button
+                onClick={() => handlePresetChange('butik')}
+                className={`py-2 px-2.5 rounded-xl font-display text-[10px] font-bold uppercase transition-all tracking-wider cursor-pointer ${chatPreset === 'butik' ? 'bg-black text-white shadow-md' : 'bg-white/70 text-text-dark hover:bg-white'}`}
+              >
+                👗 Butik
+              </button>
+              <button
+                onClick={() => handlePresetChange('web')}
+                className={`py-2 px-2.5 rounded-xl font-display text-[10px] font-bold uppercase transition-all tracking-wider cursor-pointer ${chatPreset === 'web' ? 'bg-black text-white shadow-md' : 'bg-white/70 text-text-dark hover:bg-white'}`}
+              >
+                🌐 Web Katalog
+              </button>
+            </div>
+          </div>
+
+          {/* Messages Container */}
+          <div className="flex-grow flex flex-col gap-4 overflow-y-auto px-1 max-h-[300px] min-h-[250px] justify-center">
+            {messages.map((msg, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                className={`max-w-[85%] flex flex-col p-3.5 rounded-2xl border text-xs leading-relaxed shadow-sm ${msg.sender === 'user' 
+                  ? 'bg-white/90 text-text-dark border-white/50 self-start rounded-tl-none' 
+                  : 'bg-black/95 text-white-soft border-white/10 self-end rounded-tr-none'}`}
+              >
+                <div className="flex items-center gap-1.5 mb-1.5 justify-between">
+                  <span className="font-display text-[9px] font-bold tracking-widest uppercase opacity-60">
+                    {msg.sender === 'user' ? 'Pertanyaan Klien' : 'Respon Rupaka Studio'}
+                  </span>
+                  <span className="text-[8px] opacity-40">{msg.time}</span>
+                </div>
+                <p className="font-body text-xs">{msg.text}</p>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Interactive Chat Footer Accent */}
+          <div className="mt-6 pt-4 border-t border-white/30 flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 rounded-full bg-gradient-to-r from-[#FF416C] to-[#FF4B2B] flex items-center justify-center text-white shadow-md animate-pulse">
+                <Sparkles size={12} />
+              </div>
+              <span className="font-display text-[10px] font-bold tracking-widest uppercase text-text-dark/70">
+                Pengerjaan Cepat & Hemat
+              </span>
+            </div>
+            
+            <button 
+              onClick={() => {
+                const textParam = encodeURIComponent(`Halo Rupaka Studio, saya tertarik melanjutkan diskusi mengenai paket ${chatPreset === 'kopi' ? 'Poster Promosi Warung Kopi' : chatPreset === 'kripik' ? 'Logo dan Kemasan Produk Makanan' : chatPreset === 'butik' ? 'Subscription Konten Feed IG Bulanan' : 'Pembuatan Custom Website Landing Page'}.`);
+                window.open(`https://wa.me/628123456789?text=${textParam}`, '_blank', 'noreferrer');
+              }}
+              className="px-4 py-2 bg-black text-white font-display text-[9px] font-bold uppercase tracking-wider rounded-full hover:bg-gray-800 transition-colors flex items-center gap-1 cursor-pointer"
+            >
+              <span>Lanjut WhatsApp</span>
+              <ChevronRight size={10} />
+            </button>
+          </div>
+          
         </div>
         
       </div>

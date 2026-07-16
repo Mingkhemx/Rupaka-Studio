@@ -1,27 +1,11 @@
 import { useState } from 'react';
-import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Sparkles, Sliders, ToggleLeft, ToggleRight, CheckCircle2, ShieldCheck, HeartHandshake } from 'lucide-react';
-import posterRumahPanggang from '../assets/Poster Rumah panggang 1.png';
-import logoSaky from '../assets/Logo saky.png';
-import mockupLogo from '../assets/Mockup logo.png';
-import mascotRupaka from '../assets/mascot website rupaka.png';
-import mascotSaky from '../assets/mascot saky.png';
-
-interface CardPosition {
-  [key: string]: { x: number; y: number };
-}
 
 export default function CollageSection() {
   const [aiEnabled, setAiEnabled] = useState(true);
   const [designProgress, setDesignProgress] = useState(95);
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
-  const [cardPositions, setCardPositions] = useState<CardPosition>({
-    'top-left': { x: 0, y: 0 },
-    'top-right': { x: 0, y: 0 },
-    'mid-left': { x: 0, y: 0 },
-    'mid-right': { x: 0, y: 0 },
-  });
 
   return (
     <section id="tentang" className="relative min-h-[1100px] lg:min-h-[1400px] w-full max-w-[1728px] mx-auto overflow-hidden bg-page-bg py-24 flex flex-col justify-center">
@@ -49,33 +33,22 @@ export default function CollageSection() {
       <div className="hidden lg:block relative w-full h-[850px] mt-12 z-10">
         {/* 1. Top-left Card: Progress Bar glassmorphism */}
         <motion.div
-          drag
-          dragElastic={0.2}
-          dragMomentum={false}
-          onDragEnd={(event, info) => {
-            setCardPositions(prev => ({
-              ...prev,
-              'top-left': { x: info.offset.x, y: info.offset.y }
-            }));
-          }}
-          animate={{ 
-            x: cardPositions['top-left'].x,
-            y: cardPositions['top-left'].y
-          }}
+          animate={{ y: hoveredCard === 'top-left' ? -10 : 0 }}
           onMouseEnter={() => setHoveredCard('top-left')}
-          onMouseLeave={() => setHoveredCard(null)}
-          className="absolute rounded-[32px] overflow-hidden bg-white-card/40 backdrop-blur-xl border border-white/40 shadow-2xl transition-shadow duration-300 hover:shadow-[0_40px_80px_rgba(0,0,0,0.1)] p-4 cursor-grab active:cursor-grabbing"
+          onMouseLeave={() => setHoveredCard('top-left')}
+          className="absolute rounded-[32px] overflow-hidden bg-white-card/40 backdrop-blur-xl border border-white/40 shadow-2xl transition-shadow duration-300 hover:shadow-[0_40px_80px_rgba(0,0,0,0.1)] p-4 cursor-pointer"
           style={{ left: '12%', top: '8%', width: '360px', height: '280px', zIndex: 20 }}
         >
           <div className="relative w-full h-[180px] rounded-2xl overflow-hidden mb-4">
             <img
-              alt="Poster Rumah Panggang"
+              alt="Design Drafting Process"
               className="w-full h-full object-cover select-none"
-              src={posterRumahPanggang}
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuDGxwLNMP2KVAWtuqvWXiFZkBm5YgSXjM45PkkRPvB3NsuAPX4Nse6nAySmOSPxXiaWvlTk0fB0Pagx0EkNf1L8x3CFyxgAWpQbdP2z4ZXhaiVorAeLCKBcI2qvs9oG9HqdMdiJrUYvBgL1Dr8nKNzygffqFMIlgWyshucf41s65I_hV3kCGtjFYShml4zOn9O6MuvVW54WVcjP7bBLEAYguBfutmc0Yq73HP9-yBiY6b98be0hC6KYAZFesHH3FkL4Gx0Yks2fyrpu"
+              referrerPolicy="no-referrer"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black-dark/40 to-transparent pointer-events-none" />
             <span className="absolute bottom-3 left-3 bg-white/25 backdrop-blur-md text-[9px] font-bold text-white uppercase tracking-wider px-2.5 py-1 rounded-full border border-white/20">
-              Poster Rumah Panggang
+              Sketsa Manual
             </span>
           </div>
           
@@ -110,50 +83,30 @@ export default function CollageSection() {
 
         {/* 2. Top-right Tall Card: Image & icon badge */}
         <motion.div
-          drag
-          dragElastic={0.2}
-          dragMomentum={false}
-          onDragEnd={(event, info) => {
-            setCardPositions(prev => ({
-              ...prev,
-              'top-right': { x: info.offset.x, y: info.offset.y }
-            }));
-          }}
-          animate={{ 
-            x: cardPositions['top-right'].x,
-            y: cardPositions['top-right'].y
-          }}
+          animate={{ y: hoveredCard === 'top-right' ? -10 : 0 }}
           onMouseEnter={() => setHoveredCard('top-right')}
           onMouseLeave={() => setHoveredCard(null)}
-          className="absolute rounded-[32px] overflow-hidden bg-white-card/40 backdrop-blur-xl border border-white/40 shadow-2xl cursor-grab active:cursor-grabbing"
+          className="absolute rounded-[32px] overflow-hidden bg-white-card/40 backdrop-blur-xl border border-white/40 shadow-2xl cursor-pointer"
           style={{ right: '14%', top: '12%', width: '300px', height: '340px', zIndex: 10 }}
         >
           <img
-            alt="Rupaka Studio Mascot"
+            alt="Vibrant Branding Artwork"
             className="w-full h-full object-cover select-none"
-            src={mascotRupaka}
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRI6ZfedfqJ42Kz8fkZTlqC5CbQ5Q_0kVkLxIu7Xh8-ABjTl2K4v_yJEBQE1wi3AZMYD9IMvFxFOJyc86piFVAfQ0g6nyc1fRoYl7wB1_YDB3zlrCqOGtEow28qlTRV6LL9s1-rRPvAYojJgQhjJ9ERQ7Jf-IhHeg0bAcA4QWd3YKyDnVxSjTGeJ--ir7xqCghMtZPJ5OjvBwWSTiw7xPHbFrwOa_f5RTQGV6WOEWxuC-xwV7Ayb1q0kBzYF_oQHCxP3Dn3PL-aewa"
+            referrerPolicy="no-referrer"
           />
           <div className="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/50 backdrop-blur-md border border-white/50 flex items-center justify-center shadow-lg hover:scale-110 transition-transform">
             <Sparkles size={14} className="text-text-dark" />
           </div>
           <div className="absolute bottom-4 left-4 right-4 bg-black/60 backdrop-blur-md border border-white/10 p-3.5 rounded-2xl text-white">
-            <p className="font-display text-[10px] font-bold tracking-widest uppercase text-[#FF4B2B]">Mascot Rupaka</p>
-            <p className="text-[11px] text-white/70 leading-normal mt-1">Karakter brand yang memorable dan eye-catching.</p>
+            <p className="font-display text-[10px] font-bold tracking-widest uppercase text-[#FF4B2B]">Warna Akurat</p>
+            <p className="text-[11px] text-white/70 leading-normal mt-1">Preset palet khusus untuk visual UMKM lokal.</p>
           </div>
         </motion.div>
 
         {/* 3. Mid-left: Interactive Glass Toggle Card */}
         <motion.div
-          drag
-          dragElastic={0.2}
-          onDragEnd={(event, info) => {
-            setCardPositions(prev => ({
-              ...prev,
-              'mid-left': { x: info.offset.x, y: info.offset.y }
-            }));
-          }}
-          animate={{ x: cardPositions['mid-left'].x, y: cardPositions['mid-left'].y }}
-          className="absolute rounded-[28px] overflow-hidden bg-white/30 backdrop-blur-2xl border border-white/50 shadow-[0_12px_40px_rgba(0,0,0,0.06)] flex flex-col p-6 cursor-grab active:cursor-grabbing"
+          className="absolute rounded-[28px] overflow-hidden bg-white/30 backdrop-blur-2xl border border-white/50 shadow-[0_12px_40px_rgba(0,0,0,0.06)] flex flex-col p-6 cursor-pointer"
           style={{ left: '8%', top: '48%', width: '280px', zIndex: 30 }}
           whileTap={{ scale: 0.98 }}
         >
@@ -191,34 +144,23 @@ export default function CollageSection() {
 
         {/* 4. Mid-right: Product Quality Image with real pulse tag */}
         <motion.div
-          drag
-          dragElastic={0.2}
-          dragMomentum={false}
-          onDragEnd={(event, info) => {
-            setCardPositions(prev => ({
-              ...prev,
-              'mid-right': { x: info.offset.x, y: info.offset.y }
-            }));
-          }}
-          animate={{ 
-            x: cardPositions['mid-right'].x,
-            y: cardPositions['mid-right'].y
-          }}
+          animate={{ y: hoveredCard === 'mid-right' ? -10 : 0 }}
           onMouseEnter={() => setHoveredCard('mid-right')}
           onMouseLeave={() => setHoveredCard(null)}
-          className="absolute rounded-[32px] overflow-hidden bg-white-card/40 backdrop-blur-xl border border-white/40 shadow-2xl cursor-grab active:cursor-grabbing"
+          className="absolute rounded-[32px] overflow-hidden bg-white-card/40 backdrop-blur-xl border border-white/40 shadow-2xl cursor-pointer"
           style={{ right: '10%', top: '56%', width: '350px', height: '240px', zIndex: 15 }}
         >
           <img
-            alt="Mockup Logo Design"
+            alt="Creative Studio Setup"
             className="w-full h-full object-cover select-none"
-            src={mockupLogo}
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRd7pAyBrUx31zx6klyDiCWD04EiIaiDfNYNdGO8HozSTYH3bTc4IhWoBbOh4CpW4jAmMk2H_ecdJwzZL71ta4NvHIyMqapKo2BK36h0hn674xlIS0FoLhl6jQwDTwu_Idk9ZLj6MN8k5s-VrWMSox9J5YNpnlpqVlAVnzCXtAeDkwyvNWzXtGXt76wUk85CfXUmdE9Vi6RxqxkyBORzc1__OdpVEqiYNrMD1dKFJIU7gC874F--k_Kf5C1_yMSnhoytWkS9XWPwsm"
+            referrerPolicy="no-referrer"
           />
           <div className="absolute top-4 left-4 bg-white/70 backdrop-blur-xl px-4 py-2 rounded-full border border-white/50 shadow-md flex items-center gap-2">
             <div className="w-2.5 h-2.5 rounded-full bg-green-500 animate-ping absolute" />
             <div className="w-2.5 h-2.5 rounded-full bg-green-500 relative" />
             <span className="font-display text-[9px] font-bold text-text-dark uppercase tracking-wider">
-              Mockup Profesional
+              Kualitas Agensi
             </span>
           </div>
         </motion.div>
@@ -291,12 +233,13 @@ export default function CollageSection() {
         <div className="bg-white-card border border-line-grey/40 p-5 rounded-[24px] shadow-sm flex flex-col gap-4">
           <div className="relative h-[200px] rounded-2xl overflow-hidden">
             <img
-              alt="Mascot Website Rupaka"
+              alt="Quality Artwork Setup"
               className="w-full h-full object-cover"
-              src={mascotRupaka}
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRd7pAyBrUx31zx6klyDiCWD04EiIaiDfNYNdGO8HozSTYH3bTc4IhWoBbOh4CpW4jAmMk2H_ecdJwzZL71ta4NvHIyMqapKo2BK36h0hn674xlIS0FoLhl6jQwDTwu_Idk9ZLj6MN8k5s-VrWMSox9J5YNpnlpqVlAVnzCXtAeDkwyvNWzXtGXt76wUk85CfXUmdE9Vi6RxqxkyBORzc1__OdpVEqiYNrMD1dKFJIU7gC874F--k_Kf5C1_yMSnhoytWkS9XWPwsm"
+              referrerPolicy="no-referrer"
             />
             <span className="absolute top-3 left-3 bg-white/80 backdrop-blur-md text-[9px] font-bold text-text-dark uppercase tracking-wider px-3 py-1 rounded-full shadow-md">
-              Karya Rupaka
+              Kualitas Agensi
             </span>
           </div>
           <div>
@@ -311,15 +254,16 @@ export default function CollageSection() {
         <div className="bg-white-card border border-line-grey/40 p-5 rounded-[24px] shadow-sm flex flex-col justify-between">
           <div className="relative h-[200px] rounded-2xl overflow-hidden">
             <img
-              alt="Mascot Saky Design"
+              alt="Indonesian local branding typography"
               className="w-full h-full object-cover"
-              src={mascotSaky}
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRI6ZfedfqJ42Kz8fkZTlqC5CbQ5Q_0kVkLxIu7Xh8-ABjTl2K4v_yJEBQE1wi3AZMYD9IMvFxFOJyc86piFVAfQ0g6nyc1fRoYl7wB1_YDB3zlrCqOGtEow28qlTRV6LL9s1-rRPvAYojJgQhjJ9ERQ7Jf-IhHeg0bAcA4QWd3YKyDnVxSjTGeJ--ir7xqCghMtZPJ5OjvBwWSTiw7xPHbFrwOa_f5RTQGV6WOEWxuC-xwV7Ayb1q0kBzYF_oQHCxP3Dn3PL-aewa"
+              referrerPolicy="no-referrer"
             />
           </div>
           <div className="mt-4">
-            <h4 className="font-display text-base font-bold text-text-dark">Karakter Unik Brand</h4>
+            <h4 className="font-display text-base font-bold text-text-dark">Kombinasi Karakter Nusantara</h4>
             <p className="font-body text-xs text-muted-grey mt-1">
-              Desain karakter yang memorable dan sesuai identitas brand Anda.
+              Desain modern yang dipadukan dengan nilai-nilai lokal khas Indonesia.
             </p>
           </div>
         </div>

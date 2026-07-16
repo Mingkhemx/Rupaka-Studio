@@ -1,6 +1,5 @@
 import { motion } from 'motion/react';
 import { MessageCircle, Image as ImageIcon, Sparkles } from 'lucide-react';
-import mascotImage from '../assets/mascot website rupaka.png';
 
 interface HeroProps {
   onScrollToSection: (sectionId: string) => void;
@@ -8,7 +7,7 @@ interface HeroProps {
 
 export default function Hero({ onScrollToSection }: HeroProps) {
   const handleWhatsAppChat = () => {
-    const waUrl = `https://wa.me/62856043235?text=Halo%20Rupaka%20Studio%2C%20saya%20tertarik%20untuk%20berdiskusi%20mengenai%20desain%20untuk%20UMKM%20saya.`;
+    const waUrl = `https://wa.me/628123456789?text=Halo%20Rupaka%20Studio%2C%20saya%20tertarik%20untuk%20berdiskusi%20mengenai%20desain%20untuk%20UMKM%20saya.`;
     window.open(waUrl, '_blank', 'noreferrer');
   };
 
@@ -32,10 +31,10 @@ export default function Hero({ onScrollToSection }: HeroProps) {
           initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
-          className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-primary-dark/10 border border-primary-dark/30 mb-8"
+          className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-soft-card border border-line-grey/30 mb-8"
         >
-          <Sparkles size={11} className="text-accent-coral animate-pulse" />
-          <span className="font-display text-[10px] font-bold uppercase tracking-wider text-primary-dark">
+          <Sparkles size={11} className="text-[#FF4B2B] animate-pulse" />
+          <span className="font-display text-[10px] font-bold uppercase tracking-wider text-text-dark">
             Partner Digital Kreatif UMKM
           </span>
         </motion.div>
@@ -47,7 +46,7 @@ export default function Hero({ onScrollToSection }: HeroProps) {
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
           className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-[76px] leading-[1.08] text-balance max-w-5xl mb-6 text-text-dark tracking-tighter font-bold"
         >
-          Desain Digital <span className="bg-gradient-to-r from-primary-dark via-primary-blue to-accent-coral bg-clip-text text-transparent">Low-Cost, High-Impact</span> untuk UMKM Indonesia
+          Desain Digital <span className="bg-gradient-to-r from-black-dark via-gray-700 to-[#FF4B2B] bg-clip-text text-transparent">Low-Cost, High-Impact</span> untuk UMKM Indonesia
         </motion.h1>
 
         {/* Subtitle */}
@@ -69,7 +68,7 @@ export default function Hero({ onScrollToSection }: HeroProps) {
         >
           <button
             onClick={handleWhatsAppChat}
-            className="bg-primary-dark text-white font-display rounded-full hover:bg-primary-blue transition-all duration-300 shrink-0 flex items-center justify-center gap-2 px-8 text-xs h-[52px] font-bold uppercase tracking-wider shadow-xl cursor-pointer"
+            className="bg-black-dark text-white font-display rounded-full hover:bg-gray-800 transition-all duration-300 shrink-0 flex items-center justify-center gap-2 px-8 text-xs h-[52px] font-bold uppercase tracking-wider shadow-xl cursor-pointer"
           >
             <MessageCircle size={15} />
             Chat via WhatsApp
@@ -88,13 +87,15 @@ export default function Hero({ onScrollToSection }: HeroProps) {
           initial={{ opacity: 0, y: 60, scale: 0.96 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.5 }}
-          className="w-full max-w-[1280px] bg-white overflow-hidden rounded-[24px] md:rounded-[40px] aspect-[16/9] md:aspect-[21/9] flex items-center justify-center p-8"
+          className="w-full max-w-[1280px] bg-panel-bg overflow-hidden shadow-[0_32px_64px_-16px_rgba(0,0,0,0.12)] relative z-10 rounded-[24px] md:rounded-[40px] aspect-[16/9] md:aspect-[21/9]"
         >
           <img
-            alt="Rupaka Studio Mascot"
-            className="w-auto h-auto max-h-full max-w-full object-contain select-none"
-            src={mascotImage}
+            alt="Rupaka Studio Vibrant Abstract Gradient and Brand Showcase"
+            className="w-full h-full object-cover select-none"
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZfadtPwCaL7GcKGqde5_m46RsgQuGHyvmFJKZWsW5jfFqnNirmZPOdmGitXGSosoyvd2ARpUMWjjL8IEKefG6Ke85eAGiFMBHIfFA02wVwfcf75CnI7Zlw-OjEat9LRRuqHbfAWLeBZeTEUbVQRAoPIjSlWUOZmW8R32Bk0XUblejaVIpv6gSC4cngTCtp7tXSmIz5jJIUVZIPoKSyGDhck_ulpZZnIfCQmxw2h73JqSgD__x2T1wiMf4Q_TQCvHgDTzQ3sY3JjqV"
+            referrerPolicy="no-referrer"
           />
+          <div className="absolute inset-0 bg-gradient-to-t from-black-dark/30 via-transparent to-transparent pointer-events-none" />
         </motion.div>
       </div>
 

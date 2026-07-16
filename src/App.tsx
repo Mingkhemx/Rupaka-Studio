@@ -9,6 +9,7 @@ import CollageSection from './components/CollageSection';
 import Manifesto from './components/Manifesto';
 import Features from './components/Features';
 import Portfolio from './components/Portfolio';
+import OrderCalculator from './components/OrderCalculator';
 import TestimonialFaq from './components/TestimonialFaq';
 import BlogSection from './components/BlogSection';
 import Footer from './components/Footer';
@@ -55,6 +56,9 @@ export default function App() {
 
         {/* Filterable Portfolio grid catalog and detail dialogs */}
         <Portfolio />
+
+        {/* Budget Estimator & WhatsApp direct briefing generator wizard */}
+        <OrderCalculator />
 
         {/* Testimonials carousel & expandable FAQ Accordions */}
         <TestimonialFaq />

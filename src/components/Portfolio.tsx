@@ -1,40 +1,34 @@
 import { useState } from 'react';
-import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { PORTFOLIO_ITEMS } from '../data';
 import { PortfolioItem } from '../types';
-import { X, Check, MessageSquare, ArrowUpRight, Award, ChevronDown } from 'lucide-react';
+import { X, Check, MessageSquare, ArrowUpRight, Award } from 'lucide-react';
 
 export default function Portfolio() {
-  const [selectedCategory, setSelectedCategory] = useState<'all' | 'poster' | 'banner' | 'kemasan'>('all');
+  const [selectedCategory, setSelectedCategory] = useState<'all' | 'poster' | 'logo' | 'website' | 'custom'>('all');
   const [selectedProject, setSelectedProject] = useState<PortfolioItem | null>(null);
-  const [showMore, setShowMore] = useState(false);
-  const itemsPerPage = 6;
 
   const categories = [
     { id: 'all', name: 'Semua' },
-    { id: 'poster', name: 'Poster' },
-    { id: 'banner', name: 'Banner' },
-    { id: 'kemasan', name: 'Kemasan Product' }
+    { id: 'poster', name: 'Poster Promosi' },
+    { id: 'logo', name: 'Logo & Kemasan' },
+    { id: 'website', name: 'Custom Website' },
+    { id: 'custom', name: 'Custom Request' }
   ];
 
   const filteredItems = selectedCategory === 'all' 
     ? PORTFOLIO_ITEMS 
     : PORTFOLIO_ITEMS.filter(item => item.category === selectedCategory);
 
-  // Limit items to display based on showMore state
-  const displayedItems = showMore ? filteredItems : filteredItems.slice(0, itemsPerPage);
-  const hasMoreItems = filteredItems.length > itemsPerPage;
-
   const handleOrderWhatsApp = (project: PortfolioItem) => {
     const textParam = encodeURIComponent(`Halo Rupaka Studio! Saya tertarik memesan jasa pembuatan "${project.title}" seharga ${project.price}. Mohon informasi petunjuk brief-nya.`);
-    window.open(`https://wa.me/62856043235?text=${textParam}`, '_blank', 'noreferrer');
+    window.open(`https://wa.me/628123456789?text=${textParam}`, '_blank', 'noreferrer');
   };
 
   return (
     <section id="portofolio" className="py-24 sm:py-32 px-6 sm:px-10 max-w-[1440px] mx-auto bg-page-bg border-t border-line-grey/25">
       <div className="flex flex-col items-center text-center mb-16">
-        <span className="font-display text-xs font-bold uppercase tracking-widest text-accent-coral mb-3">
+        <span className="font-display text-xs font-bold uppercase tracking-widest text-[#FF4B2B] mb-3">
           Karya & Portofolio
         </span>
         <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-text-dark max-w-2xl leading-tight">
@@ -63,81 +57,49 @@ export default function Portfolio() {
       {/* Portfolio Responsive Grid */}
       <motion.div 
         layout
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full mb-8"
+        className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full"
       >
         <AnimatePresence mode="popLayout">
-          {displayedItems.map((item, index) => (
+          {filteredItems.map((item) => (
             <motion.div
               layout
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ duration: 0.4, delay: index * 0.05 }}
+              transition={{ duration: 0.4 }}
               key={item.id}
               onClick={() => setSelectedProject(item)}
-              className="relative h-[280px] sm:h-[350px] rounded-[28px] overflow-hidden group cursor-pointer shadow-lg hover:shadow-2xl transition-all duration-300"
+              className="relative h-[320px] sm:h-[400px] rounded-[24px] sm:rounded-[32px] p-6 sm:p-8 flex flex-col justify-end group overflow-hidden shadow-sm border border-line-grey/20 cursor-pointer"
             >
-              {/* Image with overlay */}
               <img
                 alt={item.title}
-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 src={item.image}
                 referrerPolicy="no-referrer"
               />
+              <div className="absolute inset-0 bg-gradient-to-t from-black-dark/85 via-black-dark/40 to-transparent transition-opacity duration-300" />
               
-              {/* Gradient overlays */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black-dark/90 via-black-dark/40 to-transparent group-hover:via-black-dark/50 transition-all duration-300" />
-              <div className="absolute inset-0 bg-gradient-to-r from-primary-blue/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              
-              {/* Content */}
-              <div className="absolute inset-0 p-6 sm:p-7 flex flex-col justify-between">
-                {/* Top badge */}
-                <div className="flex items-center justify-between">
-                  <span className="font-display text-[8px] font-bold text-white bg-accent-coral/90 backdrop-blur-sm px-3 py-1.5 rounded-full uppercase tracking-widest shadow-lg">
+              <div className="relative z-10 flex justify-between items-end">
+                <div className="max-w-[75%]">
+                  <span className="font-display text-[9px] font-bold text-[#FF4B2B] bg-white px-2.5 py-1 rounded-full uppercase tracking-widest shadow-sm inline-block mb-3.5">
                     {item.category === 'custom' ? 'Custom Accent' : item.category}
                   </span>
-                  <div className="w-9 h-9 rounded-full bg-white/10 backdrop-blur-md hover:bg-accent-coral/90 transition-all group-hover:scale-110 flex items-center justify-center text-white border border-white/20 shadow-md">
-                    <ArrowUpRight size={15} />
-                  </div>
-                </div>
-
-                {/* Bottom content */}
-                <div>
-                  <h4 className="font-display text-base sm:text-lg font-bold mb-2 text-white group-hover:text-accent-coral transition-colors leading-tight">
+                  <h4 className="font-display text-lg sm:text-xl font-bold mb-1.5 text-white group-hover:text-[#FF4B2B] transition-colors leading-tight">
                     {item.title}
                   </h4>
-                  <p className="font-body text-[10px] text-white/75 line-clamp-2 leading-relaxed">
+                  <p className="font-body text-[11px] text-white/70 line-clamp-1">
                     {item.description}
                   </p>
                 </div>
+                
+                <div className="w-10 h-10 rounded-full bg-white/10 hover:bg-[#FF4B2B] hover:scale-110 transition-all flex items-center justify-center text-white border border-white/25">
+                  <ArrowUpRight size={16} />
+                </div>
               </div>
-
-              {/* Border shine effect */}
-              <div className="absolute inset-0 rounded-[28px] border-2 border-white/0 group-hover:border-white/20 transition-all duration-300 pointer-events-none" />
             </motion.div>
           ))}
         </AnimatePresence>
       </motion.div>
-
-      {/* Show More Button */}
-      {hasMoreItems && (
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="flex justify-center mt-12"
-        >
-          <button
-            onClick={() => setShowMore(!showMore)}
-            className="flex items-center gap-2 px-8 py-3.5 rounded-full font-display text-sm font-bold uppercase tracking-wider text-white bg-black-dark hover:bg-black transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 cursor-pointer border border-line-grey/30"
-          >
-            <span>{showMore ? 'Sembunyikan' : 'Lihat Selengkapnya'}</span>
-            <ChevronDown 
-              size={16} 
-              className={`transition-transform duration-300 ${showMore ? 'rotate-180' : ''}`}
-            />
-          </button>
-        </motion.div>
-      )}
 
       {/* PORTFOLIO DETAIL DIALOG MODAL */}
       <AnimatePresence>
@@ -166,7 +128,7 @@ export default function Portfolio() {
                   referrerPolicy="no-referrer"
                 />
                 <div className="absolute top-4 left-4 bg-black/60 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/20 text-white flex items-center gap-1.5 shadow-md">
-                  <Award size={12} className="text-accent-coral" />
+                  <Award size={12} className="text-[#FF4B2B]" />
                   <span className="font-display text-[9px] font-bold uppercase tracking-widest leading-none">Best Seller</span>
                 </div>
               </div>
@@ -176,7 +138,7 @@ export default function Portfolio() {
                 <div>
                   <div className="flex justify-between items-start gap-4 mb-4">
                     <div>
-                      <span className="font-display text-[10px] font-bold text-accent-coral uppercase tracking-widest">
+                      <span className="font-display text-[10px] font-bold text-[#FF4B2B] uppercase tracking-widest">
                         Katalog Rupaka • {selectedProject.category}
                       </span>
                       <h3 className="font-display text-xl sm:text-2xl font-bold text-text-dark tracking-tight mt-1 leading-tight">
@@ -213,7 +175,14 @@ export default function Portfolio() {
                 </div>
 
                 {/* Footer price & purchase bar */}
-                <div className="pt-6 border-t border-line-grey/30 flex items-center justify-end gap-4 mt-4">
+                <div className="pt-6 border-t border-line-grey/30 flex items-center justify-between gap-4 mt-4">
+                  <div>
+                    <span className="text-[10px] uppercase tracking-widest font-bold text-muted-grey">Mulai Dari</span>
+                    <p className="font-display text-2xl font-black text-black-dark tracking-tight leading-none mt-1">
+                      {selectedProject.price}
+                    </p>
+                  </div>
+
                   <button
                     onClick={() => handleOrderWhatsApp(selectedProject)}
                     className="bg-black text-white hover:bg-gray-800 font-display text-[11px] font-bold uppercase tracking-wider px-6 h-[48px] rounded-full flex items-center gap-2 shadow-lg transition-colors cursor-pointer"

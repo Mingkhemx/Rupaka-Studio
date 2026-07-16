@@ -3,30 +3,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
 
 @theme {
-  --page-bg: #FAFAF8;
-  --panel-bg: #F0EDE8;
-  --soft-card: #F5F1ED;
-  --soft-card-2: #F8F5F1;
-  --text-dark: #1A1F2E;
-  --muted-grey: #8B96A8;
-  --muted-light: #C5D1DB;
-  --line-grey: #E0E5EB;
-  --black-dark: #0F1419;
-  --deep-black: #0A0D10;
-  --white-card: #FEFDFB;
-  --white-soft: #FAF9F7;
-
-  --primary-dark: #2C3E52;
-  --primary-blue: #3D5A7F;
-  --accent-coral: #E8654D;
-  --accent-orange: #F39237;
-  --accent-green: #4CAF7B;
-  --accent-purple: #8B6BB5;
+  --color-page-bg: #FAF9F5;
+  --color-panel-bg: #F0EFEB;
+  --color-soft-card: #E9E8E4;
+  --color-soft-card-2: #F4F3EF;
+  --color-text-dark: #1B1B1B;
+  --color-muted-grey: #8C8880;
+  --color-muted-light: #BDBAB2;
+  --color-line-grey: #D9D7D0;
+  --color-black-dark: #181818;
+  --color-deep-black: #151515;
+  --color-white-card: #FFFDF8;
+  --color-white-soft: #FAF9F5;
 
   --font-display: "Space Grotesk", "Poppins", sans-serif;
   --font-body: "Plus Jakarta Sans", sans-serif;
 }
-
 
 @keyframes scroll {
   0% { transform: translateX(0); }
