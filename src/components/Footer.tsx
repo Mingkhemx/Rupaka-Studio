@@ -49,7 +49,7 @@ export default function Footer() {
             {/* Logo and Brand column */}
             <div className="lg:col-span-2 flex flex-col gap-6">
               <div className="flex items-center gap-4">
-                <div className="w-16 h-16 rounded-full shrink-0 flex items-center justify-center bg-white/10 p-2">
+                <div className="w-16 h-16 rounded-full shrink-0 flex items-center justify-center bg-white/10 p-2 border-2 border-white">
                   <img 
                     src={logoImage}
                     alt="Rupaka Studio Logo"
