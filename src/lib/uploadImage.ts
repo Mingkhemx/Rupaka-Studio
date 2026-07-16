@@ -1,16 +1,3 @@
-import { v2 as cloudinary } from 'cloudinary';
-
-// Configure Cloudinary only if credentials are available
-if (import.meta.env.VITE_CLOUDINARY_CLOUD_NAME && 
-    import.meta.env.VITE_CLOUDINARY_API_KEY && 
-    import.meta.env.VITE_CLOUDINARY_API_SECRET) {
-  cloudinary.config({
-    cloud_name: import.meta.env.VITE_CLOUDINARY_CLOUD_NAME,
-    api_key: import.meta.env.VITE_CLOUDINARY_API_KEY,
-    api_secret: import.meta.env.VITE_CLOUDINARY_API_SECRET,
-  });
-}
-
 export async function uploadImage(file: File, folder: string): Promise<string> {
   console.log('uploadImage called with file:', file.name, 'folder:', folder);
   
@@ -25,9 +12,11 @@ export async function uploadImage(file: File, folder: string): Promise<string> {
   }
 
   // Check if Cloudinary is configured
-  if (!import.meta.env.VITE_CLOUDINARY_CLOUD_NAME || 
-      !import.meta.env.VITE_CLOUDINARY_API_KEY || 
-      !import.meta.env.VITE_CLOUDINARY_API_SECRET) {
+  const cloudName = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME;
+  const apiKey = import.meta.env.VITE_CLOUDINARY_API_KEY;
+  const apiSecret = import.meta.env.VITE_CLOUDINARY_API_SECRET;
+
+  if (!cloudName || !apiKey || !apiSecret) {
     console.error('Cloudinary not configured');
     throw new Error('Cloudinary belum dikonfigurasi. Silakan gunakan URL gambar eksternal atau tambahkan environment variables VITE_CLOUDINARY_* di Vercel.');
   }
@@ -38,14 +27,33 @@ export async function uploadImage(file: File, folder: string): Promise<string> {
     // Convert file to base64
     const base64 = await fileToBase64(file);
     
-    // Upload to Cloudinary
-    const result = await cloudinary.uploader.upload(base64, {
-      folder: folder,
-      resource_type: 'auto',
-      allowed_formats: ['jpg', 'jpeg', 'png', 'webp', 'gif'],
-      max_file_size: 10000000, // 10MB
+    // Create signature for Cloudinary upload
+    const timestamp = Math.floor(Date.now() / 1000);
+    const folderParam = folder ? `folder=${folder}&` : '';
+    const stringToSign = `folder=${folder}&timestamp=${timestamp}${apiSecret}`;
+    
+    // Simple signature (in production, use crypto-js or similar)
+    const signature = await simpleSHA1(stringToSign);
+    
+    // Upload to Cloudinary using direct API
+    const formData = new FormData();
+    formData.append('file', base64);
+    formData.append('api_key', apiKey);
+    formData.append('timestamp', timestamp.toString());
+    formData.append('signature', signature);
+    formData.append('folder', folder);
+    
+    const response = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
+      method: 'POST',
+      body: formData,
     });
     
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error?.message || 'Upload failed');
+    }
+    
+    const result = await response.json();
     console.log('Upload completed:', result.secure_url);
     
     return result.secure_url;
@@ -73,4 +81,14 @@ function fileToBase64(file: File): Promise<string> {
     };
     reader.onerror = (error) => reject(error);
   });
+}
+
+// Simple SHA1 implementation for signature
+async function simpleSHA1(message: string): Promise<string> {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(message);
+  const hashBuffer = await crypto.subtle.digest('SHA-1', data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+  return hashHex;
 }
