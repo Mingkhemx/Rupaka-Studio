@@ -16,7 +16,7 @@ export function AdminLayout({ title, subtitle, children }: AdminLayoutProps) {
       <AdminSidebar />
 
       {/* Main Content */}
-      <main className="flex-1 flex flex-col lg:ml-60">
+      <main className="flex-1 flex flex-col w-full lg:w-[calc(100%-256px)]">
         {/* Header */}
         <AdminHeader title={title} subtitle={subtitle} />
 
@@ -27,7 +27,7 @@ export function AdminLayout({ title, subtitle, children }: AdminLayoutProps) {
           transition={{ duration: 0.3 }}
           className="flex-1 overflow-y-auto"
         >
-          <div className="p-4 md:p-6 max-w-7xl mx-auto">
+          <div className="p-4 md:p-6 max-w-7xl mx-auto w-full">
             {children}
           </div>
         </motion.div>
