@@ -164,6 +164,30 @@ export default function CollageSection() {
             </span>
           </div>
         </motion.div>
+
+        {/* 5. Bottom-center: Extra Feature Card */}
+        <motion.div
+          drag
+          dragElastic={0.2}
+          dragConstraints={false}
+          dragTransition={{ power: 0.3, restDelta: 0.001 }}
+          whileHover={{ scale: 1.02 }}
+          whileDrag={{ 
+            scale: 1.05,
+            boxShadow: '0 40px 80px rgba(0,0,0,0.2)',
+            zIndex: 999
+          }}
+          className="absolute rounded-[28px] overflow-hidden bg-white/40 backdrop-blur-2xl border border-white/50 shadow-[0_12px_40px_rgba(0,0,0,0.06)] flex flex-col p-5 cursor-grab active:cursor-grabbing items-center text-center"
+          style={{ left: '42%', top: '72%', width: '250px', zIndex: 25, touchAction: 'none' }}
+        >
+          <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-blue-500 to-cyan-400 flex items-center justify-center mb-3 shadow-lg">
+            <HeartHandshake size={22} className="text-white" />
+          </div>
+          <h4 className="font-display text-sm font-bold text-text-dark mb-1.5 tracking-wide">Dukungan Penuh</h4>
+          <p className="text-[10px] text-muted-grey leading-relaxed">
+            Konsultasi desain tanpa batas. Kami siap mendengar dan mewujudkan visi brand UMKM Anda.
+          </p>
+        </motion.div>
       </div>
 
       {/* Mobile Layout: Responsive Bento Cards Grid (medium screens and below) */}
