@@ -246,16 +246,27 @@ export function BlogAdmin() {
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
             <thead>
               <tr style={{ background: '#f9fafb', borderBottom: '1px solid #f3f4f6' }}>
-                {['Judul', 'Penulis', 'Kategori', 'Tanggal', 'Status', 'Aksi'].map(h => (
+                {['Preview', 'Judul', 'Penulis', 'Kategori', 'Tanggal', 'Status', 'Aksi'].map(h => (
                   <th key={h} style={{ padding: '11px 16px', textAlign: 'left', fontWeight: 600, color: '#374151', whiteSpace: 'nowrap' }}>{h}</th>
                 ))}
               </tr>
             </thead>
             <tbody>
               {paginated.length === 0 ? (
-                <tr><td colSpan={6} style={{ padding: '32px 16px', textAlign: 'center', color: '#9ca3af' }}>Tidak ada data</td></tr>
+                <tr><td colSpan={7} style={{ padding: '32px 16px', textAlign: 'center', color: '#9ca3af' }}>Tidak ada data</td></tr>
               ) : paginated.map((item, i) => (
                 <tr key={item.id} style={{ borderTop: '1px solid #f3f4f6', background: i % 2 === 0 ? '#fff' : '#fafafa' }}>
+                  <td style={{ padding: '11px 16px' }}>
+                    <div style={{ width: 40, height: 40, borderRadius: 6, overflow: 'hidden', background: '#e5e7eb', flexShrink: 0 }}>
+                      {item.image ? (
+                        <img src={item.image} alt={item.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                      ) : (
+                        <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#9ca3af' }}>
+                          <span style={{ fontSize: 10, fontWeight: 600 }}>IMG</span>
+                        </div>
+                      )}
+                    </div>
+                  </td>
                   <td style={{ padding: '11px 16px', fontWeight: 500, color: '#111827', maxWidth: 200, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{item.title}</td>
                   <td style={{ padding: '11px 16px', color: '#374151' }}>{item.author}</td>
                   <td style={{ padding: '11px 16px', color: '#374151' }}>{item.category}</td>

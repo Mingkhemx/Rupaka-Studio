@@ -394,7 +394,7 @@ export function PortfolioAdmin() {
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
             <thead>
               <tr style={{ background: '#f9fafb', borderBottom: '1px solid #f3f4f6' }}>
-                {['Judul', 'Kategori', 'Harga', 'Status', 'Aksi'].map(h => (
+                {['Preview', 'Judul', 'Kategori', 'Harga', 'Status', 'Aksi'].map(h => (
                   <th key={h} style={{ padding: '11px 16px', textAlign: 'left', fontWeight: 600, color: '#374151', whiteSpace: 'nowrap' }}>{h}</th>
                 ))}
               </tr>
@@ -402,12 +402,23 @@ export function PortfolioAdmin() {
             <tbody>
               {paginated.length === 0 ? (
                 <tr>
-                  <td colSpan={5} style={{ padding: '32px 16px', textAlign: 'center', color: '#9ca3af' }}>
+                  <td colSpan={6} style={{ padding: '32px 16px', textAlign: 'center', color: '#9ca3af' }}>
                     Tidak ada data
                   </td>
                 </tr>
               ) : paginated.map((item, i) => (
                 <tr key={item.id} style={{ borderTop: '1px solid #f3f4f6', background: i % 2 === 0 ? '#fff' : '#fafafa' }}>
+                  <td style={{ padding: '11px 16px' }}>
+                    <div style={{ width: 40, height: 40, borderRadius: 6, overflow: 'hidden', background: '#e5e7eb', flexShrink: 0 }}>
+                      {item.image ? (
+                        <img src={item.image} alt={item.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                      ) : (
+                        <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#9ca3af' }}>
+                          <span style={{ fontSize: 10, fontWeight: 600 }}>IMG</span>
+                        </div>
+                      )}
+                    </div>
+                  </td>
                   <td style={{ padding: '11px 16px', fontWeight: 500, color: '#111827' }}>{item.title}</td>
                   <td style={{ padding: '11px 16px', color: '#374151', textTransform: 'capitalize' }}>{item.category}</td>
                   <td style={{ padding: '11px 16px', color: '#374151' }}>{item.price}</td>
