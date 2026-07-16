@@ -15,10 +15,7 @@ export function AdminLayout({ children }: AdminLayoutProps) {
       <AdminSidebar />
 
       {/* Main content — offset by sidebar width on large screens */}
-      <div
-        style={{ marginLeft: 0 }}
-        className="lg:ml-64"
-      >
+      <div className="lg:ml-64">
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
