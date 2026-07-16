@@ -1,5 +1,6 @@
 import { motion } from 'motion/react';
 import { MessageCircle, Image as ImageIcon, Sparkles } from 'lucide-react';
+import mascotImage from '../assets/mascot website rupaka.png';
 
 interface HeroProps {
   onScrollToSection: (sectionId: string) => void;
@@ -87,15 +88,13 @@ export default function Hero({ onScrollToSection }: HeroProps) {
           initial={{ opacity: 0, y: 60, scale: 0.96 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.5 }}
-          className="w-full max-w-[1280px] bg-panel-bg overflow-hidden shadow-[0_32px_64px_-16px_rgba(0,0,0,0.12)] relative z-10 rounded-[24px] md:rounded-[40px] aspect-[16/9] md:aspect-[21/9]"
+          className="w-full max-w-[1280px] relative z-10 rounded-[24px] md:rounded-[40px] aspect-[16/9] md:aspect-[21/9] flex items-center justify-center"
         >
           <img
-            alt="Rupaka Studio Vibrant Abstract Gradient and Brand Showcase"
-            className="w-full h-full object-cover select-none"
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZfadtPwCaL7GcKGqde5_m46RsgQuGHyvmFJKZWsW5jfFqnNirmZPOdmGitXGSosoyvd2ARpUMWjjL8IEKefG6Ke85eAGiFMBHIfFA02wVwfcf75CnI7Zlw-OjEat9LRRuqHbfAWLeBZeTEUbVQRAoPIjSlWUOZmW8R32Bk0XUblejaVIpv6gSC4cngTCtp7tXSmIz5jJIUVZIPoKSyGDhck_ulpZZnIfCQmxw2h73JqSgD__x2T1wiMf4Q_TQCvHgDTzQ3sY3JjqV"
-            referrerPolicy="no-referrer"
+            alt="Mascot Rupaka Studio"
+            className="w-full h-full object-contain select-none mix-blend-multiply"
+            src={mascotImage}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black-dark/30 via-transparent to-transparent pointer-events-none" />
         </motion.div>
       </div>
 
