@@ -11,7 +11,6 @@ import { PortfolioAdmin } from './pages/PortfolioAdmin';
 import { BlogAdmin } from './pages/BlogAdmin';
 import { TestimonialAdmin } from './pages/TestimonialAdmin';
 import { FAQAdmin } from './pages/FAQAdmin';
-import { OrdersAdmin } from './pages/OrdersAdmin';
 
 // Protected Route Component
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
@@ -69,14 +68,6 @@ export function AdminApp() {
           element={
             <ProtectedRoute>
               <FAQAdmin />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/orders"
-          element={
-            <ProtectedRoute>
-              <OrdersAdmin />
             </ProtectedRoute>
           }
         />

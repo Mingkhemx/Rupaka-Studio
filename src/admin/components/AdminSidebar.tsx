@@ -18,8 +18,7 @@ const MENU_ITEMS = [
   { icon: Image, label: 'Portfolio', path: '/admin/portfolio' },
   { icon: FileText, label: 'Blog', path: '/admin/blog' },
   { icon: MessageSquare, label: 'Testimonials', path: '/admin/testimonials' },
-  { icon: HelpCircle, label: 'FAQ', path: '/admin/faq' },
-  { icon: ShoppingCart, label: 'Orders', path: '/admin/orders' }
+  { icon: HelpCircle, label: 'FAQ', path: '/admin/faq' }
 ];
 
 function isActive(path: string, current: string) {
