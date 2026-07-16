@@ -71,7 +71,6 @@ export const PORTFOLIO_ITEMS: PortfolioItem[] = [
     features: ['Master file vektor (AI, EPS, SVG)', 'Panduan warna & tipografi', 'Visualisasi mock-up produk 3D', 'Lisensi komersial penuh']
   }
 ];
-];
 
 export const BLOG_POSTS: BlogPost[] = [
   {
