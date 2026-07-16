@@ -1,268 +1,292 @@
-import { useEffect, useState } from 'react';
-import { Plus, Search } from 'lucide-react';
+import React from 'react';
+import { useEffect, useState, useMemo } from 'react';
+import { Plus, Search, Pencil, Trash2, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { AdminLayout } from '../components/AdminLayout';
-import { DataTable } from '../components/DataTable';
-import { FormModal } from '../components/FormModal';
-import { DeleteConfirmation } from '../components/DeleteConfirmation';
 import { ToastContainer } from '../components/Toast';
-import { AdminBlogPost, ColumnConfig, FormFieldConfig } from '../types';
-import {
-  getBlogs,
-  addBlog,
-  updateBlog,
-  deleteBlog
-} from '../services';
-import { useToast, usePagination, useSearch, useSort } from '../hooks/useAdmin';
+import { useToast } from '../hooks/useAdmin';
+import { getBlogs, addBlog, updateBlog, deleteBlog } from '../services';
+import type { AdminBlogPost } from '../types';
 import { format } from 'date-fns';
 
-const COLUMNS: ColumnConfig[] = [
-  { key: 'title', label: 'Title', sortable: true },
-  { key: 'author', label: 'Author', sortable: true, width: '120px' },
-  { key: 'category', label: 'Category', sortable: true, width: '120px' },
-  {
-    key: 'date',
-    label: 'Date',
-    width: '120px',
-    sortable: true
-  },
-  {
-    key: 'status',
-    label: 'Status',
-    width: '120px',
-    render: (value) => (
-      <span className={`text-xs font-semibold px-3 py-1 rounded-full ${
-        value === 'published'
-          ? 'bg-green-100 text-green-800'
-          : 'bg-gray-100 text-gray-800'
-      }`}>
-        {value === 'published' ? 'Published' : 'Draft'}
-      </span>
-    )
-  }
-];
+const PER_PAGE = 10;
 
-const FORM_FIELDS: FormFieldConfig[] = [
-  {
-    name: 'title',
-    label: 'Title',
-    type: 'text',
-    placeholder: 'Enter blog title',
-    required: true
-  },
-  {
-    name: 'author',
-    label: 'Author',
-    type: 'text',
-    placeholder: 'Enter author name',
-    required: true
-  },
-  {
-    name: 'category',
-    label: 'Category',
-    type: 'text',
-    placeholder: 'e.g. Insights, Branding, Technology',
-    required: true
-  },
-  {
-    name: 'content',
-    label: 'Content',
-    type: 'textarea',
-    placeholder: 'Enter blog content (supports markdown)',
-    required: true
-  },
-  {
-    name: 'image',
-    label: 'Cover Image',
-    type: 'file'
-  },
-  {
-    name: 'readTime',
-    label: 'Read Time',
-    type: 'text',
-    placeholder: 'e.g. 5 Menit Baca'
-  },
-  {
-    name: 'status',
-    label: 'Status',
-    type: 'select',
-    required: true,
-    options: [
-      { value: 'draft', label: 'Draft' },
-      { value: 'published', label: 'Published' }
-    ]
-  }
-];
+// ─── Form modal ───────────────────────────────────────────────────────────────
+
+interface BlogFormData {
+  title: string;
+  author: string;
+  category: string;
+  content: string;
+  image: string;
+  readTime: string;
+  status: 'published' | 'draft';
+}
+
+const emptyForm: BlogFormData = {
+  title: '',
+  author: '',
+  category: '',
+  content: '',
+  image: '',
+  readTime: '5 Menit Baca',
+  status: 'published'
+};
+
+function itemToForm(item: AdminBlogPost): BlogFormData {
+  return {
+    title: item.title,
+    author: item.author,
+    category: item.category,
+    content: item.content,
+    image: item.image,
+    readTime: item.readTime,
+    status: item.status
+  };
+}
+
+const inputStyle: React.CSSProperties = {
+  width: '100%',
+  padding: '9px 12px',
+  border: '1px solid #d1d5db',
+  borderRadius: 7,
+  fontSize: 14,
+  color: '#111827',
+  background: '#fff',
+  outline: 'none',
+  boxSizing: 'border-box'
+};
+
+const labelStyle: React.CSSProperties = {
+  display: 'block',
+  fontSize: 13,
+  fontWeight: 600,
+  color: '#374151',
+  marginBottom: 6
+};
+
+interface FormModalProps {
+  open: boolean;
+  editing: AdminBlogPost | null;
+  onClose: () => void;
+  onSave: (data: BlogFormData) => void;
+}
+
+function FormModal({ open, editing, onClose, onSave }: FormModalProps) {
+  const [form, setForm] = useState<BlogFormData>(emptyForm);
+
+  useEffect(() => {
+    setForm(editing ? itemToForm(editing) : emptyForm);
+  }, [editing, open]);
+
+  if (!open) return null;
+
+  const set = (k: keyof BlogFormData, v: string) => setForm(prev => ({ ...prev, [k]: v }));
+
+  return (
+    <div style={{ position: 'fixed', inset: 0, zIndex: 10000, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 16 }}>
+      <div onClick={onClose} style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.5)' }} />
+      <div style={{ position: 'relative', background: '#fff', borderRadius: 14, width: '100%', maxWidth: 540, maxHeight: '90vh', overflowY: 'auto', boxShadow: '0 20px 60px rgba(0,0,0,0.25)' }}>
+        <div style={{ padding: '18px 20px', borderBottom: '1px solid #f3f4f6', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <h2 style={{ fontSize: 17, fontWeight: 700, color: '#111827', margin: 0 }}>{editing ? 'Edit Blog' : 'Tambah Blog'}</h2>
+          <button onClick={onClose} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#6b7280', display: 'flex' }}>
+            <X style={{ width: 20, height: 20 }} />
+          </button>
+        </div>
+        <form onSubmit={e => { e.preventDefault(); onSave(form); }} style={{ padding: 20, display: 'flex', flexDirection: 'column', gap: 14 }}>
+          <div>
+            <label style={labelStyle}>Judul *</label>
+            <input style={inputStyle} value={form.title} onChange={e => set('title', e.target.value)} placeholder="Judul blog" required />
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+            <div>
+              <label style={labelStyle}>Penulis *</label>
+              <input style={inputStyle} value={form.author} onChange={e => set('author', e.target.value)} placeholder="Nama penulis" required />
+            </div>
+            <div>
+              <label style={labelStyle}>Kategori *</label>
+              <input style={inputStyle} value={form.category} onChange={e => set('category', e.target.value)} placeholder="e.g. Branding" required />
+            </div>
+          </div>
+          <div>
+            <label style={labelStyle}>Konten *</label>
+            <textarea style={{ ...inputStyle, minHeight: 100, resize: 'vertical' }} value={form.content} onChange={e => set('content', e.target.value)} placeholder="Isi konten blog..." required />
+          </div>
+          <div>
+            <label style={labelStyle}>URL Cover Image</label>
+            <input style={inputStyle} value={form.image} onChange={e => set('image', e.target.value)} placeholder="https://..." />
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+            <div>
+              <label style={labelStyle}>Waktu Baca</label>
+              <input style={inputStyle} value={form.readTime} onChange={e => set('readTime', e.target.value)} placeholder="5 Menit Baca" />
+            </div>
+            <div>
+              <label style={labelStyle}>Status *</label>
+              <select style={inputStyle} value={form.status} onChange={e => set('status', e.target.value as 'published' | 'draft')}>
+                <option value="published">Published</option>
+                <option value="draft">Draft</option>
+              </select>
+            </div>
+          </div>
+          <div style={{ display: 'flex', gap: 10, justifyContent: 'flex-end', paddingTop: 4 }}>
+            <button type="button" onClick={onClose} style={{ padding: '9px 18px', border: '1px solid #d1d5db', borderRadius: 8, background: '#fff', color: '#374151', fontSize: 14, fontWeight: 500, cursor: 'pointer' }}>Batal</button>
+            <button type="submit" style={{ padding: '9px 20px', background: '#f97316', border: 'none', borderRadius: 8, color: '#fff', fontSize: 14, fontWeight: 600, cursor: 'pointer' }}>{editing ? 'Update' : 'Tambah'}</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+}
+
+function DeleteModal({ open, title, onClose, onConfirm }: { open: boolean; title: string; onClose: () => void; onConfirm: () => void }) {
+  if (!open) return null;
+  return (
+    <div style={{ position: 'fixed', inset: 0, zIndex: 10000, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 16 }}>
+      <div onClick={onClose} style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.5)' }} />
+      <div style={{ position: 'relative', background: '#fff', borderRadius: 14, padding: 24, width: '100%', maxWidth: 400, boxShadow: '0 20px 60px rgba(0,0,0,0.25)' }}>
+        <h3 style={{ fontSize: 17, fontWeight: 700, color: '#111827', marginBottom: 8 }}>Hapus Blog</h3>
+        <p style={{ fontSize: 14, color: '#6b7280', marginBottom: 20 }}>Hapus <strong>"{title}"</strong>? Tidak bisa dibatalkan.</p>
+        <div style={{ display: 'flex', gap: 10, justifyContent: 'flex-end' }}>
+          <button onClick={onClose} style={{ padding: '9px 18px', border: '1px solid #d1d5db', borderRadius: 8, background: '#fff', color: '#374151', fontSize: 14, fontWeight: 500, cursor: 'pointer' }}>Batal</button>
+          <button onClick={onConfirm} style={{ padding: '9px 18px', background: '#ef4444', border: 'none', borderRadius: 8, color: '#fff', fontSize: 14, fontWeight: 600, cursor: 'pointer' }}>Hapus</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Pagination({ page, total, perPage, onChange }: { page: number; total: number; perPage: number; onChange: (p: number) => void }) {
+  const totalPages = Math.max(1, Math.ceil(total / perPage));
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: 8, justifyContent: 'flex-end', paddingTop: 12 }}>
+      <span style={{ fontSize: 13, color: '#6b7280' }}>{Math.min((page - 1) * perPage + 1, total)}–{Math.min(page * perPage, total)} dari {total}</span>
+      <button onClick={() => onChange(page - 1)} disabled={page <= 1} style={{ padding: '4px 8px', border: '1px solid #d1d5db', borderRadius: 6, background: '#fff', cursor: page <= 1 ? 'not-allowed' : 'pointer', opacity: page <= 1 ? 0.4 : 1, display: 'flex' }}><ChevronLeft style={{ width: 16, height: 16 }} /></button>
+      <span style={{ fontSize: 13, color: '#374151' }}>{page} / {totalPages}</span>
+      <button onClick={() => onChange(page + 1)} disabled={page >= totalPages} style={{ padding: '4px 8px', border: '1px solid #d1d5db', borderRadius: 6, background: '#fff', cursor: page >= totalPages ? 'not-allowed' : 'pointer', opacity: page >= totalPages ? 0.4 : 1, display: 'flex' }}><ChevronRight style={{ width: 16, height: 16 }} /></button>
+    </div>
+  );
+}
+
+// ─── Main ─────────────────────────────────────────────────────────────────────
 
 export function BlogAdmin() {
   const [items, setItems] = useState<AdminBlogPost[]>([]);
-  const [isFormOpen, setIsFormOpen] = useState(false);
-  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
-  const [selectedItem, setSelectedItem] = useState<AdminBlogPost | null>(null);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [categoryFilter, setCategoryFilter] = useState<string>('');
-
+  const [search, setSearch] = useState('');
+  const [catFilter, setCatFilter] = useState('');
+  const [page, setPage] = useState(1);
+  const [formOpen, setFormOpen] = useState(false);
+  const [editing, setEditing] = useState<AdminBlogPost | null>(null);
+  const [deleteTarget, setDeleteTarget] = useState<AdminBlogPost | null>(null);
   const { toasts, showToast, removeToast } = useToast();
-  const pagination = usePagination(10);
-  const { sorted, sortKey, sortOrder, toggleSort } = useSort(items);
-  const { results: searchResults } = useSearch(sorted, ['title', 'content', 'author']);
 
-  const filtered = categoryFilter
-    ? searchResults.filter(item => item.category === categoryFilter)
-    : searchResults;
+  const refresh = () => setItems(getBlogs());
+  useEffect(() => { refresh(); }, []);
 
-  useEffect(() => {
-    pagination.setTotalItems(filtered.length);
-  }, [filtered.length, pagination]);
+  const categories = useMemo(() => [...new Set(items.map(i => i.category))], [items]);
 
-  useEffect(() => {
-    const blogs = getBlogs();
-    setItems(blogs);
-  }, []);
-
-  const handleAdd = () => {
-    setSelectedItem(null);
-    setIsFormOpen(true);
-  };
-
-  const handleEdit = (item: AdminBlogPost) => {
-    setSelectedItem(item);
-    setIsFormOpen(true);
-  };
-
-  const handleDelete = (item: AdminBlogPost) => {
-    setSelectedItem(item);
-    setIsDeleteOpen(true);
-  };
-
-  const handleFormSubmit = async (values: Record<string, any>) => {
-    try {
-      if (selectedItem) {
-        updateBlog(selectedItem.id, values);
-        showToast('Blog updated successfully', 'success');
-      } else {
-        addBlog({
-          ...values,
-          date: format(new Date(), 'dd MMM yyyy')
-        });
-        showToast('Blog added successfully', 'success');
-      }
-
-      setIsFormOpen(false);
-      const updated = getBlogs();
-      setItems(updated);
-    } catch (error) {
-      showToast('Error saving blog', 'error');
+  const filtered = useMemo(() => {
+    let list = items;
+    if (search.trim()) {
+      const q = search.toLowerCase();
+      list = list.filter(i => i.title.toLowerCase().includes(q) || i.author.toLowerCase().includes(q));
     }
-  };
+    if (catFilter) list = list.filter(i => i.category === catFilter);
+    return list;
+  }, [items, search, catFilter]);
 
-  const handleConfirmDelete = () => {
-    if (selectedItem) {
-      deleteBlog(selectedItem.id);
-      showToast('Blog deleted successfully', 'success');
-      setIsDeleteOpen(false);
-      const updated = getBlogs();
-      setItems(updated);
+  const paginated = filtered.slice((page - 1) * PER_PAGE, page * PER_PAGE);
+
+  const handleSave = (data: BlogFormData) => {
+    if (editing) {
+      updateBlog(editing.id, data);
+      showToast('Blog diperbarui', 'success');
+    } else {
+      addBlog({ ...data, date: format(new Date(), 'dd MMM yyyy') });
+      showToast('Blog ditambahkan', 'success');
     }
+    setFormOpen(false);
+    refresh();
   };
 
-  const categories = [...new Set(items.map(item => item.category))];
-  const displayData = filtered.slice(pagination.startIndex, pagination.endIndex);
+  const handleDelete = () => {
+    if (!deleteTarget) return;
+    deleteBlog(deleteTarget.id);
+    showToast('Blog dihapus', 'success');
+    setDeleteTarget(null);
+    refresh();
+  };
 
   return (
-    <AdminLayout title="Blog Management" subtitle="Manage your blog posts">
+    <AdminLayout>
       <ToastContainer toasts={toasts} onRemove={removeToast} />
 
-      <div className="space-y-6">
-        {/* Header & Search */}
-        <div className="flex flex-col md:flex-row gap-4 items-start md:items-end justify-between">
-          <div className="flex-1 max-w-sm">
-            <label className="block text-sm font-medium text-text-dark mb-2">Search</label>
-            <div className="relative">
-              <Search className="absolute left-3 top-3 w-5 h-5 text-muted-grey" />
-              <input
-                type="text"
-                placeholder="Search blogs..."
-                value={searchTerm}
-                onChange={e => {
-                  setSearchTerm(e.target.value);
-                  // Filter logic integrated in filtered variable
-                }}
-                className="w-full pl-10 pr-4 py-2.5 border border-line-grey rounded-lg focus:outline-none focus:ring-2 focus:ring-accent-orange"
-              />
-            </div>
-          </div>
-
-          <div className="flex gap-4 w-full md:w-auto">
-            <div className="flex-1 md:flex-initial">
-              <label className="block text-sm font-medium text-text-dark mb-2">Category</label>
-              <select
-                value={categoryFilter}
-                onChange={e => {
-                  setCategoryFilter(e.target.value);
-                  pagination.goToPage(1);
-                }}
-                className="w-full px-4 py-2.5 border border-line-grey rounded-lg focus:outline-none focus:ring-2 focus:ring-accent-orange"
-              >
-                <option value="">All Categories</option>
-                {categories.map(cat => (
-                  <option key={cat} value={cat}>{cat}</option>
-                ))}
-              </select>
-            </div>
-
-            <button
-              onClick={handleAdd}
-              className="self-end bg-accent-orange hover:bg-orange-600 text-white px-6 py-2.5 rounded-lg font-medium transition-colors flex items-center gap-2"
-            >
-              <Plus className="w-4 h-4" />
-              Add Blog
-            </button>
-          </div>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 24, flexWrap: 'wrap', gap: 12 }}>
+        <div>
+          <h1 style={{ fontSize: 22, fontWeight: 700, color: '#111827', margin: 0 }}>Blog</h1>
+          <p style={{ fontSize: 13, color: '#6b7280', margin: '4px 0 0' }}>Kelola artikel blog</p>
         </div>
-
-        {/* Table */}
-        <DataTable
-          data={displayData}
-          columns={COLUMNS}
-          sortKey={sortKey as string}
-          sortOrder={sortOrder}
-          onSort={(key) => toggleSort(key as any)}
-          currentPage={pagination.currentPage}
-          itemsPerPage={pagination.itemsPerPage}
-          totalPages={pagination.totalPages}
-          onPageChange={pagination.goToPage}
-          actions={{
-            edit: handleEdit,
-            delete: handleDelete
-          }}
-          emptyState={{
-            title: 'No blogs found',
-            description: 'Create your first blog post to get started',
-            actionLabel: 'Add Blog',
-            onAction: handleAdd
-          }}
-        />
+        <button onClick={() => { setEditing(null); setFormOpen(true); }} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '10px 18px', background: '#f97316', border: 'none', borderRadius: 8, color: '#fff', fontSize: 14, fontWeight: 600, cursor: 'pointer' }}>
+          <Plus style={{ width: 16, height: 16 }} /> Tambah Blog
+        </button>
       </div>
 
-      {/* Form Modal */}
-      <FormModal
-        isOpen={isFormOpen}
-        title={selectedItem ? 'Edit Blog' : 'Add Blog'}
-        fields={FORM_FIELDS}
-        initialValues={selectedItem || {}}
-        onSubmit={handleFormSubmit}
-        onCancel={() => setIsFormOpen(false)}
-        submitLabel={selectedItem ? 'Update' : 'Add'}
-      />
+      <div style={{ display: 'flex', gap: 12, marginBottom: 16, flexWrap: 'wrap' }}>
+        <div style={{ position: 'relative', flex: 1, minWidth: 200 }}>
+          <Search style={{ position: 'absolute', left: 10, top: '50%', transform: 'translateY(-50%)', width: 16, height: 16, color: '#9ca3af' }} />
+          <input type="text" placeholder="Cari blog..." value={search} onChange={e => { setSearch(e.target.value); setPage(1); }} style={{ width: '100%', paddingLeft: 34, paddingRight: 12, paddingTop: 9, paddingBottom: 9, border: '1px solid #d1d5db', borderRadius: 8, fontSize: 14, color: '#111827', outline: 'none', boxSizing: 'border-box' }} />
+        </div>
+        <select value={catFilter} onChange={e => { setCatFilter(e.target.value); setPage(1); }} style={{ padding: '9px 12px', border: '1px solid #d1d5db', borderRadius: 8, fontSize: 14, color: '#111827', background: '#fff', outline: 'none' }}>
+          <option value="">Semua Kategori</option>
+          {categories.map(c => <option key={c} value={c}>{c}</option>)}
+        </select>
+      </div>
 
-      {/* Delete Confirmation */}
-      <DeleteConfirmation
-        isOpen={isDeleteOpen}
-        title="Delete Blog"
-        message={`Are you sure you want to delete "${selectedItem?.title}"? This action cannot be undone.`}
-        onConfirm={handleConfirmDelete}
-        onCancel={() => setIsDeleteOpen(false)}
-      />
+      <div style={{ background: '#fff', borderRadius: 12, boxShadow: '0 1px 4px rgba(0,0,0,0.06)', overflow: 'hidden' }}>
+        <div style={{ overflowX: 'auto' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
+            <thead>
+              <tr style={{ background: '#f9fafb', borderBottom: '1px solid #f3f4f6' }}>
+                {['Judul', 'Penulis', 'Kategori', 'Tanggal', 'Status', 'Aksi'].map(h => (
+                  <th key={h} style={{ padding: '11px 16px', textAlign: 'left', fontWeight: 600, color: '#374151', whiteSpace: 'nowrap' }}>{h}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {paginated.length === 0 ? (
+                <tr><td colSpan={6} style={{ padding: '32px 16px', textAlign: 'center', color: '#9ca3af' }}>Tidak ada data</td></tr>
+              ) : paginated.map((item, i) => (
+                <tr key={item.id} style={{ borderTop: '1px solid #f3f4f6', background: i % 2 === 0 ? '#fff' : '#fafafa' }}>
+                  <td style={{ padding: '11px 16px', fontWeight: 500, color: '#111827', maxWidth: 200, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{item.title}</td>
+                  <td style={{ padding: '11px 16px', color: '#374151' }}>{item.author}</td>
+                  <td style={{ padding: '11px 16px', color: '#374151' }}>{item.category}</td>
+                  <td style={{ padding: '11px 16px', color: '#6b7280', whiteSpace: 'nowrap' }}>{item.date}</td>
+                  <td style={{ padding: '11px 16px' }}>
+                    <span style={{ fontSize: 11, fontWeight: 700, padding: '3px 10px', borderRadius: 20, background: item.status === 'published' ? '#dcfce7' : '#f3f4f6', color: item.status === 'published' ? '#166534' : '#6b7280' }}>
+                      {item.status === 'published' ? 'Published' : 'Draft'}
+                    </span>
+                  </td>
+                  <td style={{ padding: '11px 16px' }}>
+                    <div style={{ display: 'flex', gap: 6 }}>
+                      <button onClick={() => { setEditing(item); setFormOpen(true); }} style={{ padding: '5px 10px', background: '#eff6ff', border: 'none', borderRadius: 6, color: '#1d4ed8', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 4, fontSize: 12, fontWeight: 500 }}>
+                        <Pencil style={{ width: 12, height: 12 }} /> Edit
+                      </button>
+                      <button onClick={() => setDeleteTarget(item)} style={{ padding: '5px 10px', background: '#fef2f2', border: 'none', borderRadius: 6, color: '#dc2626', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 4, fontSize: 12, fontWeight: 500 }}>
+                        <Trash2 style={{ width: 12, height: 12 }} /> Hapus
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <div style={{ padding: '8px 16px 12px', borderTop: '1px solid #f3f4f6' }}>
+          <Pagination page={page} total={filtered.length} perPage={PER_PAGE} onChange={setPage} />
+        </div>
+      </div>
+
+      <FormModal open={formOpen} editing={editing} onClose={() => setFormOpen(false)} onSave={handleSave} />
+      <DeleteModal open={!!deleteTarget} title={deleteTarget?.title ?? ''} onClose={() => setDeleteTarget(null)} onConfirm={handleDelete} />
     </AdminLayout>
   );
 }

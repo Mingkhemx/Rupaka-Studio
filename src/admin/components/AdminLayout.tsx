@@ -1,37 +1,34 @@
-import { motion } from 'motion/react';
 import { ReactNode } from 'react';
+import { motion } from 'motion/react';
 import { AdminSidebar } from './AdminSidebar';
-import { AdminHeader } from './AdminHeader';
 
 interface AdminLayoutProps {
-  title: string;
+  title?: string;
   subtitle?: string;
   children: ReactNode;
 }
 
-export function AdminLayout({ title, subtitle, children }: AdminLayoutProps) {
+export function AdminLayout({ children }: AdminLayoutProps) {
   return (
-    <div className="flex h-screen bg-page-bg">
-      {/* Sidebar */}
+    <div style={{ minHeight: '100vh', background: '#f3f4f6' }}>
+      {/* Fixed sidebar */}
       <AdminSidebar />
 
-      {/* Main Content */}
-      <main className="flex-1 flex flex-col w-full lg:w-[calc(100%-256px)]">
-        {/* Header */}
-        <AdminHeader title={title} subtitle={subtitle} />
-
-        {/* Content */}
+      {/* Main content — offset by sidebar width on large screens */}
+      <div
+        style={{ marginLeft: 0 }}
+        className="lg:ml-64"
+      >
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3 }}
-          className="flex-1 overflow-y-auto"
+          transition={{ duration: 0.25 }}
         >
-          <div className="p-4 md:p-6 max-w-7xl mx-auto w-full">
+          <div style={{ padding: 32, maxWidth: 1280 }}>
             {children}
           </div>
         </motion.div>
-      </main>
+      </div>
     </div>
   );
 }

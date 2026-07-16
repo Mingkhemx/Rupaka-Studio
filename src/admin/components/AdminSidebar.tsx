@@ -1,3 +1,5 @@
+import { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import {
   LayoutDashboard,
   Image,
@@ -5,12 +7,10 @@ import {
   MessageSquare,
   HelpCircle,
   ShoppingCart,
+  LogOut,
   Menu,
-  X,
-  LogOut
+  X
 } from 'lucide-react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
 import { logout } from '../services';
 
 const MENU_ITEMS = [
@@ -22,15 +22,69 @@ const MENU_ITEMS = [
   { icon: ShoppingCart, label: 'Orders', path: '/admin/orders' }
 ];
 
-export function AdminSidebar() {
+function isActive(path: string, current: string) {
+  if (path === '/admin') return current === '/admin';
+  return current.startsWith(path);
+}
+
+interface MenuItemProps {
+  key?: string;
+  icon: typeof LayoutDashboard;
+  label: string;
+  path: string;
+  active: boolean;
+  onClick: () => void;
+}
+
+function MenuItem({ icon: Icon, label, active, onClick }: MenuItemProps) {
+  const [hovered, setHovered] = useState(false);
+
+  const bg = active ? '#f97316' : hovered ? 'rgba(255,255,255,0.1)' : 'transparent';
+  const color = active ? '#fff' : '#d1d5db';
+
+  return (
+    <button
+      onClick={onClick}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: 12,
+        width: '100%',
+        padding: '10px 16px',
+        borderRadius: 8,
+        background: bg,
+        color,
+        border: 'none',
+        cursor: 'pointer',
+        fontSize: 14,
+        fontWeight: 500,
+        textAlign: 'left',
+        transition: 'background 0.15s, color 0.15s'
+      }}
+    >
+      <Icon style={{ width: 20, height: 20, flexShrink: 0 }} />
+      <span>{label}</span>
+    </button>
+  );
+}
+
+function SidebarContent({
+  onNavigate,
+  onClose
+}: {
+  onNavigate?: () => void;
+  onClose?: () => void;
+}) {
   const location = useLocation();
   const navigate = useNavigate();
-  const [isOpen, setIsOpen] = useState(false);
+  const [logoutHovered, setLogoutHovered] = useState(false);
 
-  const isActive = (path: string) => {
-    if (path === '/admin' && location.pathname === '/admin') return true;
-    if (path !== '/admin' && location.pathname.startsWith(path)) return true;
-    return false;
+  const handleNav = (path: string) => {
+    navigate(path);
+    onNavigate?.();
+    onClose?.();
   };
 
   const handleLogout = () => {
@@ -38,135 +92,203 @@ export function AdminSidebar() {
     navigate('/admin/login');
   };
 
-  const closeMenu = () => setIsOpen(false);
-
   return (
-    <>
-      {/* Mobile Menu Toggle Button */}
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="lg:hidden fixed bottom-6 left-6 z-50 p-3 bg-orange-500 text-white rounded-full shadow-lg hover:bg-orange-600 transition-colors"
-        aria-label="Toggle menu"
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        height: '100%'
+      }}
+    >
+      {/* Logo */}
+      <div
+        style={{
+          padding: '24px 20px',
+          borderBottom: '1px solid rgba(255,255,255,0.08)',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 12
+        }}
       >
-        {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-      </button>
-
-      {/* Desktop Sidebar */}
-      <div className="hidden lg:flex flex-col w-64 h-screen bg-black-dark text-white border-r border-white/10 fixed left-0 top-0">
-        {/* Header */}
-        <div className="p-6 border-b border-white/10">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-orange-500 rounded-lg flex items-center justify-center font-bold text-lg text-black flex-shrink-0">
-              R
-            </div>
-            <div>
-              <h1 className="font-bold text-base">Rupaka</h1>
-              <p className="text-xs text-gray-400">Admin</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Navigation */}
-        <nav className="flex-1 overflow-y-auto py-4 px-3">
-          <div className="space-y-2">
-            {MENU_ITEMS.map((item) => {
-              const Icon = item.icon;
-              const active = isActive(item.path);
-
-              return (
-                <Link
-                  key={item.path}
-                  to={item.path}
-                  className={`block w-full px-4 py-2.5 rounded-lg font-medium text-sm transition-colors ${
-                    active
-                      ? 'bg-orange-500 text-white'
-                      : 'text-gray-300 hover:bg-white/10'
-                  }`}
-                >
-                  <span className="flex items-center gap-3">
-                    <Icon className="w-5 h-5" />
-                    <span>{item.label}</span>
-                  </span>
-                </Link>
-              );
-            })}
-          </div>
-        </nav>
-
-        {/* Footer */}
-        <div className="p-3 border-t border-white/10 space-y-2">
+        {onClose && (
           <button
-            onClick={handleLogout}
-            className="w-full px-4 py-2 rounded-lg text-sm font-medium text-gray-300 hover:bg-white/10 flex items-center gap-3 transition-colors"
+            onClick={onClose}
+            style={{
+              marginLeft: 'auto',
+              background: 'transparent',
+              border: 'none',
+              color: '#9ca3af',
+              cursor: 'pointer',
+              display: 'flex',
+              padding: 4
+            }}
+            aria-label="Close menu"
           >
-            <LogOut className="w-4 h-4" />
-            Logout
+            <X style={{ width: 20, height: 20 }} />
           </button>
+        )}
+        <div
+          style={{
+            width: 40,
+            height: 40,
+            background: '#f97316',
+            borderRadius: 8,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontWeight: 700,
+            fontSize: 18,
+            color: '#000',
+            flexShrink: 0
+          }}
+        >
+          R
+        </div>
+        <div>
+          <div style={{ fontWeight: 700, fontSize: 15, color: '#fff' }}>Rupaka</div>
+          <div style={{ fontSize: 12, color: '#9ca3af' }}>Admin Panel</div>
         </div>
       </div>
 
-      {/* Mobile Sidebar */}
-      {isOpen && (
-        <div className="fixed inset-0 z-40 lg:hidden" onClick={closeMenu}>
-          {/* Overlay */}
-          <div className="absolute inset-0 bg-black/50" />
+      {/* Navigation */}
+      <nav
+        style={{
+          flex: 1,
+          overflowY: 'auto',
+          padding: '16px 12px'
+        }}
+      >
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+          {MENU_ITEMS.map(item => (
+            <MenuItem
+              key={item.path}
+              icon={item.icon}
+              label={item.label}
+              path={item.path}
+              active={isActive(item.path, location.pathname)}
+              onClick={() => handleNav(item.path)}
+            />
+          ))}
+        </div>
+      </nav>
 
-          {/* Sidebar Panel */}
-          <div className="absolute left-0 top-0 h-screen w-64 bg-black-dark text-white flex flex-col shadow-xl">
-            {/* Header */}
-            <div className="p-6 border-b border-white/10">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-orange-500 rounded-lg flex items-center justify-center font-bold text-lg text-black">
-                  R
-                </div>
-                <div>
-                  <h1 className="font-bold text-base">Rupaka</h1>
-                  <p className="text-xs text-gray-400">Admin</p>
-                </div>
-              </div>
-            </div>
+      {/* Footer / Logout */}
+      <div
+        style={{
+          padding: '12px',
+          borderTop: '1px solid rgba(255,255,255,0.08)'
+        }}
+      >
+        <button
+          onClick={handleLogout}
+          onMouseEnter={() => setLogoutHovered(true)}
+          onMouseLeave={() => setLogoutHovered(false)}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 12,
+            width: '100%',
+            padding: '10px 16px',
+            borderRadius: 8,
+            background: logoutHovered ? 'rgba(255,255,255,0.1)' : 'transparent',
+            color: '#d1d5db',
+            border: 'none',
+            cursor: 'pointer',
+            fontSize: 14,
+            fontWeight: 500,
+            transition: 'background 0.15s'
+          }}
+        >
+          <LogOut style={{ width: 18, height: 18 }} />
+          <span>Logout</span>
+        </button>
+      </div>
+    </div>
+  );
+}
 
-            {/* Navigation */}
-            <nav className="flex-1 overflow-y-auto py-4 px-3">
-              <div className="space-y-2">
-                {MENU_ITEMS.map((item) => {
-                  const Icon = item.icon;
-                  const active = isActive(item.path);
+export function AdminSidebar() {
+  const [mobileOpen, setMobileOpen] = useState(false);
 
-                  return (
-                    <Link
-                      key={item.path}
-                      to={item.path}
-                      onClick={closeMenu}
-                      className={`block w-full px-4 py-2.5 rounded-lg font-medium text-sm transition-colors ${
-                        active
-                          ? 'bg-orange-500 text-white'
-                          : 'text-gray-300 hover:bg-white/10'
-                      }`}
-                    >
-                      <span className="flex items-center gap-3">
-                        <Icon className="w-5 h-5" />
-                        <span>{item.label}</span>
-                      </span>
-                    </Link>
-                  );
-                })}
-              </div>
-            </nav>
+  return (
+    <>
+      {/* Desktop sidebar — always visible on lg+ */}
+      <div
+        style={{
+          position: 'fixed',
+          left: 0,
+          top: 0,
+          width: 256,
+          height: '100vh',
+          background: '#111827',
+          zIndex: 9999,
+          display: 'flex',
+          flexDirection: 'column'
+        }}
+        className="hidden lg:flex"
+      >
+        <SidebarContent />
+      </div>
 
-            {/* Footer */}
-            <div className="p-3 border-t border-white/10 space-y-2">
-              <button
-                onClick={() => {
-                  closeMenu();
-                  handleLogout();
-                }}
-                className="w-full px-4 py-2 rounded-lg text-sm font-medium text-gray-300 hover:bg-white/10 flex items-center gap-3 transition-colors"
-              >
-                <LogOut className="w-4 h-4" />
-                Logout
-              </button>
-            </div>
+      {/* Mobile hamburger button */}
+      <button
+        onClick={() => setMobileOpen(true)}
+        aria-label="Open menu"
+        style={{
+          position: 'fixed',
+          bottom: 24,
+          left: 24,
+          zIndex: 9998,
+          width: 48,
+          height: 48,
+          borderRadius: '50%',
+          background: '#f97316',
+          border: 'none',
+          color: '#fff',
+          cursor: 'pointer',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          boxShadow: '0 4px 12px rgba(249,115,22,0.4)'
+        }}
+        className="lg:hidden"
+      >
+        <Menu style={{ width: 22, height: 22 }} />
+      </button>
+
+      {/* Mobile overlay + drawer */}
+      {mobileOpen && (
+        <div
+          style={{
+            position: 'fixed',
+            inset: 0,
+            zIndex: 99999
+          }}
+        >
+          {/* Backdrop */}
+          <div
+            onClick={() => setMobileOpen(false)}
+            style={{
+              position: 'absolute',
+              inset: 0,
+              background: 'rgba(0,0,0,0.55)'
+            }}
+          />
+
+          {/* Drawer */}
+          <div
+            style={{
+              position: 'absolute',
+              left: 0,
+              top: 0,
+              width: 256,
+              height: '100%',
+              background: '#111827',
+              display: 'flex',
+              flexDirection: 'column'
+            }}
+          >
+            <SidebarContent onClose={() => setMobileOpen(false)} />
           </div>
         </div>
       )}

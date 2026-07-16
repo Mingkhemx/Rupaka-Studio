@@ -1,62 +1,101 @@
 import { motion, AnimatePresence } from 'motion/react';
-import { CheckCircle, AlertCircle, InfoIcon, X } from 'lucide-react';
+import { CheckCircle, AlertCircle, Info, X } from 'lucide-react';
+import type { Toast as ToastType } from '../hooks/useAdmin';
 
-interface ToastProps {
-  id: string;
-  message: string;
-  type: 'success' | 'error' | 'info';
+interface ToastItemProps {
+  key?: string;
+  toast: ToastType;
   onClose: (id: string) => void;
 }
 
-export function Toast({ id, message, type, onClose }: ToastProps) {
-  const colors = {
-    success: 'bg-green-500/90',
-    error: 'bg-red-500/90',
-    info: 'bg-blue-500/90'
-  };
+function ToastItem({ toast, onClose }: ToastItemProps) {
+  const config = {
+    success: {
+      bg: '#16a34a',
+      Icon: CheckCircle
+    },
+    error: {
+      bg: '#dc2626',
+      Icon: AlertCircle
+    },
+    info: {
+      bg: '#2563eb',
+      Icon: Info
+    }
+  }[toast.type];
 
-  const icons = {
-    success: <CheckCircle className="w-5 h-5" />,
-    error: <AlertCircle className="w-5 h-5" />,
-    info: <InfoIcon className="w-5 h-5" />
-  };
+  const Icon = config.Icon;
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: -20 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -20 }}
-      className={`${colors[type]} text-white px-4 py-3 rounded-lg shadow-lg flex items-center gap-3 mb-2 max-w-md`}
+      layout
+      initial={{ opacity: 0, x: 60, scale: 0.95 }}
+      animate={{ opacity: 1, x: 0, scale: 1 }}
+      exit={{ opacity: 0, x: 60, scale: 0.95 }}
+      transition={{ duration: 0.22 }}
+      style={{
+        background: config.bg,
+        color: '#fff',
+        borderRadius: 10,
+        padding: '12px 16px',
+        display: 'flex',
+        alignItems: 'center',
+        gap: 10,
+        minWidth: 260,
+        maxWidth: 380,
+        boxShadow: '0 4px 16px rgba(0,0,0,0.2)',
+        marginBottom: 8,
+        pointerEvents: 'all'
+      }}
     >
-      {icons[type]}
-      <span className="flex-1">{message}</span>
+      <Icon style={{ width: 18, height: 18, flexShrink: 0 }} />
+      <span style={{ flex: 1, fontSize: 14, fontWeight: 500 }}>{toast.message}</span>
       <button
-        onClick={() => onClose(id)}
-        className="hover:opacity-80 transition-opacity"
+        onClick={() => onClose(toast.id)}
+        style={{
+          background: 'transparent',
+          border: 'none',
+          color: 'rgba(255,255,255,0.8)',
+          cursor: 'pointer',
+          padding: 2,
+          display: 'flex',
+          alignItems: 'center'
+        }}
+        aria-label="Close notification"
       >
-        <X className="w-4 h-4" />
+        <X style={{ width: 16, height: 16 }} />
       </button>
     </motion.div>
   );
 }
 
 interface ToastContainerProps {
-  toasts: Array<{ id: string; message: string; type: 'success' | 'error' | 'info' }>;
+  toasts: ToastType[];
   onRemove: (id: string) => void;
 }
 
 export function ToastContainer({ toasts, onRemove }: ToastContainerProps) {
   return (
-    <div className="fixed top-4 right-4 z-50 pointer-events-auto">
+    <div
+      style={{
+        position: 'fixed',
+        bottom: 24,
+        right: 24,
+        zIndex: 99999,
+        pointerEvents: 'none',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'flex-end'
+      }}
+    >
       <AnimatePresence mode="popLayout">
         {toasts.map(toast => (
-          <Toast
-            key={toast.id}
-            {...toast}
-            onClose={onRemove}
-          />
+          <ToastItem key={toast.id} toast={toast} onClose={onRemove} />
         ))}
       </AnimatePresence>
     </div>
   );
 }
+
+// Named export for backward compat
+export { ToastItem as Toast };

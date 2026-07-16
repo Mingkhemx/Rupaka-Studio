@@ -1,3 +1,4 @@
+import React from 'react';
 // Admin types extending base types with admin-specific fields
 
 export interface AdminPortfolioItem {

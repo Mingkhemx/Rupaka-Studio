@@ -1,277 +1,453 @@
-import { useEffect, useState } from 'react';
-import { Plus, Search } from 'lucide-react';
+import React from 'react';
+import { useEffect, useState, useMemo } from 'react';
+import { Plus, Search, Pencil, Trash2, X, ChevronLeft, ChevronRight } from 'lucide-react';
 import { AdminLayout } from '../components/AdminLayout';
-import { DataTable } from '../components/DataTable';
-import { FormModal } from '../components/FormModal';
-import { DeleteConfirmation } from '../components/DeleteConfirmation';
 import { ToastContainer } from '../components/Toast';
-import { AdminPortfolioItem, ColumnConfig, FormFieldConfig } from '../types';
+import { useToast } from '../hooks/useAdmin';
 import {
   getPortfolios,
   addPortfolio,
   updatePortfolio,
   deletePortfolio
 } from '../services';
-import { useToast, usePagination, useSearch, useSort } from '../hooks/useAdmin';
-import { format } from 'date-fns';
+import type { AdminPortfolioItem } from '../types';
 
-const COLUMNS: ColumnConfig[] = [
-  { key: 'title', label: 'Title', sortable: true },
-  { key: 'category', label: 'Category', sortable: true, width: '120px' },
-  {
-    key: 'price',
-    label: 'Price',
-    width: '120px'
-  },
-  {
-    key: 'status',
-    label: 'Status',
-    width: '120px',
-    render: (value) => (
-      <span className={`text-xs font-semibold px-3 py-1 rounded-full ${
-        value === 'published'
-          ? 'bg-green-100 text-green-800'
-          : 'bg-gray-100 text-gray-800'
-      }`}>
-        {value === 'published' ? 'Published' : 'Draft'}
-      </span>
-    )
-  }
-];
+const CATEGORIES = ['poster', 'logo', 'website', 'custom'] as const;
+const PER_PAGE = 10;
 
-const FORM_FIELDS: FormFieldConfig[] = [
-  {
-    name: 'title',
-    label: 'Title',
-    type: 'text',
-    placeholder: 'Enter portfolio title',
-    required: true
-  },
-  {
-    name: 'category',
-    label: 'Category',
-    type: 'select',
-    required: true,
-    options: [
-      { value: 'poster', label: 'Poster' },
-      { value: 'logo', label: 'Logo' },
-      { value: 'website', label: 'Website' },
-      { value: 'custom', label: 'Custom' }
-    ]
-  },
-  {
-    name: 'price',
-    label: 'Price',
-    type: 'text',
-    placeholder: 'e.g. Rp 150.000',
-    required: true
-  },
-  {
-    name: 'description',
-    label: 'Description',
-    type: 'textarea',
-    placeholder: 'Enter detailed description',
-    required: true
-  },
-  {
-    name: 'image',
-    label: 'Image',
-    type: 'file'
-  },
-  {
-    name: 'features',
-    label: 'Features',
-    type: 'array'
-  }
-];
+// ─── Inline Modal ─────────────────────────────────────────────────────────────
 
-export function PortfolioAdmin() {
-  const [items, setItems] = useState<AdminPortfolioItem[]>([]);
-  const [isFormOpen, setIsFormOpen] = useState(false);
-  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
-  const [selectedItem, setSelectedItem] = useState<AdminPortfolioItem | null>(null);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [categoryFilter, setCategoryFilter] = useState<string>('');
+interface PortfolioFormData {
+  title: string;
+  category: string;
+  price: string;
+  description: string;
+  image: string;
+  features: string;
+  status: 'published' | 'draft';
+}
 
-  const { toasts, showToast, removeToast } = useToast();
-  const pagination = usePagination(10);
-  const { sorted, sortKey, sortOrder, toggleSort } = useSort(items);
-  const { results: searchResults } = useSearch(sorted, ['title', 'description'], searchTerm);
+const emptyForm: PortfolioFormData = {
+  title: '',
+  category: 'poster',
+  price: '',
+  description: '',
+  image: '',
+  features: '',
+  status: 'published'
+};
 
-  const filtered = categoryFilter
-    ? searchResults.filter(item => item.category === categoryFilter)
-    : searchResults;
+function itemToForm(item: AdminPortfolioItem): PortfolioFormData {
+  return {
+    title: item.title,
+    category: item.category,
+    price: item.price,
+    description: item.description,
+    image: item.image,
+    features: item.features.join(', '),
+    status: item.status
+  };
+}
+
+interface FormModalProps {
+  open: boolean;
+  editing: AdminPortfolioItem | null;
+  onClose: () => void;
+  onSave: (data: PortfolioFormData) => void;
+}
+
+function FormModal({ open, editing, onClose, onSave }: FormModalProps) {
+  const [form, setForm] = useState<PortfolioFormData>(emptyForm);
 
   useEffect(() => {
-    pagination.setTotalItems(filtered.length);
-  }, [filtered.length, pagination]);
+    setForm(editing ? itemToForm(editing) : emptyForm);
+  }, [editing, open]);
 
-  useEffect(() => {
-    const portfolios = getPortfolios();
-    setItems(portfolios);
-  }, []);
+  if (!open) return null;
 
-  const handleAdd = () => {
-    setSelectedItem(null);
-    setIsFormOpen(true);
+  const set = (k: keyof PortfolioFormData, v: string) => setForm(prev => ({ ...prev, [k]: v }));
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    onSave(form);
   };
 
-  const handleEdit = (item: AdminPortfolioItem) => {
-    setSelectedItem(item);
-    setIsFormOpen(true);
+  const inputStyle: React.CSSProperties = {
+    width: '100%',
+    padding: '9px 12px',
+    border: '1px solid #d1d5db',
+    borderRadius: 7,
+    fontSize: 14,
+    color: '#111827',
+    background: '#fff',
+    outline: 'none',
+    boxSizing: 'border-box'
   };
 
-  const handleDelete = (item: AdminPortfolioItem) => {
-    setSelectedItem(item);
-    setIsDeleteOpen(true);
+  const labelStyle: React.CSSProperties = {
+    display: 'block',
+    fontSize: 13,
+    fontWeight: 600,
+    color: '#374151',
+    marginBottom: 6
   };
-
-  const handleFormSubmit = async (values: Record<string, any>) => {
-    try {
-      if (selectedItem) {
-        updatePortfolio(selectedItem.id, values);
-        showToast('Portfolio updated successfully', 'success');
-      } else {
-        addPortfolio(values);
-        showToast('Portfolio added successfully', 'success');
-      }
-
-      setIsFormOpen(false);
-      const updated = getPortfolios();
-      setItems(updated);
-    } catch (error) {
-      showToast('Error saving portfolio', 'error');
-    }
-  };
-
-  const handleConfirmDelete = () => {
-    if (selectedItem) {
-      deletePortfolio(selectedItem.id);
-      showToast('Portfolio deleted successfully', 'success');
-      setIsDeleteOpen(false);
-      const updated = getPortfolios();
-      setItems(updated);
-    }
-  };
-
-  const handleToggleStatus = (item: AdminPortfolioItem) => {
-    const newStatus = item.status === 'published' ? 'draft' : 'published';
-    updatePortfolio(item.id, { status: newStatus });
-    showToast(`Portfolio ${newStatus}`, 'success');
-    const updated = getPortfolios();
-    setItems(updated);
-  };
-
-  const displayData = filtered.slice(pagination.startIndex, pagination.endIndex);
 
   return (
-    <AdminLayout title="Portfolio Management" subtitle="Manage your portfolio items">
-      <ToastContainer toasts={toasts} onRemove={removeToast} />
-
-      <div className="space-y-6">
-        {/* Header with Add Button */}
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-4 border-b border-line-grey">
-          <div>
-            <h2 className="text-2xl font-bold text-text-dark">Portfolio Management</h2>
-            <p className="text-muted-grey text-sm mt-1">Manage your portfolio items</p>
-          </div>
-          
+    <div
+      style={{
+        position: 'fixed',
+        inset: 0,
+        zIndex: 10000,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 16
+      }}
+    >
+      <div
+        onClick={onClose}
+        style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.5)' }}
+      />
+      <div
+        style={{
+          position: 'relative',
+          background: '#fff',
+          borderRadius: 14,
+          width: '100%',
+          maxWidth: 520,
+          maxHeight: '90vh',
+          overflowY: 'auto',
+          boxShadow: '0 20px 60px rgba(0,0,0,0.25)'
+        }}
+      >
+        {/* Header */}
+        <div
+          style={{
+            padding: '18px 20px',
+            borderBottom: '1px solid #f3f4f6',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between'
+          }}
+        >
+          <h2 style={{ fontSize: 17, fontWeight: 700, color: '#111827', margin: 0 }}>
+            {editing ? 'Edit Portfolio' : 'Tambah Portfolio'}
+          </h2>
           <button
-            onClick={handleAdd}
-            className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2.5 rounded-lg font-semibold transition-colors flex items-center gap-2 whitespace-nowrap shadow-lg"
+            onClick={onClose}
+            style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#6b7280', display: 'flex' }}
           >
-            <Plus className="w-5 h-5" />
-            Add Portfolio
+            <X style={{ width: 20, height: 20 }} />
           </button>
         </div>
 
-        {/* Search & Filter */}
-        <div className="flex flex-col lg:flex-row gap-4">
-          <div className="flex-1">
-            <label className="block text-sm font-medium text-text-dark mb-2">Search</label>
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-grey" />
-              <input
-                type="text"
-                placeholder="Search by title or description..."
-                value={searchTerm}
-                onChange={e => {
-                  setSearchTerm(e.target.value);
-                  pagination.goToPage(1);
-                }}
-                className="w-full pl-10 pr-4 py-2.5 border border-line-grey rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 text-text-dark"
-              />
+        {/* Form */}
+        <form onSubmit={handleSubmit} style={{ padding: 20, display: 'flex', flexDirection: 'column', gap: 16 }}>
+          <div>
+            <label style={labelStyle}>Judul *</label>
+            <input style={inputStyle} value={form.title} onChange={e => set('title', e.target.value)} placeholder="Judul portfolio" required />
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+            <div>
+              <label style={labelStyle}>Kategori *</label>
+              <select style={inputStyle} value={form.category} onChange={e => set('category', e.target.value)} required>
+                {CATEGORIES.map(c => (
+                  <option key={c} value={c}>{c.charAt(0).toUpperCase() + c.slice(1)}</option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label style={labelStyle}>Harga *</label>
+              <input style={inputStyle} value={form.price} onChange={e => set('price', e.target.value)} placeholder="e.g. Rp 150.000" required />
             </div>
           </div>
 
-          <div className="w-full lg:w-48">
-            <label className="block text-sm font-medium text-text-dark mb-2">Category</label>
-            <select
-              value={categoryFilter}
-              onChange={e => {
-                setCategoryFilter(e.target.value);
-                pagination.goToPage(1);
-              }}
-              className="w-full px-4 py-2.5 border border-line-grey rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 text-text-dark"
-            >
-              <option value="">All Categories</option>
-              <option value="poster">Poster</option>
-              <option value="logo">Logo</option>
-              <option value="website">Website</option>
-              <option value="custom">Custom</option>
+          <div>
+            <label style={labelStyle}>Deskripsi *</label>
+            <textarea
+              style={{ ...inputStyle, minHeight: 80, resize: 'vertical' }}
+              value={form.description}
+              onChange={e => set('description', e.target.value)}
+              placeholder="Deskripsi lengkap portfolio"
+              required
+            />
+          </div>
+
+          <div>
+            <label style={labelStyle}>URL Gambar</label>
+            <input style={inputStyle} value={form.image} onChange={e => set('image', e.target.value)} placeholder="https://..." />
+          </div>
+
+          <div>
+            <label style={labelStyle}>Fitur (pisahkan dengan koma)</label>
+            <input style={inputStyle} value={form.features} onChange={e => set('features', e.target.value)} placeholder="Fitur 1, Fitur 2, Fitur 3" />
+          </div>
+
+          <div>
+            <label style={labelStyle}>Status *</label>
+            <select style={inputStyle} value={form.status} onChange={e => set('status', e.target.value as 'published' | 'draft')}>
+              <option value="published">Published</option>
+              <option value="draft">Draft</option>
             </select>
           </div>
-        </div>
 
-        {/* Table */}
-        <DataTable
-          data={displayData}
-          columns={COLUMNS}
-          sortKey={sortKey as string}
-          sortOrder={sortOrder}
-          onSort={(key) => toggleSort(key as any)}
-          currentPage={pagination.currentPage}
-          itemsPerPage={pagination.itemsPerPage}
-          totalPages={pagination.totalPages}
-          onPageChange={pagination.goToPage}
-          actions={{
-            edit: handleEdit,
-            delete: handleDelete,
-            custom: [
-              {
-                label: 'Toggle',
-                onClick: handleToggleStatus
-              }
-            ]
-          }}
-          emptyState={{
-            title: 'No portfolios found',
-            description: 'Create your first portfolio item to get started',
-            actionLabel: 'Add Portfolio',
-            onAction: handleAdd
-          }}
-        />
+          <div style={{ display: 'flex', gap: 10, justifyContent: 'flex-end', paddingTop: 4 }}>
+            <button
+              type="button"
+              onClick={onClose}
+              style={{
+                padding: '9px 18px',
+                border: '1px solid #d1d5db',
+                borderRadius: 8,
+                background: '#fff',
+                color: '#374151',
+                fontSize: 14,
+                fontWeight: 500,
+                cursor: 'pointer'
+              }}
+            >
+              Batal
+            </button>
+            <button
+              type="submit"
+              style={{
+                padding: '9px 20px',
+                background: '#f97316',
+                border: 'none',
+                borderRadius: 8,
+                color: '#fff',
+                fontSize: 14,
+                fontWeight: 600,
+                cursor: 'pointer'
+              }}
+            >
+              {editing ? 'Update' : 'Tambah'}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+}
+
+// ─── Delete confirm ───────────────────────────────────────────────────────────
+
+function DeleteModal({
+  open,
+  title,
+  onClose,
+  onConfirm
+}: {
+  open: boolean;
+  title: string;
+  onClose: () => void;
+  onConfirm: () => void;
+}) {
+  if (!open) return null;
+  return (
+    <div style={{ position: 'fixed', inset: 0, zIndex: 10000, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 16 }}>
+      <div onClick={onClose} style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.5)' }} />
+      <div style={{ position: 'relative', background: '#fff', borderRadius: 14, padding: 24, width: '100%', maxWidth: 400, boxShadow: '0 20px 60px rgba(0,0,0,0.25)' }}>
+        <h3 style={{ fontSize: 17, fontWeight: 700, color: '#111827', marginBottom: 8 }}>Hapus Portfolio</h3>
+        <p style={{ fontSize: 14, color: '#6b7280', marginBottom: 20 }}>
+          Hapus <strong>"{title}"</strong>? Tindakan ini tidak bisa dibatalkan.
+        </p>
+        <div style={{ display: 'flex', gap: 10, justifyContent: 'flex-end' }}>
+          <button onClick={onClose} style={{ padding: '9px 18px', border: '1px solid #d1d5db', borderRadius: 8, background: '#fff', color: '#374151', fontSize: 14, fontWeight: 500, cursor: 'pointer' }}>
+            Batal
+          </button>
+          <button onClick={onConfirm} style={{ padding: '9px 18px', background: '#ef4444', border: 'none', borderRadius: 8, color: '#fff', fontSize: 14, fontWeight: 600, cursor: 'pointer' }}>
+            Hapus
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ─── Pagination ───────────────────────────────────────────────────────────────
+
+function Pagination({ page, total, perPage, onChange }: { page: number; total: number; perPage: number; onChange: (p: number) => void }) {
+  const totalPages = Math.max(1, Math.ceil(total / perPage));
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: 8, justifyContent: 'flex-end', paddingTop: 12 }}>
+      <span style={{ fontSize: 13, color: '#6b7280' }}>
+        {Math.min((page - 1) * perPage + 1, total)}–{Math.min(page * perPage, total)} dari {total}
+      </span>
+      <button
+        onClick={() => onChange(page - 1)}
+        disabled={page <= 1}
+        style={{ padding: '4px 8px', border: '1px solid #d1d5db', borderRadius: 6, background: '#fff', cursor: page <= 1 ? 'not-allowed' : 'pointer', opacity: page <= 1 ? 0.4 : 1, display: 'flex' }}
+      >
+        <ChevronLeft style={{ width: 16, height: 16 }} />
+      </button>
+      <span style={{ fontSize: 13, color: '#374151' }}>{page} / {totalPages}</span>
+      <button
+        onClick={() => onChange(page + 1)}
+        disabled={page >= totalPages}
+        style={{ padding: '4px 8px', border: '1px solid #d1d5db', borderRadius: 6, background: '#fff', cursor: page >= totalPages ? 'not-allowed' : 'pointer', opacity: page >= totalPages ? 0.4 : 1, display: 'flex' }}
+      >
+        <ChevronRight style={{ width: 16, height: 16 }} />
+      </button>
+    </div>
+  );
+}
+
+// ─── Main page ────────────────────────────────────────────────────────────────
+
+export function PortfolioAdmin() {
+  const [items, setItems] = useState<AdminPortfolioItem[]>([]);
+  const [search, setSearch] = useState('');
+  const [categoryFilter, setCategoryFilter] = useState('');
+  const [page, setPage] = useState(1);
+  const [formOpen, setFormOpen] = useState(false);
+  const [editing, setEditing] = useState<AdminPortfolioItem | null>(null);
+  const [deleteTarget, setDeleteTarget] = useState<AdminPortfolioItem | null>(null);
+  const { toasts, showToast, removeToast } = useToast();
+
+  const refresh = () => setItems(getPortfolios());
+
+  useEffect(() => { refresh(); }, []);
+
+  const filtered = useMemo(() => {
+    let list = items;
+    if (search.trim()) {
+      const q = search.toLowerCase();
+      list = list.filter(i => i.title.toLowerCase().includes(q) || i.description.toLowerCase().includes(q));
+    }
+    if (categoryFilter) list = list.filter(i => i.category === categoryFilter);
+    return list;
+  }, [items, search, categoryFilter]);
+
+  const paginated = filtered.slice((page - 1) * PER_PAGE, page * PER_PAGE);
+
+  const handleSave = (data: PortfolioFormData) => {
+    const payload = {
+      ...data,
+      features: data.features.split(',').map(f => f.trim()).filter(Boolean)
+    } as Omit<AdminPortfolioItem, 'id' | 'createdAt' | 'updatedAt'>;
+
+    if (editing) {
+      updatePortfolio(editing.id, payload);
+      showToast('Portfolio diperbarui', 'success');
+    } else {
+      addPortfolio(payload);
+      showToast('Portfolio ditambahkan', 'success');
+    }
+    setFormOpen(false);
+    refresh();
+  };
+
+  const handleDelete = () => {
+    if (!deleteTarget) return;
+    deletePortfolio(deleteTarget.id);
+    showToast('Portfolio dihapus', 'success');
+    setDeleteTarget(null);
+    refresh();
+  };
+
+  return (
+    <AdminLayout>
+      <ToastContainer toasts={toasts} onRemove={removeToast} />
+
+      {/* Header */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 24, flexWrap: 'wrap', gap: 12 }}>
+        <div>
+          <h1 style={{ fontSize: 22, fontWeight: 700, color: '#111827', margin: 0 }}>Portfolio</h1>
+          <p style={{ fontSize: 13, color: '#6b7280', margin: '4px 0 0' }}>Kelola item portfolio</p>
+        </div>
+        <button
+          onClick={() => { setEditing(null); setFormOpen(true); }}
+          style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '10px 18px', background: '#f97316', border: 'none', borderRadius: 8, color: '#fff', fontSize: 14, fontWeight: 600, cursor: 'pointer' }}
+        >
+          <Plus style={{ width: 16, height: 16 }} />
+          Tambah Portfolio
+        </button>
       </div>
 
-      {/* Form Modal */}
-      <FormModal
-        isOpen={isFormOpen}
-        title={selectedItem ? 'Edit Portfolio' : 'Add Portfolio'}
-        fields={FORM_FIELDS}
-        initialValues={selectedItem || {}}
-        onSubmit={handleFormSubmit}
-        onCancel={() => setIsFormOpen(false)}
-        submitLabel={selectedItem ? 'Update' : 'Add'}
-      />
+      {/* Filters */}
+      <div style={{ display: 'flex', gap: 12, marginBottom: 16, flexWrap: 'wrap' }}>
+        <div style={{ position: 'relative', flex: 1, minWidth: 200 }}>
+          <Search style={{ position: 'absolute', left: 10, top: '50%', transform: 'translateY(-50%)', width: 16, height: 16, color: '#9ca3af' }} />
+          <input
+            type="text"
+            placeholder="Cari portfolio..."
+            value={search}
+            onChange={e => { setSearch(e.target.value); setPage(1); }}
+            style={{ width: '100%', paddingLeft: 34, paddingRight: 12, paddingTop: 9, paddingBottom: 9, border: '1px solid #d1d5db', borderRadius: 8, fontSize: 14, color: '#111827', outline: 'none', boxSizing: 'border-box' }}
+          />
+        </div>
+        <select
+          value={categoryFilter}
+          onChange={e => { setCategoryFilter(e.target.value); setPage(1); }}
+          style={{ padding: '9px 12px', border: '1px solid #d1d5db', borderRadius: 8, fontSize: 14, color: '#111827', background: '#fff', outline: 'none' }}
+        >
+          <option value="">Semua Kategori</option>
+          {CATEGORIES.map(c => <option key={c} value={c}>{c.charAt(0).toUpperCase() + c.slice(1)}</option>)}
+        </select>
+      </div>
 
-      {/* Delete Confirmation */}
-      <DeleteConfirmation
-        isOpen={isDeleteOpen}
-        title="Delete Portfolio"
-        message={`Are you sure you want to delete "${selectedItem?.title}"? This action cannot be undone.`}
-        onConfirm={handleConfirmDelete}
-        onCancel={() => setIsDeleteOpen(false)}
-      />
+      {/* Table */}
+      <div style={{ background: '#fff', borderRadius: 12, boxShadow: '0 1px 4px rgba(0,0,0,0.06)', overflow: 'hidden' }}>
+        <div style={{ overflowX: 'auto' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
+            <thead>
+              <tr style={{ background: '#f9fafb', borderBottom: '1px solid #f3f4f6' }}>
+                {['Judul', 'Kategori', 'Harga', 'Status', 'Aksi'].map(h => (
+                  <th key={h} style={{ padding: '11px 16px', textAlign: 'left', fontWeight: 600, color: '#374151', whiteSpace: 'nowrap' }}>{h}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {paginated.length === 0 ? (
+                <tr>
+                  <td colSpan={5} style={{ padding: '32px 16px', textAlign: 'center', color: '#9ca3af' }}>
+                    Tidak ada data
+                  </td>
+                </tr>
+              ) : paginated.map((item, i) => (
+                <tr key={item.id} style={{ borderTop: '1px solid #f3f4f6', background: i % 2 === 0 ? '#fff' : '#fafafa' }}>
+                  <td style={{ padding: '11px 16px', fontWeight: 500, color: '#111827' }}>{item.title}</td>
+                  <td style={{ padding: '11px 16px', color: '#374151', textTransform: 'capitalize' }}>{item.category}</td>
+                  <td style={{ padding: '11px 16px', color: '#374151' }}>{item.price}</td>
+                  <td style={{ padding: '11px 16px' }}>
+                    <span style={{
+                      fontSize: 11, fontWeight: 700, padding: '3px 10px', borderRadius: 20,
+                      background: item.status === 'published' ? '#dcfce7' : '#f3f4f6',
+                      color: item.status === 'published' ? '#166534' : '#6b7280'
+                    }}>
+                      {item.status === 'published' ? 'Published' : 'Draft'}
+                    </span>
+                  </td>
+                  <td style={{ padding: '11px 16px' }}>
+                    <div style={{ display: 'flex', gap: 6 }}>
+                      <button
+                        onClick={() => { setEditing(item); setFormOpen(true); }}
+                        style={{ padding: '5px 10px', background: '#eff6ff', border: 'none', borderRadius: 6, color: '#1d4ed8', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 4, fontSize: 12, fontWeight: 500 }}
+                      >
+                        <Pencil style={{ width: 12, height: 12 }} /> Edit
+                      </button>
+                      <button
+                        onClick={() => setDeleteTarget(item)}
+                        style={{ padding: '5px 10px', background: '#fef2f2', border: 'none', borderRadius: 6, color: '#dc2626', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 4, fontSize: 12, fontWeight: 500 }}
+                      >
+                        <Trash2 style={{ width: 12, height: 12 }} /> Hapus
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <div style={{ padding: '8px 16px 12px', borderTop: '1px solid #f3f4f6' }}>
+          <Pagination page={page} total={filtered.length} perPage={PER_PAGE} onChange={setPage} />
+        </div>
+      </div>
+
+      <FormModal open={formOpen} editing={editing} onClose={() => setFormOpen(false)} onSave={handleSave} />
+      <DeleteModal open={!!deleteTarget} title={deleteTarget?.title ?? ''} onClose={() => setDeleteTarget(null)} onConfirm={handleDelete} />
     </AdminLayout>
   );
 }

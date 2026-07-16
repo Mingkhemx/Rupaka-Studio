@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { LogOut, Menu, X, Image as ImageIcon, MessageCircle, FileText, Settings, Bell, Search } from 'lucide-react';

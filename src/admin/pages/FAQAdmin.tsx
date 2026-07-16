@@ -1,224 +1,221 @@
-import { useEffect, useState } from 'react';
-import { Plus, Search, GripVertical } from 'lucide-react';
+import React from 'react';
+import { useEffect, useState, useMemo } from 'react';
+import { Plus, Search, Pencil, Trash2, X, ChevronUp, ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react';
 import { AdminLayout } from '../components/AdminLayout';
-import { DataTable } from '../components/DataTable';
-import { FormModal } from '../components/FormModal';
-import { DeleteConfirmation } from '../components/DeleteConfirmation';
 import { ToastContainer } from '../components/Toast';
-import { AdminFaqItem, ColumnConfig, FormFieldConfig } from '../types';
-import {
-  getFaqs,
-  addFaq,
-  updateFaq,
-  deleteFaq,
-  reorderFaqs
-} from '../services';
-import { useToast, usePagination, useSearch, useSort } from '../hooks/useAdmin';
+import { useToast } from '../hooks/useAdmin';
+import { getFaqs, addFaq, updateFaq, deleteFaq, reorderFaqs } from '../services';
+import type { AdminFaqItem } from '../types';
 
-const COLUMNS: ColumnConfig[] = [
-  {
-    key: 'order',
-    label: 'Order',
-    width: '60px',
-    render: () => <GripVertical className="w-4 h-4 text-muted-grey" />
-  },
-  { key: 'question', label: 'Question', sortable: true },
-  {
-    key: 'answer',
-    label: 'Preview',
-    render: (value) => (
-      <p className="text-sm text-muted-grey truncate max-w-xs">{value}</p>
-    )
-  }
-];
+const PER_PAGE = 10;
 
-const FORM_FIELDS: FormFieldConfig[] = [
-  {
-    name: 'question',
-    label: 'Question',
-    type: 'text',
-    placeholder: 'Enter your question',
-    required: true
-  },
-  {
-    name: 'answer',
-    label: 'Answer',
-    type: 'textarea',
-    placeholder: 'Enter the answer',
-    required: true
-  }
-];
+// ─── Form modal ───────────────────────────────────────────────────────────────
+
+interface FaqForm { question: string; answer: string; }
+
+const emptyForm: FaqForm = { question: '', answer: '' };
+
+const inputStyle: React.CSSProperties = {
+  width: '100%', padding: '9px 12px', border: '1px solid #d1d5db', borderRadius: 7,
+  fontSize: 14, color: '#111827', background: '#fff', outline: 'none', boxSizing: 'border-box'
+};
+
+const labelStyle: React.CSSProperties = {
+  display: 'block', fontSize: 13, fontWeight: 600, color: '#374151', marginBottom: 6
+};
+
+function FormModal({ open, editing, onClose, onSave }: {
+  open: boolean; editing: AdminFaqItem | null; onClose: () => void; onSave: (d: FaqForm) => void;
+}) {
+  const [form, setForm] = useState<FaqForm>(emptyForm);
+  useEffect(() => {
+    setForm(editing ? { question: editing.question, answer: editing.answer } : emptyForm);
+  }, [editing, open]);
+  if (!open) return null;
+
+  return (
+    <div style={{ position: 'fixed', inset: 0, zIndex: 10000, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 16 }}>
+      <div onClick={onClose} style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.5)' }} />
+      <div style={{ position: 'relative', background: '#fff', borderRadius: 14, width: '100%', maxWidth: 500, maxHeight: '90vh', overflowY: 'auto', boxShadow: '0 20px 60px rgba(0,0,0,0.25)' }}>
+        <div style={{ padding: '18px 20px', borderBottom: '1px solid #f3f4f6', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <h2 style={{ fontSize: 17, fontWeight: 700, color: '#111827', margin: 0 }}>{editing ? 'Edit FAQ' : 'Tambah FAQ'}</h2>
+          <button onClick={onClose} style={{ background: 'none', border: 'none', cursor: 'pointer', color: '#6b7280', display: 'flex' }}><X style={{ width: 20, height: 20 }} /></button>
+        </div>
+        <form onSubmit={e => { e.preventDefault(); onSave(form); }} style={{ padding: 20, display: 'flex', flexDirection: 'column', gap: 14 }}>
+          <div>
+            <label style={labelStyle}>Pertanyaan *</label>
+            <input style={inputStyle} value={form.question} onChange={e => setForm(prev => ({ ...prev, question: e.target.value }))} placeholder="Tulis pertanyaan..." required />
+          </div>
+          <div>
+            <label style={labelStyle}>Jawaban *</label>
+            <textarea style={{ ...inputStyle, minHeight: 100, resize: 'vertical' }} value={form.answer} onChange={e => setForm(prev => ({ ...prev, answer: e.target.value }))} placeholder="Tulis jawaban..." required />
+          </div>
+          <div style={{ display: 'flex', gap: 10, justifyContent: 'flex-end', paddingTop: 4 }}>
+            <button type="button" onClick={onClose} style={{ padding: '9px 18px', border: '1px solid #d1d5db', borderRadius: 8, background: '#fff', color: '#374151', fontSize: 14, fontWeight: 500, cursor: 'pointer' }}>Batal</button>
+            <button type="submit" style={{ padding: '9px 20px', background: '#f97316', border: 'none', borderRadius: 8, color: '#fff', fontSize: 14, fontWeight: 600, cursor: 'pointer' }}>{editing ? 'Update' : 'Tambah'}</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+}
+
+function DeleteModal({ open, onClose, onConfirm }: { open: boolean; onClose: () => void; onConfirm: () => void }) {
+  if (!open) return null;
+  return (
+    <div style={{ position: 'fixed', inset: 0, zIndex: 10000, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 16 }}>
+      <div onClick={onClose} style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.5)' }} />
+      <div style={{ position: 'relative', background: '#fff', borderRadius: 14, padding: 24, width: '100%', maxWidth: 400, boxShadow: '0 20px 60px rgba(0,0,0,0.25)' }}>
+        <h3 style={{ fontSize: 17, fontWeight: 700, color: '#111827', marginBottom: 8 }}>Hapus FAQ</h3>
+        <p style={{ fontSize: 14, color: '#6b7280', marginBottom: 20 }}>Hapus FAQ ini? Tindakan tidak bisa dibatalkan.</p>
+        <div style={{ display: 'flex', gap: 10, justifyContent: 'flex-end' }}>
+          <button onClick={onClose} style={{ padding: '9px 18px', border: '1px solid #d1d5db', borderRadius: 8, background: '#fff', color: '#374151', fontSize: 14, fontWeight: 500, cursor: 'pointer' }}>Batal</button>
+          <button onClick={onConfirm} style={{ padding: '9px 18px', background: '#ef4444', border: 'none', borderRadius: 8, color: '#fff', fontSize: 14, fontWeight: 600, cursor: 'pointer' }}>Hapus</button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Pagination({ page, total, perPage, onChange }: { page: number; total: number; perPage: number; onChange: (p: number) => void }) {
+  const totalPages = Math.max(1, Math.ceil(total / perPage));
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: 8, justifyContent: 'flex-end', paddingTop: 12 }}>
+      <span style={{ fontSize: 13, color: '#6b7280' }}>{Math.min((page - 1) * perPage + 1, total)}–{Math.min(page * perPage, total)} dari {total}</span>
+      <button onClick={() => onChange(page - 1)} disabled={page <= 1} style={{ padding: '4px 8px', border: '1px solid #d1d5db', borderRadius: 6, background: '#fff', cursor: page <= 1 ? 'not-allowed' : 'pointer', opacity: page <= 1 ? 0.4 : 1, display: 'flex' }}><ChevronLeft style={{ width: 16, height: 16 }} /></button>
+      <span style={{ fontSize: 13, color: '#374151' }}>{page} / {totalPages}</span>
+      <button onClick={() => onChange(page + 1)} disabled={page >= totalPages} style={{ padding: '4px 8px', border: '1px solid #d1d5db', borderRadius: 6, background: '#fff', cursor: page >= totalPages ? 'not-allowed' : 'pointer', opacity: page >= totalPages ? 0.4 : 1, display: 'flex' }}><ChevronRight style={{ width: 16, height: 16 }} /></button>
+    </div>
+  );
+}
+
+// ─── Main ─────────────────────────────────────────────────────────────────────
 
 export function FAQAdmin() {
   const [items, setItems] = useState<AdminFaqItem[]>([]);
-  const [isFormOpen, setIsFormOpen] = useState(false);
-  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
-  const [selectedItem, setSelectedItem] = useState<AdminFaqItem | null>(null);
-  const [searchTerm, setSearchTerm] = useState('');
-
+  const [search, setSearch] = useState('');
+  const [page, setPage] = useState(1);
+  const [formOpen, setFormOpen] = useState(false);
+  const [editing, setEditing] = useState<AdminFaqItem | null>(null);
+  const [deleteTarget, setDeleteTarget] = useState<AdminFaqItem | null>(null);
   const { toasts, showToast, removeToast } = useToast();
-  const pagination = usePagination(10);
-  const { sorted, sortKey, sortOrder, toggleSort } = useSort(items);
-  const { results: searchResults } = useSearch(sorted, ['question', 'answer']);
 
-  useEffect(() => {
-    pagination.setTotalItems(searchResults.length);
-  }, [searchResults.length, pagination]);
+  const refresh = () => setItems(getFaqs().sort((a, b) => a.order - b.order));
+  useEffect(() => { refresh(); }, []);
 
-  useEffect(() => {
-    const faqs = getFaqs().sort((a, b) => a.order - b.order);
-    setItems(faqs);
-  }, []);
+  const filtered = useMemo(() => {
+    if (!search.trim()) return items;
+    const q = search.toLowerCase();
+    return items.filter(i => i.question.toLowerCase().includes(q) || i.answer.toLowerCase().includes(q));
+  }, [items, search]);
 
-  const handleAdd = () => {
-    setSelectedItem(null);
-    setIsFormOpen(true);
-  };
+  const paginated = filtered.slice((page - 1) * PER_PAGE, page * PER_PAGE);
 
-  const handleEdit = (item: AdminFaqItem) => {
-    setSelectedItem(item);
-    setIsFormOpen(true);
-  };
-
-  const handleDelete = (item: AdminFaqItem) => {
-    setSelectedItem(item);
-    setIsDeleteOpen(true);
-  };
-
-  const handleFormSubmit = async (values: Record<string, any>) => {
-    try {
-      if (selectedItem) {
-        updateFaq(selectedItem.id, values);
-        showToast('FAQ updated successfully', 'success');
-      } else {
-        addFaq({
-          ...values,
-          order: items.length
-        });
-        showToast('FAQ added successfully', 'success');
-      }
-
-      setIsFormOpen(false);
-      const updated = getFaqs().sort((a, b) => a.order - b.order);
-      setItems(updated);
-    } catch (error) {
-      showToast('Error saving FAQ', 'error');
+  const handleSave = (data: FaqForm) => {
+    if (editing) {
+      updateFaq(editing.id, data);
+      showToast('FAQ diperbarui', 'success');
+    } else {
+      addFaq({ ...data, order: items.length });
+      showToast('FAQ ditambahkan', 'success');
     }
+    setFormOpen(false);
+    refresh();
   };
 
-  const handleConfirmDelete = () => {
-    if (selectedItem) {
-      deleteFaq(selectedItem.id);
-      showToast('FAQ deleted successfully', 'success');
-      setIsDeleteOpen(false);
-      const updated = getFaqs().sort((a, b) => a.order - b.order);
-      setItems(updated);
-    }
+  const handleDelete = () => {
+    if (!deleteTarget) return;
+    deleteFaq(deleteTarget.id);
+    showToast('FAQ dihapus', 'success');
+    setDeleteTarget(null);
+    refresh();
   };
 
-  const moveItem = (index: number, direction: 'up' | 'down') => {
-    const newItems = [...items];
-    if (direction === 'up' && index > 0) {
-      [newItems[index], newItems[index - 1]] = [newItems[index - 1], newItems[index]];
-    } else if (direction === 'down' && index < newItems.length - 1) {
-      [newItems[index], newItems[index + 1]] = [newItems[index + 1], newItems[index]];
-    }
-
-    // Update order values
-    const reordered = newItems.map((item, idx) => ({ ...item, order: idx }));
+  const moveItem = (idx: number, dir: 'up' | 'down') => {
+    const all = [...items];
+    const target = dir === 'up' ? idx - 1 : idx + 1;
+    if (target < 0 || target >= all.length) return;
+    [all[idx], all[target]] = [all[target], all[idx]];
+    const reordered = all.map((item, i) => ({ ...item, order: i }));
     reorderFaqs(reordered);
     setItems(reordered);
-    showToast('Order updated', 'success');
+    showToast('Urutan diperbarui', 'success');
   };
 
-  const displayData = searchResults.slice(pagination.startIndex, pagination.endIndex);
-
   return (
-    <AdminLayout title="FAQ Management" subtitle="Manage frequently asked questions">
+    <AdminLayout>
       <ToastContainer toasts={toasts} onRemove={removeToast} />
 
-      <div className="space-y-6">
-        {/* Header & Search */}
-        <div className="flex flex-col md:flex-row gap-4 items-start md:items-end justify-between">
-          <div className="flex-1 max-w-sm">
-            <label className="block text-sm font-medium text-text-dark mb-2">Search FAQs</label>
-            <div className="relative">
-              <Search className="absolute left-3 top-3 w-5 h-5 text-muted-grey" />
-              <input
-                type="text"
-                placeholder="Search questions..."
-                value={searchTerm}
-                onChange={e => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2.5 border border-line-grey rounded-lg focus:outline-none focus:ring-2 focus:ring-accent-orange"
-              />
-            </div>
-          </div>
-
-          <button
-            onClick={handleAdd}
-            className="self-end bg-accent-orange hover:bg-orange-600 text-white px-6 py-2.5 rounded-lg font-medium transition-colors flex items-center gap-2"
-          >
-            <Plus className="w-4 h-4" />
-            Add FAQ
-          </button>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 24, flexWrap: 'wrap', gap: 12 }}>
+        <div>
+          <h1 style={{ fontSize: 22, fontWeight: 700, color: '#111827', margin: 0 }}>FAQ</h1>
+          <p style={{ fontSize: 13, color: '#6b7280', margin: '4px 0 0' }}>Kelola pertanyaan yang sering ditanya</p>
         </div>
-
-        {/* Table */}
-        <DataTable
-          data={displayData.map((item, idx) => ({
-            ...item,
-            _displayIndex: pagination.startIndex + idx
-          }))}
-          columns={COLUMNS}
-          sortKey={sortKey as string}
-          sortOrder={sortOrder}
-          onSort={(key) => toggleSort(key as any)}
-          currentPage={pagination.currentPage}
-          itemsPerPage={pagination.itemsPerPage}
-          totalPages={pagination.totalPages}
-          onPageChange={pagination.goToPage}
-          actions={{
-            edit: (item: any) => handleEdit({ ...item, _displayIndex: undefined } as AdminFaqItem),
-            delete: (item: any) => handleDelete({ ...item, _displayIndex: undefined } as AdminFaqItem),
-            custom: [
-              {
-                label: '↑',
-                onClick: (item: any) => moveItem(items.indexOf(item), 'up')
-              },
-              {
-                label: '↓',
-                onClick: (item: any) => moveItem(items.indexOf(item), 'down')
-              }
-            ]
-          }}
-          emptyState={{
-            title: 'No FAQs found',
-            description: 'Add your first FAQ to get started',
-            actionLabel: 'Add FAQ',
-            onAction: handleAdd
-          }}
-        />
+        <button onClick={() => { setEditing(null); setFormOpen(true); }} style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '10px 18px', background: '#f97316', border: 'none', borderRadius: 8, color: '#fff', fontSize: 14, fontWeight: 600, cursor: 'pointer' }}>
+          <Plus style={{ width: 16, height: 16 }} /> Tambah FAQ
+        </button>
       </div>
 
-      {/* Form Modal */}
-      <FormModal
-        isOpen={isFormOpen}
-        title={selectedItem ? 'Edit FAQ' : 'Add FAQ'}
-        fields={FORM_FIELDS}
-        initialValues={selectedItem || {}}
-        onSubmit={handleFormSubmit}
-        onCancel={() => setIsFormOpen(false)}
-        submitLabel={selectedItem ? 'Update' : 'Add'}
-      />
+      <div style={{ position: 'relative', marginBottom: 16, maxWidth: 360 }}>
+        <Search style={{ position: 'absolute', left: 10, top: '50%', transform: 'translateY(-50%)', width: 16, height: 16, color: '#9ca3af' }} />
+        <input type="text" placeholder="Cari FAQ..." value={search} onChange={e => { setSearch(e.target.value); setPage(1); }} style={{ width: '100%', paddingLeft: 34, paddingRight: 12, paddingTop: 9, paddingBottom: 9, border: '1px solid #d1d5db', borderRadius: 8, fontSize: 14, color: '#111827', outline: 'none', boxSizing: 'border-box' }} />
+      </div>
 
-      {/* Delete Confirmation */}
-      <DeleteConfirmation
-        isOpen={isDeleteOpen}
-        title="Delete FAQ"
-        message={`Are you sure you want to delete this FAQ? This action cannot be undone.`}
-        onConfirm={handleConfirmDelete}
-        onCancel={() => setIsDeleteOpen(false)}
-      />
+      <div style={{ background: '#fff', borderRadius: 12, boxShadow: '0 1px 4px rgba(0,0,0,0.06)', overflow: 'hidden' }}>
+        <div style={{ overflowX: 'auto' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
+            <thead>
+              <tr style={{ background: '#f9fafb', borderBottom: '1px solid #f3f4f6' }}>
+                <th style={{ padding: '11px 16px', textAlign: 'left', fontWeight: 600, color: '#374151', width: 60 }}>#</th>
+                <th style={{ padding: '11px 16px', textAlign: 'left', fontWeight: 600, color: '#374151' }}>Pertanyaan</th>
+                <th style={{ padding: '11px 16px', textAlign: 'left', fontWeight: 600, color: '#374151' }}>Preview Jawaban</th>
+                <th style={{ padding: '11px 16px', textAlign: 'left', fontWeight: 600, color: '#374151', whiteSpace: 'nowrap' }}>Urutan</th>
+                <th style={{ padding: '11px 16px', textAlign: 'left', fontWeight: 600, color: '#374151' }}>Aksi</th>
+              </tr>
+            </thead>
+            <tbody>
+              {paginated.length === 0 ? (
+                <tr><td colSpan={5} style={{ padding: '32px 16px', textAlign: 'center', color: '#9ca3af' }}>Tidak ada data</td></tr>
+              ) : paginated.map((item, i) => {
+                const globalIdx = items.indexOf(item);
+                return (
+                  <tr key={item.id} style={{ borderTop: '1px solid #f3f4f6', background: i % 2 === 0 ? '#fff' : '#fafafa' }}>
+                    <td style={{ padding: '11px 16px', color: '#6b7280' }}>{item.order + 1}</td>
+                    <td style={{ padding: '11px 16px', fontWeight: 500, color: '#111827', maxWidth: 240, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{item.question}</td>
+                    <td style={{ padding: '11px 16px', color: '#6b7280', maxWidth: 300, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{item.answer}</td>
+                    <td style={{ padding: '11px 16px' }}>
+                      <div style={{ display: 'flex', gap: 4 }}>
+                        <button onClick={() => moveItem(globalIdx, 'up')} disabled={globalIdx === 0} style={{ padding: '4px 6px', background: '#f3f4f6', border: 'none', borderRadius: 5, cursor: globalIdx === 0 ? 'not-allowed' : 'pointer', opacity: globalIdx === 0 ? 0.4 : 1, display: 'flex' }}>
+                          <ChevronUp style={{ width: 14, height: 14 }} />
+                        </button>
+                        <button onClick={() => moveItem(globalIdx, 'down')} disabled={globalIdx === items.length - 1} style={{ padding: '4px 6px', background: '#f3f4f6', border: 'none', borderRadius: 5, cursor: globalIdx === items.length - 1 ? 'not-allowed' : 'pointer', opacity: globalIdx === items.length - 1 ? 0.4 : 1, display: 'flex' }}>
+                          <ChevronDown style={{ width: 14, height: 14 }} />
+                        </button>
+                      </div>
+                    </td>
+                    <td style={{ padding: '11px 16px' }}>
+                      <div style={{ display: 'flex', gap: 6 }}>
+                        <button onClick={() => { setEditing(item); setFormOpen(true); }} style={{ padding: '5px 10px', background: '#eff6ff', border: 'none', borderRadius: 6, color: '#1d4ed8', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 4, fontSize: 12, fontWeight: 500 }}>
+                          <Pencil style={{ width: 12, height: 12 }} /> Edit
+                        </button>
+                        <button onClick={() => setDeleteTarget(item)} style={{ padding: '5px 10px', background: '#fef2f2', border: 'none', borderRadius: 6, color: '#dc2626', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 4, fontSize: 12, fontWeight: 500 }}>
+                          <Trash2 style={{ width: 12, height: 12 }} /> Hapus
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+        <div style={{ padding: '8px 16px 12px', borderTop: '1px solid #f3f4f6' }}>
+          <Pagination page={page} total={filtered.length} perPage={PER_PAGE} onChange={setPage} />
+        </div>
+      </div>
+
+      <FormModal open={formOpen} editing={editing} onClose={() => setFormOpen(false)} onSave={handleSave} />
+      <DeleteModal open={!!deleteTarget} onClose={() => setDeleteTarget(null)} onConfirm={handleDelete} />
     </AdminLayout>
   );
 }

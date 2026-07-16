@@ -1,6 +1,8 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 
-interface Toast {
+// ─── Toast ───────────────────────────────────────────────────────────────────
+
+export interface Toast {
   id: string;
   message: string;
   type: 'success' | 'error' | 'info';
@@ -10,20 +12,19 @@ interface Toast {
 export function useToast() {
   const [toasts, setToasts] = useState<Toast[]>([]);
 
-  const showToast = useCallback((message: string, type: 'success' | 'error' | 'info' = 'info', duration = 3000) => {
-    const id = `toast-${Date.now()}`;
-    const toast: Toast = { id, message, type, duration };
-    
-    setToasts(prev => [...prev, toast]);
-
-    if (duration) {
-      setTimeout(() => {
-        setToasts(prev => prev.filter(t => t.id !== id));
-      }, duration);
-    }
-
-    return id;
-  }, []);
+  const showToast = useCallback(
+    (message: string, type: Toast['type'] = 'info', duration = 3000) => {
+      const id = `toast-${Date.now()}-${Math.random()}`;
+      setToasts(prev => [...prev, { id, message, type, duration }]);
+      if (duration > 0) {
+        setTimeout(() => {
+          setToasts(prev => prev.filter(t => t.id !== id));
+        }, duration);
+      }
+      return id;
+    },
+    []
+  );
 
   const removeToast = useCallback((id: string) => {
     setToasts(prev => prev.filter(t => t.id !== id));
@@ -32,43 +33,7 @@ export function useToast() {
   return { toasts, showToast, removeToast };
 }
 
-export function useConfirm() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [config, setConfig] = useState<{
-    title: string;
-    message: string;
-    onConfirm: () => void;
-    onCancel?: () => void;
-    confirmLabel?: string;
-    cancelLabel?: string;
-    isDestructive?: boolean;
-  } | null>(null);
-
-  const confirm = useCallback((cfg: Parameters<typeof setConfig>[0]) => {
-    setConfig(cfg);
-    setIsOpen(true);
-  }, []);
-
-  const handleConfirm = useCallback(() => {
-    config?.onConfirm();
-    setIsOpen(false);
-    setConfig(null);
-  }, [config]);
-
-  const handleCancel = useCallback(() => {
-    config?.onCancel?.();
-    setIsOpen(false);
-    setConfig(null);
-  }, [config]);
-
-  return {
-    isOpen,
-    config,
-    confirm,
-    handleConfirm,
-    handleCancel
-  };
-}
+// ─── Pagination ───────────────────────────────────────────────────────────────
 
 interface PaginationState {
   currentPage: number;
@@ -84,39 +49,35 @@ export function usePagination(initialItemsPerPage = 10) {
   });
 
   const setTotalItems = useCallback((total: number) => {
-    setState(prev => ({ ...prev, totalItems: total }));
+    setState(prev => (prev.totalItems === total ? prev : { ...prev, totalItems: total, currentPage: 1 }));
   }, []);
 
   const goToPage = useCallback((page: number) => {
-    setState(prev => ({
-      ...prev,
-      currentPage: Math.max(1, Math.min(page, Math.ceil(prev.totalItems / prev.itemsPerPage)))
-    }));
+    setState(prev => {
+      const maxPage = Math.max(1, Math.ceil(prev.totalItems / prev.itemsPerPage));
+      const next = Math.max(1, Math.min(page, maxPage));
+      return prev.currentPage === next ? prev : { ...prev, currentPage: next };
+    });
   }, []);
 
   const nextPage = useCallback(() => {
-    setState(prev => ({
-      ...prev,
-      currentPage: Math.min(prev.currentPage + 1, Math.ceil(prev.totalItems / prev.itemsPerPage))
-    }));
+    setState(prev => {
+      const maxPage = Math.max(1, Math.ceil(prev.totalItems / prev.itemsPerPage));
+      return prev.currentPage >= maxPage ? prev : { ...prev, currentPage: prev.currentPage + 1 };
+    });
   }, []);
 
   const prevPage = useCallback(() => {
-    setState(prev => ({
-      ...prev,
-      currentPage: Math.max(1, prev.currentPage - 1)
-    }));
+    setState(prev =>
+      prev.currentPage <= 1 ? prev : { ...prev, currentPage: prev.currentPage - 1 }
+    );
   }, []);
 
   const setItemsPerPage = useCallback((items: number) => {
-    setState(prev => ({
-      ...prev,
-      itemsPerPage: items,
-      currentPage: 1
-    }));
+    setState(prev => ({ ...prev, itemsPerPage: items, currentPage: 1 }));
   }, []);
 
-  const totalPages = Math.ceil(state.totalItems / state.itemsPerPage);
+  const totalPages = Math.max(1, Math.ceil(state.totalItems / state.itemsPerPage));
   const startIndex = (state.currentPage - 1) * state.itemsPerPage;
   const endIndex = startIndex + state.itemsPerPage;
 
@@ -133,43 +94,50 @@ export function usePagination(initialItemsPerPage = 10) {
   };
 }
 
-export function useSearch<T>(items: T[], searchableFields: (keyof T)[], query: string = '') {
-  const results = query.trim() === '' ? items : items.filter(item =>
-    searchableFields.some(field => {
-      const value = item[field];
-      return String(value).toLowerCase().includes(query.toLowerCase());
-    })
-  );
+// ─── Search ───────────────────────────────────────────────────────────────────
+
+export function useSearch<T>(items: T[], fields: (keyof T)[], query: string = '') {
+  const results = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    if (!q) return items;
+    return items.filter(item =>
+      fields.some(field => String(item[field] ?? '').toLowerCase().includes(q))
+    );
+  }, [items, fields, query]);
 
   return { results };
 }
+
+// ─── Sort ─────────────────────────────────────────────────────────────────────
 
 export function useSort<T>(items: T[]) {
   const [sortKey, setSortKey] = useState<keyof T | null>(null);
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
 
-  const toggleSort = (key: keyof T) => {
-    if (sortKey === key) {
-      setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
-    } else {
-      setSortKey(key);
-      setSortOrder('asc');
-    }
-  };
+  const toggleSort = useCallback(
+    (key: keyof T) => {
+      if (sortKey === key) {
+        setSortOrder(prev => (prev === 'asc' ? 'desc' : 'asc'));
+      } else {
+        setSortKey(key);
+        setSortOrder('asc');
+      }
+    },
+    [sortKey]
+  );
 
-  const sorted = sortKey
-    ? [...items].sort((a, b) => {
-        const aVal = a[sortKey];
-        const bVal = b[sortKey];
-
-        if (aVal === bVal) return 0;
-        if (aVal === null || aVal === undefined) return 1;
-        if (bVal === null || bVal === undefined) return -1;
-
-        const comparison = aVal < bVal ? -1 : 1;
-        return sortOrder === 'asc' ? comparison : -comparison;
-      })
-    : items;
+  const sorted = useMemo(() => {
+    if (!sortKey) return items;
+    return [...items].sort((a, b) => {
+      const aVal = a[sortKey];
+      const bVal = b[sortKey];
+      if (aVal === bVal) return 0;
+      if (aVal == null) return 1;
+      if (bVal == null) return -1;
+      const cmp = aVal < bVal ? -1 : 1;
+      return sortOrder === 'asc' ? cmp : -cmp;
+    });
+  }, [items, sortKey, sortOrder]);
 
   return { sorted, sortKey, sortOrder, toggleSort };
 }

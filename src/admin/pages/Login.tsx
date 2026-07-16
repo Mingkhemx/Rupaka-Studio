@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'motion/react';
@@ -16,123 +17,249 @@ export function AdminLogin() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-
     try {
-      // Initialize storage with mock data on first login
       initializeStorage();
-
       const result = login(email, password);
       if (result.success) {
-        showToast('Login successful!', 'success');
-        setTimeout(() => {
-          navigate('/admin');
-        }, 500);
+        showToast('Login berhasil!', 'success');
+        setTimeout(() => navigate('/admin'), 500);
       } else {
-        showToast(result.error || 'Invalid credentials', 'error');
+        showToast(result.error || 'Email atau password salah', 'error');
       }
-    } catch (error) {
-      showToast('Login failed', 'error');
+    } catch {
+      showToast('Login gagal, coba lagi', 'error');
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary-dark via-primary-blue to-primary-dark flex items-center justify-center p-4">
+    <div
+      style={{
+        minHeight: '100vh',
+        background: '#0f172a',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: 16
+      }}
+    >
       <ToastContainer toasts={toasts} onRemove={removeToast} />
 
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
-        className="w-full max-w-md"
+        transition={{ duration: 0.3 }}
+        style={{ width: '100%', maxWidth: 420 }}
       >
         {/* Card */}
-        <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
+        <div
+          style={{
+            background: '#1e293b',
+            border: '1px solid rgba(255,255,255,0.08)',
+            borderRadius: 16,
+            overflow: 'hidden',
+            boxShadow: '0 24px 64px rgba(0,0,0,0.4)'
+          }}
+        >
           {/* Header */}
-          <div className="bg-gradient-to-r from-accent-orange to-orange-600 px-6 py-8 text-center">
-            <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Lock className="w-6 h-6 text-white" />
+          <div
+            style={{
+              background: 'linear-gradient(135deg, #f97316 0%, #ea580c 100%)',
+              padding: '32px 24px',
+              textAlign: 'center'
+            }}
+          >
+            <div
+              style={{
+                width: 56,
+                height: 56,
+                background: 'rgba(255,255,255,0.15)',
+                borderRadius: '50%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                margin: '0 auto 16px'
+              }}
+            >
+              <Lock style={{ width: 26, height: 26, color: '#fff' }} />
             </div>
-            <h1 className="text-2xl font-bold text-white mb-2">Rupaka Admin</h1>
-            <p className="text-white/80 text-sm">Secure Admin Panel</p>
+            <h1 style={{ fontSize: 22, fontWeight: 700, color: '#fff', margin: 0 }}>
+              Rupaka Admin
+            </h1>
+            <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.75)', margin: '6px 0 0' }}>
+              Secure Admin Panel
+            </p>
           </div>
 
           {/* Form */}
-          <form onSubmit={handleSubmit} className="p-6 space-y-5">
+          <form onSubmit={handleSubmit} style={{ padding: 24, display: 'flex', flexDirection: 'column', gap: 18 }}>
             {/* Email */}
             <div>
-              <label className="block text-sm font-medium text-text-dark mb-2">Email</label>
-              <div className="relative">
-                <Mail className="absolute left-3 top-3 w-5 h-5 text-muted-grey" />
+              <label
+                style={{ display: 'block', fontSize: 13, fontWeight: 600, color: '#cbd5e1', marginBottom: 8 }}
+              >
+                Email
+              </label>
+              <div style={{ position: 'relative' }}>
+                <Mail
+                  style={{
+                    position: 'absolute',
+                    left: 12,
+                    top: '50%',
+                    transform: 'translateY(-50%)',
+                    width: 18,
+                    height: 18,
+                    color: '#64748b'
+                  }}
+                />
                 <input
                   type="email"
                   value={email}
                   onChange={e => setEmail(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2.5 border border-line-grey rounded-lg focus:outline-none focus:ring-2 focus:ring-accent-orange transition-all"
-                  placeholder="Enter email"
                   required
+                  placeholder="Masukkan email"
+                  style={{
+                    width: '100%',
+                    paddingLeft: 40,
+                    paddingRight: 14,
+                    paddingTop: 10,
+                    paddingBottom: 10,
+                    background: '#0f172a',
+                    border: '1px solid rgba(255,255,255,0.12)',
+                    borderRadius: 8,
+                    color: '#e2e8f0',
+                    fontSize: 14,
+                    outline: 'none',
+                    boxSizing: 'border-box'
+                  }}
                 />
               </div>
             </div>
 
             {/* Password */}
             <div>
-              <label className="block text-sm font-medium text-text-dark mb-2">Password</label>
-              <div className="relative">
-                <Lock className="absolute left-3 top-3 w-5 h-5 text-muted-grey" />
+              <label
+                style={{ display: 'block', fontSize: 13, fontWeight: 600, color: '#cbd5e1', marginBottom: 8 }}
+              >
+                Password
+              </label>
+              <div style={{ position: 'relative' }}>
+                <Lock
+                  style={{
+                    position: 'absolute',
+                    left: 12,
+                    top: '50%',
+                    transform: 'translateY(-50%)',
+                    width: 18,
+                    height: 18,
+                    color: '#64748b'
+                  }}
+                />
                 <input
                   type="password"
                   value={password}
                   onChange={e => setPassword(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2.5 border border-line-grey rounded-lg focus:outline-none focus:ring-2 focus:ring-accent-orange transition-all"
-                  placeholder="Enter password"
                   required
+                  placeholder="Masukkan password"
+                  style={{
+                    width: '100%',
+                    paddingLeft: 40,
+                    paddingRight: 14,
+                    paddingTop: 10,
+                    paddingBottom: 10,
+                    background: '#0f172a',
+                    border: '1px solid rgba(255,255,255,0.12)',
+                    borderRadius: 8,
+                    color: '#e2e8f0',
+                    fontSize: 14,
+                    outline: 'none',
+                    boxSizing: 'border-box'
+                  }}
                 />
               </div>
             </div>
 
-            {/* Demo Credentials */}
-            <div className="p-3 bg-blue-50 rounded-lg border border-blue-200">
-              <p className="text-xs text-blue-800 font-medium">Demo Credentials:</p>
-              <p className="text-xs text-blue-700 mt-1">
-                Email: <code className="bg-blue-100 px-1 rounded">admin@rupaka.com</code>
+            {/* Credentials hint */}
+            <div
+              style={{
+                background: 'rgba(249,115,22,0.1)',
+                border: '1px solid rgba(249,115,22,0.25)',
+                borderRadius: 8,
+                padding: '10px 14px'
+              }}
+            >
+              <p style={{ fontSize: 12, fontWeight: 600, color: '#fb923c', margin: '0 0 4px' }}>
+                Demo Credentials
               </p>
-              <p className="text-xs text-blue-700">
-                Password: <code className="bg-blue-100 px-1 rounded">admin123</code>
+              <p style={{ fontSize: 12, color: '#94a3b8', margin: 0 }}>
+                Email: <code style={{ color: '#fdba74' }}>admin@rupaka.com</code>
+              </p>
+              <p style={{ fontSize: 12, color: '#94a3b8', margin: '2px 0 0' }}>
+                Password: <code style={{ color: '#fdba74' }}>admin123</code>
               </p>
             </div>
 
-            {/* Submit Button */}
+            {/* Submit */}
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full bg-gradient-to-r from-accent-orange to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white font-semibold py-3 rounded-lg transition-all disabled:opacity-50 flex items-center justify-center gap-2"
+              style={{
+                width: '100%',
+                padding: '12px 0',
+                background: isLoading ? '#9a3412' : '#f97316',
+                color: '#fff',
+                border: 'none',
+                borderRadius: 8,
+                fontSize: 15,
+                fontWeight: 600,
+                cursor: isLoading ? 'not-allowed' : 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: 8,
+                transition: 'background 0.15s'
+              }}
             >
               {isLoading ? (
                 <>
-                  <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                  Logging in...
+                  <span
+                    style={{
+                      width: 16,
+                      height: 16,
+                      border: '2px solid rgba(255,255,255,0.3)',
+                      borderTop: '2px solid #fff',
+                      borderRadius: '50%',
+                      display: 'inline-block',
+                      animation: 'spin 0.8s linear infinite'
+                    }}
+                  />
+                  Masuk...
                 </>
               ) : (
                 <>
-                  <Lock className="w-4 h-4" />
-                  Sign In
+                  <Lock style={{ width: 16, height: 16 }} />
+                  Masuk
                 </>
               )}
             </button>
-
-            {/* Footer */}
-            <p className="text-xs text-center text-muted-grey">
-              Protected by authentication
-            </p>
           </form>
         </div>
 
-        {/* Bottom Info */}
-        <div className="mt-6 text-center text-white/60 text-xs">
-          <p>© 2025 Rupaka Studio. All rights reserved.</p>
-        </div>
+        <p
+          style={{
+            textAlign: 'center',
+            fontSize: 12,
+            color: 'rgba(255,255,255,0.3)',
+            marginTop: 20
+          }}
+        >
+          © 2025 Rupaka Studio. All rights reserved.
+        </p>
       </motion.div>
+
+      {/* Spinner keyframe */}
+      <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
     </div>
   );
 }
