@@ -60,6 +60,7 @@ export default function Footer() {
                 <div>
                   <h4 className="font-display text-lg font-bold tracking-tight text-white leading-none">Rupaka Studio</h4>
                   <p className="text-[10px] text-white/40 tracking-widest uppercase mt-1">Mitra Visual UMKM</p>
+                  <p className="text-xs text-accent-coral font-semibold mt-2">+62 821-4360-9712</p>
                 </div>
               </div>
 
