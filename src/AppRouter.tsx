@@ -5,12 +5,24 @@ import App from './App';
 import { AdminApp } from './admin';
 
 function RequireAuth({ children }: { children: React.ReactNode }) {
-  const { isAuthenticated, loading } = useAuth();
+  const { isAuthenticated, loading, error } = useAuth();
 
   if (loading) {
     return (
       <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#0f172a', color: '#94a3b8' }}>
         Memuat...
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#0f172a', color: '#ef4444', padding: 20, textAlign: 'center' }}>
+        <div>
+          <h2 style={{ fontSize: 18, marginBottom: 10 }}>Error Firebase</h2>
+          <p style={{ fontSize: 14 }}>{error}</p>
+          <p style={{ fontSize: 12, marginTop: 10, color: '#94a3b8' }}>Pastikan environment variables sudah diisi dengan benar di Vercel</p>
+        </div>
       </div>
     );
   }
