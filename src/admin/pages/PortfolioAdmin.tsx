@@ -78,6 +78,7 @@ function FormModal({ open, editing, onClose, onSave }: FormModalProps) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    console.log('Form submitted, form data:', form);
     onSave(form);
   };
 
@@ -342,23 +343,30 @@ export function PortfolioAdmin() {
   const paginated = filtered.slice((page - 1) * PER_PAGE, page * PER_PAGE);
 
   const handleSave = async (data: PortfolioFormData) => {
+    console.log('Form data:', data);
+    
     const payload = {
       ...data,
       features: data.features.split(',').map(f => f.trim()).filter(Boolean)
     } as Omit<AdminPortfolioItem, 'id' | 'createdAt' | 'updatedAt'>;
 
+    console.log('Payload to save:', payload);
+
     try {
       if (editing) {
+        console.log('Updating portfolio with id:', editing.id);
         await updatePortfolio(editing.id, payload);
         showToast('Portfolio diperbarui', 'success');
       } else {
+        console.log('Adding new portfolio');
         await addPortfolio(payload);
         showToast('Portfolio ditambahkan', 'success');
       }
       setFormOpen(false);
       await refresh();
-    } catch {
-      showToast('Gagal menyimpan portfolio', 'error');
+    } catch (error) {
+      console.error('Error saving portfolio:', error);
+      showToast('Gagal menyimpan portfolio: ' + (error instanceof Error ? error.message : 'Unknown error'), 'error');
     }
   };
 

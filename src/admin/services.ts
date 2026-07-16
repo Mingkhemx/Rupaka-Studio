@@ -195,6 +195,7 @@ export async function getPortfolios(): Promise<AdminPortfolioItem[]> {
 export async function addPortfolio(
   item: Omit<AdminPortfolioItem, 'id' | 'createdAt' | 'updatedAt'>
 ): Promise<AdminPortfolioItem> {
+  console.log('addPortfolio called with item:', item);
   const db = getFirebaseDb();
   const id = `port-${Date.now()}`;
   const timestamp = nowIso();
@@ -204,7 +205,9 @@ export async function addPortfolio(
     createdAt: timestamp,
     updatedAt: timestamp,
   };
+  console.log('Saving to Firestore:', newItem);
   await setDoc(doc(db, COLLECTIONS.portfolios, id), newItem);
+  console.log('Successfully saved to Firestore');
   return newItem;
 }
 
