@@ -5,83 +5,151 @@ import basrengPackaging from './assets/BASRENG_Rhadika_Snack_packaging_…_20260
 import logoSaky from './assets/Logo saky.png';
 import logoAurra from './assets/logo aurra.jpeg';
 import logoLynix from './assets/logo lynix.jpeg';
-import mockupLogo from './assets/Mockup logo.png';
+import logoRupaka from './assets/logo.png';
+import mockupLogoJpeg from './assets/Mockup logo.jpeg';
+import mockupLogoPng from './assets/Mockup logo.png';
 import banner1 from './assets/Banner 1.png';
 import banner2 from './assets/Banner 2.png';
 import banner3 from './assets/Banner3.png';
+import mascotSaky from './assets/mascot saky.png';
+import mascotRupaka from './assets/mascot website rupaka.png';
+import maskot from './assets/maskot.png';
 
 export const PORTFOLIO_ITEMS: PortfolioItem[] = [
   {
     id: 'port-1',
-    title: 'Poster Promosi Warung Kopi Estetik',
+    title: 'Poster Promosi Rumah Panggang',
     category: 'poster',
     image: posterRumahPanggang1,
-    description: 'Poster promosi cetak dan digital beresolusi tinggi dengan gaya minimalis, cocok untuk menu baru atau kampanye spesial di Instagram.',
+    description: 'Poster promosi cetak dan digital beresolusi tinggi dengan desain menarik untuk rumah panggang dengan gaya modern minimalis.',
     price: 'Rp 50.000',
     features: ['Format file siap cetak (PDF, PNG)', 'Revisi maksimal 2 kali', 'Pengerjaan 1-2 hari kerja', 'Gaya desain custom modern']
   },
   {
     id: 'port-2',
-    title: 'Redesain Logo & Kemasan Keripik Tempe Jogja',
-    category: 'logo',
-    image: logoSaky,
-    description: 'Identitas visual baru yang berkarakter untuk memperkuat branding UMKM makanan tradisional agar tampil menarik di rak supermarket modern.',
-    price: 'Rp 150.000',
-    features: ['Master file vektor (AI, EPS, SVG)', 'Panduan warna & tipografi', 'Visualisasi mock-up produk 3D', 'Lisensi komersial penuh']
+    title: 'Poster Series Rumah Panggang Vol. 2',
+    category: 'poster',
+    image: posterRumahPanggang2,
+    description: 'Koleksi poster promosi kedua untuk kampanye berkelanjutan dengan tema dan style yang konsisten dengan brand identity.',
+    price: 'Rp 120.000',
+    features: ['Paket 4-6 desain poster', 'Tema customizable', 'Revisi unlimited', 'Format cetak dan digital']
   },
   {
     id: 'port-3',
-    title: 'Stiker Branding & Digital Planner Kuliner',
-    category: 'custom',
+    title: 'Kemasan Produk BASRENG Rhadika',
+    category: 'logo',
     image: basrengPackaging,
-    description: 'Produk pelengkap branding berupa stiker segel kemasan dan planner digital untuk merencanakan konten promosi harian usaha.',
-    price: 'Rp 75.000',
-    features: ['Format stiker cutting die-cut', 'File resolusi tinggi siap cetak', 'Warna akurat CMYK', 'Termasuk elemen ilustrasi original']
+    description: 'Desain kemasan produk snack yang eye-catching dengan branding yang kuat untuk meningkatkan penjualan di retail.',
+    price: 'Rp 180.000',
+    features: ['Master file vektor (AI, EPS, SVG)', 'Panduan warna & tipografi', 'Visualisasi mock-up produk 3D', 'Lisensi komersial penuh']
   },
   {
     id: 'port-4',
-    title: 'Landing Page Portfolio Produk Kerajinan Bambu',
-    category: 'website',
-    image: mockupLogo,
-    description: 'Website satu halaman interaktif dan responsif untuk memamerkan katalog produk kerajinan bambu lokal Jogja ke pasar nasional.',
-    price: 'Rp 450.000',
-    features: ['Desain responsif HP & Desktop', 'Integrasi WhatsApp direct chat', 'SEO On-Page dasar', 'Hosting ringan & pemeliharaan mudah']
+    title: 'Logo Saky - Identitas Visual Unik',
+    category: 'logo',
+    image: logoSaky,
+    description: 'Desain logo berkarakter yang kuat dan mudah diingat untuk branding UMKM makanan tradisional yang berkualitas.',
+    price: 'Rp 150.000',
+    features: ['Logo master file vektor', 'Aplikasi di berbagai media', 'Brand guideline lengkap', 'Black-white & color version']
   },
   {
     id: 'port-5',
-    title: 'Branding Package Logo Aurra',
+    title: 'Logo Aurra - Brand Modern',
     category: 'logo',
     image: logoAurra,
-    description: 'Paket branding lengkap dengan logo, panduan warna, dan aplikasi visual untuk platform digital dan cetak.',
+    description: 'Identitas visual modern dengan logo minimalis yang cocok untuk brand fashion dan lifestyle contemporary.',
     price: 'Rp 200.000',
-    features: ['Logo master file vektor', 'Brand guideline PDF', 'Social media template', 'Aplikasi logo di berbagai media']
+    features: ['Logo dalam berbagai format', 'Favicon & app icon', 'Social media template', 'Aplikasi logo di media cetak']
   },
   {
     id: 'port-6',
-    title: 'Logo Lynix - Identitas Visual Modern',
+    title: 'Logo Lynix - Tech Brand Identity',
     category: 'logo',
     image: logoLynix,
-    description: 'Desain logo modern dengan karakter yang kuat, sempurna untuk startup teknologi dan brand internasional.',
-    price: 'Rp 180.000',
+    description: 'Desain logo futuristik untuk startup teknologi dengan karakter yang strong dan memorable di berbagai platform.',
+    price: 'Rp 200.000',
     features: ['Logo dalam berbagai format', 'Favicon & app icon', 'Vertical & horizontal layout', 'Warna & black-white version']
   },
   {
     id: 'port-7',
-    title: 'Campaign Banner Series',
+    title: 'Logo Rupaka Studio - Brand Mark',
+    category: 'logo',
+    image: logoRupaka,
+    description: 'Logo brand Rupaka Studio sendiri yang mencerminkan identitas sebagai studio desain terpercaya untuk UMKM Indonesia.',
+    price: 'Rp 250.000',
+    features: ['Logo master file vektor', 'Brand guidelines lengkap', 'Aplikasi lintas media', 'Lisensi komersial penuh']
+  },
+  {
+    id: 'port-8',
+    title: 'Mockup Logo - Presentasi Klien',
+    category: 'custom',
+    image: mockupLogoPng,
+    description: 'Visualisasi mockup 3D profesional untuk menampilkan hasil desain logo kepada klien dengan perspektif yang menarik.',
+    price: 'Rp 100.000',
+    features: ['Mockup 3D realistis', 'Multiple angle views', 'Background customizable', 'High resolution export']
+  },
+  {
+    id: 'port-9',
+    title: 'Campaign Banner Series 1',
     category: 'poster',
     image: banner1,
-    description: 'Serangkaian banner promosi untuk kampanye media sosial dengan tema dan style yang konsisten.',
+    description: 'Serangkaian banner promosi untuk kampanye media sosial yang eye-catching dan sesuai brand guidelines klien.',
     price: 'Rp 120.000',
     features: ['3-5 variasi banner', 'Ukuran untuk Instagram, TikTok, Facebook', 'HD resolution 1080px', 'Source file PSD tersedia']
   },
   {
-    id: 'port-8',
-    title: 'Poster Series Vol. 2',
+    id: 'port-10',
+    title: 'Campaign Banner Series 2',
     category: 'poster',
-    image: posterRumahPanggang2,
-    description: 'Koleksi poster promosi multi-tema untuk kebutuhan marketing bulanan UMKM retail dan F&B.',
+    image: banner2,
+    description: 'Banner promosi dengan desain berani untuk meningkatkan engagement di berbagai platform media sosial.',
+    price: 'Rp 120.000',
+    features: ['3-5 variasi banner', 'Animasi-ready design', 'Brand color palette', 'Multiple format export']
+  },
+  {
+    id: 'port-11',
+    title: 'Campaign Banner Series 3',
+    category: 'poster',
+    image: banner3,
+    description: 'Banner kampanye ketiga dengan konsep visual yang fresh dan menarik perhatian target audience dengan cepat.',
+    price: 'Rp 120.000',
+    features: ['Desain responsif semua ukuran', 'Copy writing optimization', 'CTA button design', 'A/B test version']
+  },
+  {
+    id: 'port-12',
+    title: 'Mascot Saky - Character Design',
+    category: 'custom',
+    image: mascotSaky,
+    description: 'Desain karakter mascot yang cute dan memorable untuk branding produk makanan dan merchandise tambahan.',
+    price: 'Rp 300.000',
+    features: ['Character design sheet', 'Multiple pose & expression', 'Merchandise mockup', 'Animation-ready format']
+  },
+  {
+    id: 'port-13',
+    title: 'Mascot Rupaka Website - Brand Character',
+    category: 'custom',
+    image: mascotRupaka,
+    description: 'Karakter mascot khusus untuk website dan marketing material Rupaka Studio sebagai brand ambassador yang friendly.',
     price: 'Rp 350.000',
-    features: ['Paket 4-6 desain poster', 'Tema customizable', 'Revisi unlimited', 'Format cetak dan digital']
+    features: ['Detailed character design', 'Multiple poses available', 'Website integration ready', 'Social media format']
+  },
+  {
+    id: 'port-14',
+    title: 'Maskot General - Versatile Character',
+    category: 'custom',
+    image: maskot,
+    description: 'Desain karakter yang versatile dan bisa digunakan untuk berbagai kebutuhan branding dan marketing campaign.',
+    price: 'Rp 280.000',
+    features: ['Flexible character design', 'Multiple variations', 'Merchandise-ready', 'Animation compatible']
+  },
+  {
+    id: 'port-15',
+    title: 'Mockup Logo Alternatif - JPEG Version',
+    category: 'custom',
+    image: mockupLogoJpeg,
+    description: 'Presentasi mockup alternatif dalam format JPEG untuk fleksibilitas lebih dalam menampilkan hasil desain kepada klien.',
+    price: 'Rp 100.000',
+    features: ['High quality mockup', 'Realistic presentation', 'Easy file sharing', 'Quick preview format']
   }
 ];
 
