@@ -1,12 +1,15 @@
 import { useState } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { PORTFOLIO_ITEMS } from '../data';
 import { PortfolioItem } from '../types';
-import { X, Check, MessageSquare, ArrowUpRight, Award } from 'lucide-react';
+import { X, Check, MessageSquare, ArrowUpRight, Award, ChevronDown } from 'lucide-react';
 
 export default function Portfolio() {
   const [selectedCategory, setSelectedCategory] = useState<'all' | 'poster' | 'logo' | 'website' | 'custom'>('all');
   const [selectedProject, setSelectedProject] = useState<PortfolioItem | null>(null);
+  const [showMore, setShowMore] = useState(false);
+  const itemsPerPage = 6;
 
   const categories = [
     { id: 'all', name: 'Semua' },
@@ -19,6 +22,10 @@ export default function Portfolio() {
   const filteredItems = selectedCategory === 'all' 
     ? PORTFOLIO_ITEMS 
     : PORTFOLIO_ITEMS.filter(item => item.category === selectedCategory);
+
+  // Limit items to display based on showMore state
+  const displayedItems = showMore ? filteredItems : filteredItems.slice(0, itemsPerPage);
+  const hasMoreItems = filteredItems.length > itemsPerPage;
 
   const handleOrderWhatsApp = (project: PortfolioItem) => {
     const textParam = encodeURIComponent(`Halo Rupaka Studio! Saya tertarik memesan jasa pembuatan "${project.title}" seharga ${project.price}. Mohon informasi petunjuk brief-nya.`);
@@ -57,10 +64,10 @@ export default function Portfolio() {
       {/* Portfolio Responsive Grid */}
       <motion.div 
         layout
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full"
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full mb-8"
       >
         <AnimatePresence mode="popLayout">
-          {filteredItems.map((item, index) => (
+          {displayedItems.map((item, index) => (
             <motion.div
               layout
               initial={{ opacity: 0, scale: 0.95 }}
@@ -115,6 +122,26 @@ export default function Portfolio() {
           ))}
         </AnimatePresence>
       </motion.div>
+
+      {/* Show More Button */}
+      {hasMoreItems && (
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="flex justify-center mt-12"
+        >
+          <button
+            onClick={() => setShowMore(!showMore)}
+            className="flex items-center gap-2 px-8 py-3.5 rounded-full font-display text-sm font-bold uppercase tracking-wider text-white bg-black-dark hover:bg-black transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 cursor-pointer border border-line-grey/30"
+          >
+            <span>{showMore ? 'Sembunyikan' : 'Lihat Selengkapnya'}</span>
+            <ChevronDown 
+              size={16} 
+              className={`transition-transform duration-300 ${showMore ? 'rotate-180' : ''}`}
+            />
+          </button>
+        </motion.div>
+      )}
 
       {/* PORTFOLIO DETAIL DIALOG MODAL */}
       <AnimatePresence>
