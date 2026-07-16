@@ -9,15 +9,19 @@ function published<T extends { status?: string }>(items: T[]): T[] {
 }
 
 export function usePublicPortfolios() {
-  const [items, setItems] = useState<AdminPortfolioItem[]>(PORTFOLIO_ITEMS as AdminPortfolioItem[]);
+  const [items, setItems] = useState<AdminPortfolioItem[]>([]);
   const [loading, setLoading] = useState(isFirebaseConfigured());
 
   useEffect(() => {
-    if (!isFirebaseConfigured()) return;
+    if (!isFirebaseConfigured()) {
+      setItems(PORTFOLIO_ITEMS as AdminPortfolioItem[]);
+      setLoading(false);
+      return;
+    }
 
     getPortfolios()
       .then((data) => setItems(published(data)))
-      .catch(() => setItems(PORTFOLIO_ITEMS as AdminPortfolioItem[]))
+      .catch(() => setItems([]))
       .finally(() => setLoading(false));
   }, []);
 
@@ -25,15 +29,19 @@ export function usePublicPortfolios() {
 }
 
 export function usePublicBlogs() {
-  const [items, setItems] = useState<AdminBlogPost[]>(BLOG_POSTS as AdminBlogPost[]);
+  const [items, setItems] = useState<AdminBlogPost[]>([]);
   const [loading, setLoading] = useState(isFirebaseConfigured());
 
   useEffect(() => {
-    if (!isFirebaseConfigured()) return;
+    if (!isFirebaseConfigured()) {
+      setItems(BLOG_POSTS as AdminBlogPost[]);
+      setLoading(false);
+      return;
+    }
 
     getBlogs()
       .then((data) => setItems(published(data)))
-      .catch(() => setItems(BLOG_POSTS as AdminBlogPost[]))
+      .catch(() => setItems([]))
       .finally(() => setLoading(false));
   }, []);
 
@@ -41,15 +49,19 @@ export function usePublicBlogs() {
 }
 
 export function usePublicTestimonials() {
-  const [items, setItems] = useState<AdminTestimonial[]>(TESTIMONIAL_ITEMS as AdminTestimonial[]);
+  const [items, setItems] = useState<AdminTestimonial[]>([]);
   const [loading, setLoading] = useState(isFirebaseConfigured());
 
   useEffect(() => {
-    if (!isFirebaseConfigured()) return;
+    if (!isFirebaseConfigured()) {
+      setItems(TESTIMONIAL_ITEMS as AdminTestimonial[]);
+      setLoading(false);
+      return;
+    }
 
     getTestimonials()
       .then((data) => setItems(published(data)))
-      .catch(() => setItems(TESTIMONIAL_ITEMS as AdminTestimonial[]))
+      .catch(() => setItems([]))
       .finally(() => setLoading(false));
   }, []);
 
@@ -57,22 +69,24 @@ export function usePublicTestimonials() {
 }
 
 export function usePublicFaqs() {
-  const [items, setItems] = useState<AdminFaqItem[]>(
-    FAQ_ITEMS.map((item, index) => ({
-      ...item,
-      order: index,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-    }))
-  );
+  const [items, setItems] = useState<AdminFaqItem[]>([]);
   const [loading, setLoading] = useState(isFirebaseConfigured());
 
   useEffect(() => {
-    if (!isFirebaseConfigured()) return;
+    if (!isFirebaseConfigured()) {
+      setItems(FAQ_ITEMS.map((item, index) => ({
+        ...item,
+        order: index,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      })));
+      setLoading(false);
+      return;
+    }
 
     getFaqs()
       .then((data) => setItems(data.sort((a, b) => a.order - b.order)))
-      .catch(() => undefined)
+      .catch(() => setItems([]))
       .finally(() => setLoading(false));
   }, []);
 

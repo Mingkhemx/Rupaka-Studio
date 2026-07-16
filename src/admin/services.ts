@@ -170,8 +170,7 @@ export async function login(
   try {
     const auth = getFirebaseAuth();
     await signInWithEmailAndPassword(auth, email, password);
-    // Initialize storage in background without blocking login
-    initializeStorage().catch(err => console.error('Storage initialization error:', err));
+    // Don't auto-seed data - let users add their own data
     return { success: true };
   } catch (error) {
     return { success: false, error: firebaseAuthError(error) };
@@ -190,7 +189,6 @@ export function getCurrentUser(): User | null {
 
 export async function getPortfolios(): Promise<AdminPortfolioItem[]> {
   if (!isFirebaseConfigured()) return [];
-  await seedIfEmpty();
   return getCollection<AdminPortfolioItem>(COLLECTIONS.portfolios);
 }
 
@@ -229,7 +227,6 @@ export async function deletePortfolio(id: string) {
 
 export async function getBlogs(): Promise<AdminBlogPost[]> {
   if (!isFirebaseConfigured()) return [];
-  await seedIfEmpty();
   return getCollection<AdminBlogPost>(COLLECTIONS.blogs);
 }
 
@@ -269,7 +266,6 @@ export async function deleteBlog(id: string) {
 
 export async function getTestimonials(): Promise<AdminTestimonial[]> {
   if (!isFirebaseConfigured()) return [];
-  await seedIfEmpty();
   return getCollection<AdminTestimonial>(COLLECTIONS.testimonials);
 }
 
@@ -308,7 +304,6 @@ export async function deleteTestimonial(id: string) {
 
 export async function getFaqs(): Promise<AdminFaqItem[]> {
   if (!isFirebaseConfigured()) return [];
-  await seedIfEmpty();
   const db = getFirebaseDb();
   const snapshot = await getDocs(query(collection(db, COLLECTIONS.faqs), orderBy('order', 'asc')));
   return snapshot.docs.map((item) => mapDoc<AdminFaqItem>(item.id, item.data()));
@@ -364,7 +359,6 @@ export async function reorderFaqs(faqs: AdminFaqItem[]) {
 
 export async function getOrders(): Promise<AdminOrder[]> {
   if (!isFirebaseConfigured()) return [];
-  await seedIfEmpty();
   return getCollection<AdminOrder>(COLLECTIONS.orders);
 }
 
