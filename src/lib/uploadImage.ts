@@ -1,11 +1,15 @@
 import { v2 as cloudinary } from 'cloudinary';
 
-// Configure Cloudinary
-cloudinary.config({
-  cloud_name: import.meta.env.VITE_CLOUDINARY_CLOUD_NAME,
-  api_key: import.meta.env.VITE_CLOUDINARY_API_KEY,
-  api_secret: import.meta.env.VITE_CLOUDINARY_API_SECRET,
-});
+// Configure Cloudinary only if credentials are available
+if (import.meta.env.VITE_CLOUDINARY_CLOUD_NAME && 
+    import.meta.env.VITE_CLOUDINARY_API_KEY && 
+    import.meta.env.VITE_CLOUDINARY_API_SECRET) {
+  cloudinary.config({
+    cloud_name: import.meta.env.VITE_CLOUDINARY_CLOUD_NAME,
+    api_key: import.meta.env.VITE_CLOUDINARY_API_KEY,
+    api_secret: import.meta.env.VITE_CLOUDINARY_API_SECRET,
+  });
+}
 
 export async function uploadImage(file: File, folder: string): Promise<string> {
   console.log('uploadImage called with file:', file.name, 'folder:', folder);
@@ -25,7 +29,7 @@ export async function uploadImage(file: File, folder: string): Promise<string> {
       !import.meta.env.VITE_CLOUDINARY_API_KEY || 
       !import.meta.env.VITE_CLOUDINARY_API_SECRET) {
     console.error('Cloudinary not configured');
-    throw new Error('Cloudinary belum dikonfigurasi. Pastikan environment variables VITE_CLOUDINARY_* sudah diisi.');
+    throw new Error('Cloudinary belum dikonfigurasi. Silakan gunakan URL gambar eksternal atau tambahkan environment variables VITE_CLOUDINARY_* di Vercel.');
   }
 
   try {
