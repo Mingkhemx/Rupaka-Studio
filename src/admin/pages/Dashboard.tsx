@@ -103,12 +103,21 @@ export function Dashboard() {
   const [recentOrders, setRecentOrders] = useState<AdminOrder[]>([]);
 
   useEffect(() => {
-    setStats(getStats());
-    setRecentOrders(
-      getOrders()
-        .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
-        .slice(0, 5)
-    );
+    async function loadDashboard() {
+      try {
+        const [statsData, orders] = await Promise.all([getStats(), getOrders()]);
+        setStats(statsData);
+        setRecentOrders(
+          orders
+            .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+            .slice(0, 5)
+        );
+      } catch {
+        // Keep default empty stats on error
+      }
+    }
+
+    loadDashboard();
   }, []);
 
   const statCards: StatCardProps[] = [

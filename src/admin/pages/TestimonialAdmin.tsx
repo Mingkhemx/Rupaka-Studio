@@ -157,8 +157,13 @@ export function TestimonialAdmin() {
   const [deleteTarget, setDeleteTarget] = useState<AdminTestimonial | null>(null);
   const { toasts, showToast, removeToast } = useToast();
 
-  const refresh = () => setItems(getTestimonials());
-  useEffect(() => { refresh(); }, []);
+  const refresh = async () => {
+    const data = await getTestimonials();
+    setItems(data);
+  };
+  useEffect(() => {
+    refresh().catch(() => showToast('Gagal memuat testimonial', 'error'));
+  }, []);
 
   const filtered = useMemo(() => {
     let list = items;
@@ -172,24 +177,32 @@ export function TestimonialAdmin() {
 
   const paginated = filtered.slice((page - 1) * PER_PAGE, page * PER_PAGE);
 
-  const handleSave = (data: TestimonialForm) => {
-    if (editing) {
-      updateTestimonial(editing.id, data);
-      showToast('Testimonial diperbarui', 'success');
-    } else {
-      addTestimonial(data);
-      showToast('Testimonial ditambahkan', 'success');
+  const handleSave = async (data: TestimonialForm) => {
+    try {
+      if (editing) {
+        await updateTestimonial(editing.id, data);
+        showToast('Testimonial diperbarui', 'success');
+      } else {
+        await addTestimonial(data);
+        showToast('Testimonial ditambahkan', 'success');
+      }
+      setFormOpen(false);
+      await refresh();
+    } catch {
+      showToast('Gagal menyimpan testimonial', 'error');
     }
-    setFormOpen(false);
-    refresh();
   };
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
     if (!deleteTarget) return;
-    deleteTestimonial(deleteTarget.id);
-    showToast('Testimonial dihapus', 'success');
-    setDeleteTarget(null);
-    refresh();
+    try {
+      await deleteTestimonial(deleteTarget.id);
+      showToast('Testimonial dihapus', 'success');
+      setDeleteTarget(null);
+      await refresh();
+    } catch {
+      showToast('Gagal menghapus testimonial', 'error');
+    }
   };
 
   return (

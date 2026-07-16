@@ -100,8 +100,13 @@ export function FAQAdmin() {
   const [deleteTarget, setDeleteTarget] = useState<AdminFaqItem | null>(null);
   const { toasts, showToast, removeToast } = useToast();
 
-  const refresh = () => setItems(getFaqs().sort((a, b) => a.order - b.order));
-  useEffect(() => { refresh(); }, []);
+  const refresh = async () => {
+    const data = await getFaqs();
+    setItems(data.sort((a, b) => a.order - b.order));
+  };
+  useEffect(() => {
+    refresh().catch(() => showToast('Gagal memuat FAQ', 'error'));
+  }, []);
 
   const filtered = useMemo(() => {
     if (!search.trim()) return items;
@@ -111,35 +116,47 @@ export function FAQAdmin() {
 
   const paginated = filtered.slice((page - 1) * PER_PAGE, page * PER_PAGE);
 
-  const handleSave = (data: FaqForm) => {
-    if (editing) {
-      updateFaq(editing.id, data);
-      showToast('FAQ diperbarui', 'success');
-    } else {
-      addFaq({ ...data, order: items.length });
-      showToast('FAQ ditambahkan', 'success');
+  const handleSave = async (data: FaqForm) => {
+    try {
+      if (editing) {
+        await updateFaq(editing.id, data);
+        showToast('FAQ diperbarui', 'success');
+      } else {
+        await addFaq({ ...data, order: items.length });
+        showToast('FAQ ditambahkan', 'success');
+      }
+      setFormOpen(false);
+      await refresh();
+    } catch {
+      showToast('Gagal menyimpan FAQ', 'error');
     }
-    setFormOpen(false);
-    refresh();
   };
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
     if (!deleteTarget) return;
-    deleteFaq(deleteTarget.id);
-    showToast('FAQ dihapus', 'success');
-    setDeleteTarget(null);
-    refresh();
+    try {
+      await deleteFaq(deleteTarget.id);
+      showToast('FAQ dihapus', 'success');
+      setDeleteTarget(null);
+      await refresh();
+    } catch {
+      showToast('Gagal menghapus FAQ', 'error');
+    }
   };
 
-  const moveItem = (idx: number, dir: 'up' | 'down') => {
+  const moveItem = async (idx: number, dir: 'up' | 'down') => {
     const all = [...items];
     const target = dir === 'up' ? idx - 1 : idx + 1;
     if (target < 0 || target >= all.length) return;
     [all[idx], all[target]] = [all[target], all[idx]];
     const reordered = all.map((item, i) => ({ ...item, order: i }));
-    reorderFaqs(reordered);
-    setItems(reordered);
-    showToast('Urutan diperbarui', 'success');
+    try {
+      await reorderFaqs(reordered);
+      setItems(reordered);
+      showToast('Urutan diperbarui', 'success');
+    } catch {
+      showToast('Gagal mengubah urutan FAQ', 'error');
+    }
   };
 
   return (

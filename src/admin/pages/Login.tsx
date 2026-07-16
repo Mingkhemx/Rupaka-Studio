@@ -9,8 +9,8 @@ import { useToast } from '../hooks/useAdmin';
 
 export function AdminLogin() {
   const navigate = useNavigate();
-  const [email, setEmail] = useState('admin@rupaka.com');
-  const [password, setPassword] = useState('admin123');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const { toasts, showToast, removeToast } = useToast();
 
@@ -18,8 +18,8 @@ export function AdminLogin() {
     e.preventDefault();
     setIsLoading(true);
     try {
-      initializeStorage();
-      const result = login(email, password);
+      await initializeStorage();
+      const result = await login(email, password);
       if (result.success) {
         showToast('Login berhasil!', 'success');
         setTimeout(() => navigate('/admin'), 500);
@@ -180,7 +180,6 @@ export function AdminLogin() {
               </div>
             </div>
 
-            {/* Credentials hint */}
             <div
               style={{
                 background: 'rgba(249,115,22,0.1)',
@@ -190,13 +189,10 @@ export function AdminLogin() {
               }}
             >
               <p style={{ fontSize: 12, fontWeight: 600, color: '#fb923c', margin: '0 0 4px' }}>
-                Demo Credentials
+                Firebase Authentication
               </p>
               <p style={{ fontSize: 12, color: '#94a3b8', margin: 0 }}>
-                Email: <code style={{ color: '#fdba74' }}>admin@rupaka.com</code>
-              </p>
-              <p style={{ fontSize: 12, color: '#94a3b8', margin: '2px 0 0' }}>
-                Password: <code style={{ color: '#fdba74' }}>admin123</code>
+                Login dengan akun admin yang sudah dibuat di Firebase Console.
               </p>
             </div>
 

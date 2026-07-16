@@ -1,6 +1,6 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { isAuthenticated } from './services';
+import { useAuth } from '../contexts/AuthContext';
 import { ToastContainer } from './components/Toast';
 import { useToast } from './hooks/useAdmin';
 
@@ -12,9 +12,18 @@ import { BlogAdmin } from './pages/BlogAdmin';
 import { TestimonialAdmin } from './pages/TestimonialAdmin';
 import { FAQAdmin } from './pages/FAQAdmin';
 
-// Protected Route Component
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
-  if (!isAuthenticated()) {
+  const { isAuthenticated, loading } = useAuth();
+
+  if (loading) {
+    return (
+      <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f3f4f6', color: '#6b7280' }}>
+        Memuat...
+      </div>
+    );
+  }
+
+  if (!isAuthenticated) {
     return <Navigate to="/admin/login" replace />;
   }
   return <>{children}</>;
@@ -27,10 +36,8 @@ export function AdminApp() {
     <>
       <ToastContainer toasts={toasts} onRemove={removeToast} />
       <Routes>
-        {/* Public Route */}
         <Route path="/login" element={<AdminLogin />} />
 
-        {/* Protected Routes */}
         <Route
           path="/"
           element={
@@ -72,7 +79,6 @@ export function AdminApp() {
           }
         />
 
-        {/* 404 Fallback */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </>

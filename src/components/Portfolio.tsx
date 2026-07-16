@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { PORTFOLIO_ITEMS } from '../data';
+import { usePublicPortfolios } from '../hooks/usePublicData';
 import { PortfolioItem } from '../types';
 import { X, Check, MessageSquare, ArrowUpRight, Award } from 'lucide-react';
 
 export default function Portfolio() {
+  const { items: portfolioItems } = usePublicPortfolios();
   const [selectedCategory, setSelectedCategory] = useState<'all' | 'poster' | 'banner' | 'kemasan'>('all');
   const [selectedProject, setSelectedProject] = useState<PortfolioItem | null>(null);
 
@@ -16,8 +17,8 @@ export default function Portfolio() {
   ];
 
   const filteredItems = selectedCategory === 'all' 
-    ? PORTFOLIO_ITEMS 
-    : PORTFOLIO_ITEMS.filter(item => item.category === selectedCategory);
+    ? portfolioItems 
+    : portfolioItems.filter(item => item.category === selectedCategory);
 
   const handleOrderWhatsApp = (project: PortfolioItem) => {
     const textParam = encodeURIComponent(`Halo Rupaka Studio! Saya tertarik memesan jasa pembuatan "${project.title}" seharga ${project.price}. Mohon informasi petunjuk brief-nya.`);
@@ -181,18 +182,11 @@ export default function Portfolio() {
                   </div>
                 </div>
 
-                {/* Footer price & purchase bar */}
-                <div className="pt-6 border-t border-line-grey/30 flex items-center justify-between gap-4 mt-4">
-                  <div>
-                    <span className="text-[10px] uppercase tracking-widest font-bold text-muted-grey">Mulai Dari</span>
-                    <p className="font-display text-2xl font-black text-black-dark tracking-tight leading-none mt-1">
-                      {selectedProject.price}
-                    </p>
-                  </div>
-
+                {/* Footer purchase bar */}
+                <div className="pt-6 border-t border-line-grey/30 flex items-center justify-end mt-4">
                   <button
                     onClick={() => handleOrderWhatsApp(selectedProject)}
-                    className="bg-black text-white hover:bg-gray-800 font-display text-[11px] font-bold uppercase tracking-wider px-6 h-[48px] rounded-full flex items-center gap-2 shadow-lg transition-colors cursor-pointer"
+                    className="bg-black text-white hover:bg-gray-800 font-display text-[11px] font-bold uppercase tracking-wider px-8 h-[48px] rounded-full flex items-center gap-2 shadow-lg transition-colors cursor-pointer"
                   >
                     <MessageSquare size={13} />
                     <span>Pesan via WA</span>

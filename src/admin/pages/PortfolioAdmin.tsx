@@ -10,6 +10,7 @@ import {
   updatePortfolio,
   deletePortfolio
 } from '../services';
+import { uploadImage } from '../../lib/uploadImage';
 import type { AdminPortfolioItem } from '../types';
 
 const CATEGORIES = ['poster', 'banner', 'kemasan'] as const;
@@ -58,10 +59,21 @@ interface FormModalProps {
 
 function FormModal({ open, editing, onClose, onSave }: FormModalProps) {
   const [form, setForm] = useState<PortfolioFormData>(emptyForm);
+  const [uploading, setUploading] = useState(false);
 
   useEffect(() => {
     setForm(editing ? itemToForm(editing) : emptyForm);
   }, [editing, open]);
+
+  const handleImageUpload = async (file: File) => {
+    setUploading(true);
+    try {
+      const url = await uploadImage(file, 'portfolios');
+      setForm((prev) => ({ ...prev, image: url }));
+    } finally {
+      setUploading(false);
+    }
+  };
 
   if (!open) return null;
 
@@ -177,6 +189,17 @@ function FormModal({ open, editing, onClose, onSave }: FormModalProps) {
           <div>
             <label style={labelStyle}>URL Gambar</label>
             <input style={inputStyle} value={form.image} onChange={e => set('image', e.target.value)} placeholder="https://..." />
+            <input
+              type="file"
+              accept="image/*"
+              disabled={uploading}
+              onChange={(e) => {
+                const file = e.target.files?.[0];
+                if (file) handleImageUpload(file);
+              }}
+              style={{ marginTop: 8, fontSize: 13 }}
+            />
+            {uploading && <p style={{ fontSize: 12, color: '#6b7280', marginTop: 4 }}>Mengupload gambar...</p>}
           </div>
 
           <div>
@@ -306,9 +329,14 @@ export function PortfolioAdmin() {
   const [deleteTarget, setDeleteTarget] = useState<AdminPortfolioItem | null>(null);
   const { toasts, showToast, removeToast } = useToast();
 
-  const refresh = () => setItems(getPortfolios());
+  const refresh = async () => {
+    const data = await getPortfolios();
+    setItems(data);
+  };
 
-  useEffect(() => { refresh(); }, []);
+  useEffect(() => {
+    refresh().catch(() => showToast('Gagal memuat portfolio', 'error'));
+  }, []);
 
   const filtered = useMemo(() => {
     let list = items;
@@ -322,29 +350,37 @@ export function PortfolioAdmin() {
 
   const paginated = filtered.slice((page - 1) * PER_PAGE, page * PER_PAGE);
 
-  const handleSave = (data: PortfolioFormData) => {
+  const handleSave = async (data: PortfolioFormData) => {
     const payload = {
       ...data,
       features: data.features.split(',').map(f => f.trim()).filter(Boolean)
     } as Omit<AdminPortfolioItem, 'id' | 'createdAt' | 'updatedAt'>;
 
-    if (editing) {
-      updatePortfolio(editing.id, payload);
-      showToast('Portfolio diperbarui', 'success');
-    } else {
-      addPortfolio(payload);
-      showToast('Portfolio ditambahkan', 'success');
+    try {
+      if (editing) {
+        await updatePortfolio(editing.id, payload);
+        showToast('Portfolio diperbarui', 'success');
+      } else {
+        await addPortfolio(payload);
+        showToast('Portfolio ditambahkan', 'success');
+      }
+      setFormOpen(false);
+      await refresh();
+    } catch {
+      showToast('Gagal menyimpan portfolio', 'error');
     }
-    setFormOpen(false);
-    refresh();
   };
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
     if (!deleteTarget) return;
-    deletePortfolio(deleteTarget.id);
-    showToast('Portfolio dihapus', 'success');
-    setDeleteTarget(null);
-    refresh();
+    try {
+      await deletePortfolio(deleteTarget.id);
+      showToast('Portfolio dihapus', 'success');
+      setDeleteTarget(null);
+      await refresh();
+    } catch {
+      showToast('Gagal menghapus portfolio', 'error');
+    }
   };
 
   return (

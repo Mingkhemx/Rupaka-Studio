@@ -5,6 +5,7 @@ import { AdminLayout } from '../components/AdminLayout';
 import { ToastContainer } from '../components/Toast';
 import { useToast } from '../hooks/useAdmin';
 import { getBlogs, addBlog, updateBlog, deleteBlog } from '../services';
+import { uploadImage } from '../../lib/uploadImage';
 import type { AdminBlogPost } from '../types';
 import { format } from 'date-fns';
 
@@ -73,10 +74,21 @@ interface FormModalProps {
 
 function FormModal({ open, editing, onClose, onSave }: FormModalProps) {
   const [form, setForm] = useState<BlogFormData>(emptyForm);
+  const [uploading, setUploading] = useState(false);
 
   useEffect(() => {
     setForm(editing ? itemToForm(editing) : emptyForm);
   }, [editing, open]);
+
+  const handleImageUpload = async (file: File) => {
+    setUploading(true);
+    try {
+      const url = await uploadImage(file, 'blogs');
+      setForm((prev) => ({ ...prev, image: url }));
+    } finally {
+      setUploading(false);
+    }
+  };
 
   if (!open) return null;
 
@@ -114,6 +126,17 @@ function FormModal({ open, editing, onClose, onSave }: FormModalProps) {
           <div>
             <label style={labelStyle}>URL Cover Image</label>
             <input style={inputStyle} value={form.image} onChange={e => set('image', e.target.value)} placeholder="https://..." />
+            <input
+              type="file"
+              accept="image/*"
+              disabled={uploading}
+              onChange={(e) => {
+                const file = e.target.files?.[0];
+                if (file) handleImageUpload(file);
+              }}
+              style={{ marginTop: 8, fontSize: 13 }}
+            />
+            {uploading && <p style={{ fontSize: 12, color: '#6b7280', marginTop: 4 }}>Mengupload gambar...</p>}
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
             <div>
@@ -179,8 +202,13 @@ export function BlogAdmin() {
   const [deleteTarget, setDeleteTarget] = useState<AdminBlogPost | null>(null);
   const { toasts, showToast, removeToast } = useToast();
 
-  const refresh = () => setItems(getBlogs());
-  useEffect(() => { refresh(); }, []);
+  const refresh = async () => {
+    const data = await getBlogs();
+    setItems(data);
+  };
+  useEffect(() => {
+    refresh().catch(() => showToast('Gagal memuat blog', 'error'));
+  }, []);
 
   const categories = useMemo(() => [...new Set(items.map(i => i.category))], [items]);
 
@@ -196,24 +224,32 @@ export function BlogAdmin() {
 
   const paginated = filtered.slice((page - 1) * PER_PAGE, page * PER_PAGE);
 
-  const handleSave = (data: BlogFormData) => {
-    if (editing) {
-      updateBlog(editing.id, data);
-      showToast('Blog diperbarui', 'success');
-    } else {
-      addBlog({ ...data, date: format(new Date(), 'dd MMM yyyy') });
-      showToast('Blog ditambahkan', 'success');
+  const handleSave = async (data: BlogFormData) => {
+    try {
+      if (editing) {
+        await updateBlog(editing.id, data);
+        showToast('Blog diperbarui', 'success');
+      } else {
+        await addBlog({ ...data, date: format(new Date(), 'dd MMM yyyy') });
+        showToast('Blog ditambahkan', 'success');
+      }
+      setFormOpen(false);
+      await refresh();
+    } catch {
+      showToast('Gagal menyimpan blog', 'error');
     }
-    setFormOpen(false);
-    refresh();
   };
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
     if (!deleteTarget) return;
-    deleteBlog(deleteTarget.id);
-    showToast('Blog dihapus', 'success');
-    setDeleteTarget(null);
-    refresh();
+    try {
+      await deleteBlog(deleteTarget.id);
+      showToast('Blog dihapus', 'success');
+      setDeleteTarget(null);
+      await refresh();
+    } catch {
+      showToast('Gagal menghapus blog', 'error');
+    }
   };
 
   return (

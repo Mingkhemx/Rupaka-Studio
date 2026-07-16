@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { FAQ_ITEMS, TESTIMONIAL_ITEMS } from '../data';
+import { usePublicFaqs, usePublicTestimonials } from '../hooks/usePublicData';
 import { ChevronDown, MessageSquare, Star, Quote, ArrowLeft, ArrowRight, UserCircle } from 'lucide-react';
 
 export default function TestimonialFaq() {
-  const [openFaq, setOpenFaq] = useState<string | null>('faq-1');
+  const { items: faqItems } = usePublicFaqs();
+  const { items: testimonialItems } = usePublicTestimonials();
+  const [openFaq, setOpenFaq] = useState<string | null>(faqItems[0]?.id ?? null);
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
 
   const toggleFaq = (id: string) => {
@@ -16,14 +18,20 @@ export default function TestimonialFaq() {
   };
 
   const nextTestimonial = () => {
-    setCurrentTestimonial((prev) => (prev + 1) % TESTIMONIAL_ITEMS.length);
+    if (!testimonialItems.length) return;
+    setCurrentTestimonial((prev) => (prev + 1) % testimonialItems.length);
   };
 
   const prevTestimonial = () => {
-    setCurrentTestimonial((prev) => (prev - 1 + TESTIMONIAL_ITEMS.length) % TESTIMONIAL_ITEMS.length);
+    if (!testimonialItems.length) return;
+    setCurrentTestimonial((prev) => (prev - 1 + testimonialItems.length) % testimonialItems.length);
   };
 
-  const activeTestimonial = TESTIMONIAL_ITEMS[currentTestimonial];
+  const activeTestimonial = testimonialItems[currentTestimonial];
+
+  if (!activeTestimonial) {
+    return null;
+  }
 
   return (
     <section className="py-24 sm:py-32 px-6 sm:px-10 max-w-[1440px] mx-auto bg-page-bg border-t border-line-grey/25">
@@ -84,7 +92,7 @@ export default function TestimonialFaq() {
             <ArrowLeft size={16} />
           </button>
           <div className="flex gap-1.5">
-            {TESTIMONIAL_ITEMS.map((_, index) => (
+            {testimonialItems.map((_, index) => (
               <button
                 key={index}
                 onClick={() => setCurrentTestimonial(index)}
@@ -115,7 +123,7 @@ export default function TestimonialFaq() {
         </div>
 
         <div className="space-y-4">
-          {FAQ_ITEMS.map((item) => {
+          {faqItems.map((item) => {
             const isOpen = openFaq === item.id;
             return (
               <div 

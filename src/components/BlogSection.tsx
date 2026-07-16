@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { BLOG_POSTS } from '../data';
+import { usePublicBlogs } from '../hooks/usePublicData';
 import { BlogPost } from '../types';
 import { X, Calendar, User, Clock, ArrowRight, BookOpen } from 'lucide-react';
 
 export default function BlogSection() {
+  const { items: blogPosts } = usePublicBlogs();
   const [readingPost, setReadingPost] = useState<BlogPost | null>(null);
 
   return (
@@ -27,7 +28,7 @@ export default function BlogSection() {
 
       {/* Blog Grid Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {BLOG_POSTS.map((post) => (
+        {blogPosts.map((post) => (
           <div 
             key={post.id}
             onClick={() => setReadingPost(post)}
