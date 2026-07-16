@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useState } from 'react';
-import { motion, AnimatePresence, Reorder } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import { 
   BadgeDollarSign, 
   Sparkles, 
@@ -49,7 +49,6 @@ const serviceItems = [
 
 export default function Features() {
   const [activeFeature, setActiveFeature] = useState(0);
-  const [services, setServices] = useState(serviceItems);
 
   const featureList = [
     {
@@ -100,42 +99,43 @@ export default function Features() {
           </div>
 
           <div className="space-y-4 relative z-10">
-            <Reorder.Group 
-              axis="y" 
-              values={services} 
-              onReorder={setServices}
-              className="space-y-4"
-            >
-              {services.map((service) => (
-                <Reorder.Item 
-                  key={service.id} 
-                  value={service}
-                  className="flex items-center gap-4 p-4 bg-white-card/80 hover:bg-white-card rounded-2xl transition-all duration-300 border border-line-grey/20 cursor-grab active:cursor-grabbing group/item hover:shadow-md"
+            {serviceItems.map((service) => (
+              <motion.div
+                key={service.id}
+                drag
+                dragElastic={0.2}
+                dragTransition={{ power: 0.3, restDelta: 0.001 }}
+                whileHover={{ scale: 1.02 }}
+                whileDrag={{ 
+                  scale: 1.05,
+                  boxShadow: '0 20px 40px rgba(0,0,0,0.15)',
+                  zIndex: 50
+                }}
+                className="flex items-center gap-4 p-4 bg-white-card/80 hover:bg-white-card rounded-2xl transition-all duration-300 border border-line-grey/20 cursor-grab active:cursor-grabbing group/item hover:shadow-md"
+              >
+                <div className="text-muted-grey/40 group-hover/item:text-muted-grey transition-colors">
+                  <GripVertical size={18} />
+                </div>
+                <div 
+                  className="w-10 h-10 rounded-full flex items-center justify-center shrink-0 group-hover/item:scale-110 transition-transform"
+                  style={{ 
+                    backgroundColor: `${service.color}15`,
+                    color: service.color
+                  }}
                 >
-                  <div className="text-muted-grey/40 group-hover/item:text-muted-grey transition-colors">
-                    <GripVertical size={18} />
-                  </div>
-                  <div 
-                    className="w-10 h-10 rounded-full flex items-center justify-center shrink-0 group-hover/item:scale-110 transition-transform"
-                    style={{ 
-                      backgroundColor: `${service.color}15`,
-                      color: service.color
-                    }}
+                  {service.icon && <service.icon size={18} />}
+                </div>
+                <div className="flex-1">
+                  <h5 
+                    className="font-display font-bold text-sm text-text-dark transition-colors"
+                    style={{ color: service.color + 'cc' }}
                   >
-                    {service.icon && <service.icon size={18} />}
-                  </div>
-                  <div className="flex-1">
-                    <h5 
-                      className="font-display font-bold text-sm text-text-dark transition-colors group-hover/item:text-opacity-80"
-                      style={{ color: service.color + 'cc' }}
-                    >
-                      {service.title}
-                    </h5>
-                    <p className="text-[11px] text-muted-grey mt-0.5">{service.desc}</p>
-                  </div>
-                </Reorder.Item>
-              ))}
-            </Reorder.Group>
+                    {service.title}
+                  </h5>
+                  <p className="text-[11px] text-muted-grey mt-0.5">{service.desc}</p>
+                </div>
+              </motion.div>
+            ))}
           </div>
 
           <div className="mt-8 pt-4 border-t border-line-grey/30 flex items-center justify-between text-muted-grey text-[10px] uppercase font-bold tracking-wider relative z-10">
