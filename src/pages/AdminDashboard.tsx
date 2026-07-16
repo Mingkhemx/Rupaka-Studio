@@ -113,7 +113,7 @@ export function AdminLayout({ children, activeTab, onTabChange }: AdminLayoutPro
         </div>
 
         {/* Footer - User Card */}
-        <div className={`p-4 border-t border-gray-200 ${sidebarOpen ? '' : 'flex justify-center'}`}>
+        <div className={`p-4 border-t border-gray-200 ${sidebarOpen ? '' : 'flex flex-col items-center gap-3'}`}>
           {sidebarOpen ? (
             <div className="bg-gradient-to-b from-gray-50 to-gray-100 rounded-lg p-4 text-center border border-gray-200">
               <p className="text-xs text-gray-500 mb-2 font-medium">Logged in as</p>
@@ -127,13 +127,18 @@ export function AdminLayout({ children, activeTab, onTabChange }: AdminLayoutPro
               </button>
             </div>
           ) : (
-            <button
-              onClick={handleLogout}
-              className="w-10 h-10 bg-red-600 hover:bg-red-700 rounded-lg transition-colors duration-200 text-white flex items-center justify-center"
-              title="Logout"
-            >
-              <LogOut size={16} />
-            </button>
+            <>
+              <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center text-white font-semibold text-xs">
+                {adminEmail.charAt(0).toUpperCase()}
+              </div>
+              <button
+                onClick={handleLogout}
+                className="w-8 h-8 bg-red-600 hover:bg-red-700 rounded-lg transition-colors duration-200 text-white flex items-center justify-center"
+                title="Logout"
+              >
+                <LogOut size={14} />
+              </button>
+            </>
           )}
         </div>
 
