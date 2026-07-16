@@ -100,6 +100,14 @@ export default function Portfolio() {
         </AnimatePresence>
       </motion.div>
 
+      {/* View All Button */}
+      <div className="flex justify-center mt-12">
+        <button className="bg-white border border-line-grey/30 hover:border-line-grey/60 text-text-dark font-display text-[11px] font-bold uppercase tracking-wider px-8 py-3.5 rounded-full shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer flex items-center gap-2">
+          Lihat Selengkapnya
+          <ArrowUpRight size={14} />
+        </button>
+      </div>
+
       {/* PORTFOLIO DETAIL DIALOG MODAL */}
       <AnimatePresence>
         {selectedProject && (
