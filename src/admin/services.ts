@@ -170,7 +170,8 @@ export async function login(
   try {
     const auth = getFirebaseAuth();
     await signInWithEmailAndPassword(auth, email, password);
-    await initializeStorage();
+    // Initialize storage in background without blocking login
+    initializeStorage().catch(err => console.error('Storage initialization error:', err));
     return { success: true };
   } catch (error) {
     return { success: false, error: firebaseAuthError(error) };

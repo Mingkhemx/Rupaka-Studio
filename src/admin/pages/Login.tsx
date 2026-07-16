@@ -18,7 +18,6 @@ export function AdminLogin() {
     e.preventDefault();
     setIsLoading(true);
     try {
-      await initializeStorage();
       const result = await login(email, password);
       if (result.success) {
         showToast('Login berhasil!', 'success');
