@@ -26,8 +26,10 @@ export function AdminLogin() {
       } else {
         showToast(result.error || 'Email atau password salah', 'error');
       }
-    } catch {
-      showToast('Login gagal, coba lagi', 'error');
+    } catch (err) {
+      console.error('Login error:', err);
+      const errorMessage = err instanceof Error ? err.message : 'Login gagal, coba lagi';
+      showToast(errorMessage, 'error');
     } finally {
       setIsLoading(false);
     }
