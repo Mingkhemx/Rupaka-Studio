@@ -205,7 +205,7 @@ export default function Features() {
           <img 
             src={chatImg} 
             alt="Konsultasi via Chat" 
-            className="w-full max-w-[600px] h-auto object-contain drop-shadow-xl"
+            className="w-full max-w-[600px] h-auto object-contain drop-shadow-xl rounded-[32px] md:rounded-[40px] border border-line-grey/30 overflow-hidden"
           />
         </div>
         
