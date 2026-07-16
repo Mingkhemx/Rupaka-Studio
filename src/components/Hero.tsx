@@ -83,16 +83,16 @@ export default function Hero({ onScrollToSection }: HeroProps) {
           </button>
         </motion.div>
 
-        {/* Immersive Mockup Image */}
+        {/* Immersive Mockup Image - Clean transparent display */}
         <motion.div
           initial={{ opacity: 0, y: 60, scale: 0.96 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.5 }}
-          className="w-full max-w-[1280px] bg-white overflow-visible relative z-10 rounded-[24px] md:rounded-[40px] aspect-[16/9] md:aspect-[21/9] flex items-center justify-center"
+          className="w-full max-w-[1280px] relative z-10 aspect-[16/9] md:aspect-[21/9] flex items-center justify-center"
         >
           <img
             alt="Rupaka Studio Transparent"
-            className="w-auto h-full object-contain select-none"
+            className="w-auto h-full object-contain select-none drop-shadow-none"
             src={rupakaTransparent}
           />
         </motion.div>
