@@ -39,7 +39,7 @@ export function AdminLayout({ children, activeTab, onTabChange }: AdminLayoutPro
       {/* Sidebar */}
       <div className={`${sidebarOpen ? 'w-64' : 'w-20'} bg-white border-r border-gray-200 transition-all duration-300 flex flex-col fixed h-screen z-40`}>
         {/* Logo/Header */}
-        <div className="p-6 border-b border-gray-200">
+        <div className="p-6 border-b border-gray-200 flex items-center justify-between">
           {sidebarOpen ? (
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
@@ -55,6 +55,12 @@ export function AdminLayout({ children, activeTab, onTabChange }: AdminLayoutPro
               <span className="text-white font-bold">R</span>
             </div>
           )}
+          <button
+            onClick={() => setSidebarOpen(!sidebarOpen)}
+            className="text-gray-600 hover:bg-gray-100 p-2 rounded-lg transition-colors"
+          >
+            {sidebarOpen ? <X size={18} /> : <Menu size={18} />}
+          </button>
         </div>
 
         {/* MENU Section */}
@@ -133,14 +139,7 @@ export function AdminLayout({ children, activeTab, onTabChange }: AdminLayoutPro
         </div>
 
         {/* Toggle Button */}
-        <div className="p-2 border-t border-gray-200">
-          <button
-            onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="w-full flex items-center justify-center p-2 hover:bg-gray-100 rounded-lg transition-colors text-gray-600"
-          >
-            {sidebarOpen ? <X size={18} /> : <Menu size={18} />}
-          </button>
-        </div>
+        {/* Removed - toggle now in header */}
       </div>
 
       {/* Main Content */}
