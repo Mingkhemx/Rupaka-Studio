@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { LogOut, Menu, X, Image as ImageIcon, MessageCircle, FileText, BarChart3, Settings, Bell, Search } from 'lucide-react';
+import { LogOut, Menu, X, Image as ImageIcon, MessageCircle, FileText, Settings, Bell, Search } from 'lucide-react';
 import PortfolioManager from './PortfolioManager';
 import ChatManager from './ChatManager';
 import BlogManager from './BlogManager';
@@ -24,7 +24,6 @@ export function AdminLayout({ children, activeTab, onTabChange }: AdminLayoutPro
   const adminEmail = localStorage.getItem('adminEmail') || 'Admin User';
 
   const menuItems = [
-    { id: 'dashboard', label: 'Dashboard', icon: BarChart3 },
     { id: 'portfolio', label: 'Portfolio', icon: ImageIcon },
     { id: 'chat', label: 'Chat', icon: MessageCircle },
     { id: 'blog', label: 'Blog', icon: FileText },
@@ -325,12 +324,10 @@ function Dashboard() {
 }
 
 export default function AdminDashboard() {
-  const [activeTab, setActiveTab] = useState('dashboard');
+  const [activeTab, setActiveTab] = useState('portfolio');
 
   const renderContent = () => {
     switch (activeTab) {
-      case 'dashboard':
-        return <Dashboard />;
       case 'portfolio':
         return <PortfolioManager />;
       case 'chat':
@@ -338,7 +335,7 @@ export default function AdminDashboard() {
       case 'blog':
         return <BlogManager />;
       default:
-        return <Dashboard />;
+        return <PortfolioManager />;
     }
   };
 
