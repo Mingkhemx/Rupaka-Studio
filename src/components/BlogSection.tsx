@@ -168,7 +168,7 @@ export default function BlogSection() {
                 <button
                   onClick={() => {
                     const textParam = encodeURIComponent(`Halo Rupaka Studio! Saya telah membaca artikel "${readingPost.title}" dan tertarik berkonsultasi mengenai kebutuhan desain produk UMKM saya.`);
-                    window.open(`https://wa.me/62856043235122?text=${textParam}`, '_blank', 'noreferrer');
+                    window.open(`https://wa.me/628560432352?text=${textParam}`, '_blank', 'noreferrer');
                   }}
                   className="w-full sm:w-auto text-center justify-center bg-black text-white hover:bg-gray-800 font-display text-[10px] font-bold uppercase tracking-wider px-6 py-3.5 rounded-full flex items-center gap-1.5 cursor-pointer shadow-md transition-colors"
                 >
