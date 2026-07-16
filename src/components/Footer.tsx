@@ -22,7 +22,7 @@ export default function Footer() {
 
             <button
               onClick={handleWhatsAppChat}
-              className="bg-black text-white hover:bg-gray-800 font-display rounded-full transition-all duration-300 flex items-center justify-center gap-2.5 px-10 text-xs h-[54px] font-bold uppercase tracking-wider shadow-xl cursor-pointer"
+              className="bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-red-400 text-white font-display rounded-full transition-all duration-300 flex items-center justify-center gap-2.5 px-10 text-xs h-[54px] font-bold uppercase tracking-wider shadow-xl hover:shadow-2xl hover:-translate-y-1 cursor-pointer"
             >
               <MessageCircle size={15} />
               Chat Sekarang via WhatsApp

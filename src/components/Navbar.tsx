@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Menu, X, MessageSquare, ExternalLink } from 'lucide-react';
+import logoImg from '../assets/logo.png';
 
 interface NavbarProps {
   onScrollToSection: (sectionId: string) => void;
@@ -42,22 +43,22 @@ export default function Navbar({ onScrollToSection }: NavbarProps) {
           initial={{ y: -50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.5, ease: 'easeOut' }}
-          className="pointer-events-auto w-full max-w-[760px] flex items-center justify-between bg-black/95 backdrop-blur-xl rounded-full px-2 py-2 shadow-2xl border border-white/10 h-[56px]"
+          className="pointer-events-auto w-full max-w-[800px] flex items-center justify-between bg-white/40 backdrop-blur-xl rounded-full px-3 py-2.5 shadow-lg border border-white/50 h-[64px]"
         >
           {/* Logo */}
-          <div className="flex items-center gap-3 pl-3">
+          <div className="flex items-center gap-4 pl-2">
             <button 
               onClick={() => onScrollToSection('hero')}
-              className="w-[34px] h-[34px] rounded-full border border-page-bg/80 flex items-center justify-center shrink-0 bg-white/10 hover:bg-white/20 transition-all cursor-pointer"
+              className="flex items-center justify-center shrink-0 cursor-pointer"
             >
-              <span className="text-page-bg font-display font-bold text-sm leading-none">R</span>
+              <img src={logoImg} alt="Rupaka Logo" className="h-10 w-auto object-contain drop-shadow-sm" />
             </button>
-            <nav className="hidden md:flex items-center gap-5">
+            <nav className="hidden md:flex items-center gap-6">
               {navLinks.map((link) => (
                 <button
                   key={link.target}
                   onClick={() => onScrollToSection(link.target)}
-                  className="font-body text-[11px] text-white-soft/80 hover:text-white-soft transition-colors duration-300 font-medium uppercase tracking-wider cursor-pointer"
+                  className="font-body text-[11px] text-text-dark/80 hover:text-text-dark transition-colors duration-300 font-bold uppercase tracking-wider cursor-pointer"
                 >
                   {link.name}
                 </button>
@@ -66,22 +67,22 @@ export default function Navbar({ onScrollToSection }: NavbarProps) {
           </div>
 
           {/* Right Controls */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
             <button 
               onClick={handleWhatsAppChat}
-              className="font-display rounded-full bg-white/10 hover:bg-white text-white hover:text-black transition-all duration-300 shrink-0 flex items-center gap-1.5 px-4 text-[10px] h-[36px] font-bold uppercase tracking-wider cursor-pointer"
+              className="font-display rounded-full bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-red-400 text-white shadow-md transition-all duration-300 shrink-0 flex items-center gap-1.5 px-5 text-[10px] h-[42px] font-bold uppercase tracking-wider cursor-pointer"
             >
-              <MessageSquare size={12} />
+              <MessageSquare size={14} />
               <span>Chat WhatsApp</span>
             </button>
 
             {/* Mobile Menu Toggle */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden w-[36px] h-[36px] rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white cursor-pointer"
+              className="md:hidden w-[42px] h-[42px] rounded-full bg-white/50 hover:bg-white/70 border border-white/50 shadow-sm flex items-center justify-center text-text-dark cursor-pointer"
               aria-label="Toggle Menu"
             >
-              {isMobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
+              {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
           </div>
         </motion.div>
