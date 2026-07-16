@@ -28,7 +28,7 @@ export default function Portfolio() {
 
   const handleOrderWhatsApp = (project: PortfolioItem) => {
     const textParam = encodeURIComponent(`Halo Rupaka Studio! Saya tertarik memesan jasa pembuatan "${project.title}" seharga ${project.price}. Mohon informasi petunjuk brief-nya.`);
-    window.open(`https://wa.me/628123456789?text=${textParam}`, '_blank', 'noreferrer');
+    window.open(`https://wa.me/628214360971?text=${textParam}`, '_blank', 'noreferrer');
   };
 
   return (
