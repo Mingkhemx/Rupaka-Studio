@@ -1,6 +1,6 @@
 import { motion } from 'motion/react';
 import { MessageCircle, Image as ImageIcon, Sparkles } from 'lucide-react';
-import mascotImage from '../assets/mascot website rupaka.png';
+import rupakaTransparent from '../assets/rupaka-transparant.png';
 
 interface HeroProps {
   onScrollToSection: (sectionId: string) => void;
@@ -88,12 +88,12 @@ export default function Hero({ onScrollToSection }: HeroProps) {
           initial={{ opacity: 0, y: 60, scale: 0.96 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.5 }}
-          className="w-full max-w-[1280px] bg-page-bg overflow-hidden shadow-[0_32px_64px_-16px_rgba(0,0,0,0.12)] relative z-10 rounded-[24px] md:rounded-[40px] aspect-[16/9] md:aspect-[21/9] flex items-center justify-center"
+          className="w-full max-w-[1280px] bg-white overflow-hidden shadow-[0_32px_64px_-16px_rgba(0,0,0,0.12)] relative z-10 rounded-[24px] md:rounded-[40px] aspect-[16/9] md:aspect-[21/9] flex items-center justify-center"
         >
           <img
-            alt="Rupaka Studio Mascot"
+            alt="Rupaka Studio Transparent"
             className="w-auto h-full object-contain select-none"
-            src={mascotImage}
+            src={rupakaTransparent}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black-dark/30 via-transparent to-transparent pointer-events-none" />
         </motion.div>
