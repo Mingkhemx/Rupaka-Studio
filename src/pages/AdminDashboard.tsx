@@ -35,24 +35,24 @@ export function AdminLayout({ children, activeTab, onTabChange }: AdminLayoutPro
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-100 to-slate-50 flex">
+    <div className="min-h-screen bg-gray-50 flex">
       {/* Sidebar */}
-      <div className={`${sidebarOpen ? 'w-64' : 'w-24'} bg-white border-r border-slate-200/50 transition-all duration-300 flex flex-col fixed h-screen z-40 shadow-sm`}>
+      <div className={`${sidebarOpen ? 'w-64' : 'w-20'} bg-white border-r border-gray-200 transition-all duration-300 flex flex-col fixed h-screen z-40`}>
         {/* Logo/Header */}
-        <div className="p-6 border-b border-slate-200/50">
+        <div className="p-6 border-b border-gray-200">
           {sidebarOpen ? (
-            <div className="flex items-center gap-2">
-              <div className="w-10 h-10 bg-gradient-to-br from-[#1B3A52] to-[#2E5A8C] rounded-lg flex items-center justify-center">
-                <span className="text-white font-display font-bold text-lg">R</span>
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
+                <span className="text-white font-bold text-lg">R</span>
               </div>
               <div>
-                <p className="font-display font-bold text-slate-800 text-sm">Rupaka</p>
-                <p className="text-xs text-slate-500">Admin</p>
+                <p className="font-semibold text-gray-900 text-sm">Rupaka</p>
+                <p className="text-xs text-gray-500">Admin</p>
               </div>
             </div>
           ) : (
-            <div className="w-10 h-10 bg-gradient-to-br from-[#1B3A52] to-[#2E5A8C] rounded-lg flex items-center justify-center mx-auto">
-              <span className="text-white font-display font-bold">R</span>
+            <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center mx-auto">
+              <span className="text-white font-bold">R</span>
             </div>
           )}
         </div>
@@ -60,22 +60,22 @@ export function AdminLayout({ children, activeTab, onTabChange }: AdminLayoutPro
         {/* MENU Section */}
         <div className="flex-1 overflow-y-auto">
           <div className="p-4">
-            {sidebarOpen && <p className="text-xs font-display font-bold text-slate-400 uppercase tracking-wider mb-3">MENU</p>}
-            <nav className="space-y-1">
+            {sidebarOpen && <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-3">Menu</p>}
+            <nav className="space-y-2">
               {menuItems.map((item) => {
                 const Icon = item.icon;
                 return (
                   <button
                     key={item.id}
                     onClick={() => onTabChange(item.id)}
-                    className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 ${
+                    className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-lg transition-colors duration-200 ${
                       activeTab === item.id
-                        ? 'bg-gradient-to-r from-[#E8654D] to-[#F39237] text-white shadow-md shadow-orange-500/20'
-                        : 'text-slate-600 hover:bg-slate-100'
+                        ? 'bg-orange-100 text-orange-700'
+                        : 'text-gray-600 hover:bg-gray-100'
                     }`}
                   >
-                    <Icon size={20} className="flex-shrink-0" />
-                    {sidebarOpen && <span className="font-body text-sm font-medium">{item.label}</span>}
+                    <Icon size={18} className="flex-shrink-0" />
+                    {sidebarOpen && <span className="text-sm font-medium">{item.label}</span>}
                   </button>
                 );
               })}
@@ -83,23 +83,23 @@ export function AdminLayout({ children, activeTab, onTabChange }: AdminLayoutPro
           </div>
 
           {/* TOOLS Section */}
-          <div className="p-4 border-t border-slate-200/50">
-            {sidebarOpen && <p className="text-xs font-display font-bold text-slate-400 uppercase tracking-wider mb-3">TOOLS</p>}
-            <nav className="space-y-1">
+          <div className="p-4 border-t border-gray-200">
+            {sidebarOpen && <p className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-3">Tools</p>}
+            <nav className="space-y-2">
               {toolsItems.map((item) => {
                 const Icon = item.icon;
                 return (
                   <button
                     key={item.id}
                     onClick={() => onTabChange(item.id)}
-                    className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 ${
+                    className={`w-full flex items-center gap-3 px-4 py-2.5 rounded-lg transition-colors duration-200 ${
                       activeTab === item.id
-                        ? 'bg-gradient-to-r from-[#E8654D] to-[#F39237] text-white shadow-md shadow-orange-500/20'
-                        : 'text-slate-600 hover:bg-slate-100'
+                        ? 'bg-orange-100 text-orange-700'
+                        : 'text-gray-600 hover:bg-gray-100'
                     }`}
                   >
-                    <Icon size={20} className="flex-shrink-0" />
-                    {sidebarOpen && <span className="font-body text-sm font-medium">{item.label}</span>}
+                    <Icon size={18} className="flex-shrink-0" />
+                    {sidebarOpen && <span className="text-sm font-medium">{item.label}</span>}
                   </button>
                 );
               })}
@@ -107,67 +107,65 @@ export function AdminLayout({ children, activeTab, onTabChange }: AdminLayoutPro
           </div>
         </div>
 
-        {/* Footer - Pro Card */}
-        <div className={`p-4 border-t border-slate-200/50 ${sidebarOpen ? '' : 'flex justify-center'}`}>
+        {/* Footer - User Card */}
+        <div className={`p-4 border-t border-gray-200 ${sidebarOpen ? '' : 'flex justify-center'}`}>
           {sidebarOpen ? (
-            <div className="bg-gradient-to-br from-[#1B3A52] to-[#0F2438] rounded-xl p-4 text-white text-center">
-              <p className="font-body text-xs opacity-80 mb-2">User</p>
-              <p className="font-display font-bold text-sm mb-3 truncate">{adminEmail}</p>
+            <div className="bg-gray-900 rounded-lg p-4 text-white text-center">
+              <p className="text-xs text-gray-400 mb-1">User</p>
+              <p className="font-semibold text-sm mb-3 truncate">{adminEmail}</p>
               <button
                 onClick={handleLogout}
-                className="w-full flex items-center justify-center gap-2 px-3 py-2 bg-red-600 hover:bg-red-700 rounded-lg transition-all duration-200 text-white font-body text-xs font-medium"
+                className="w-full flex items-center justify-center gap-2 px-3 py-2 bg-red-600 hover:bg-red-700 rounded-md transition-colors duration-200 text-white text-xs font-medium"
               >
-                <LogOut size={16} />
+                <LogOut size={14} />
                 Logout
               </button>
             </div>
           ) : (
             <button
               onClick={handleLogout}
-              className="w-10 h-10 bg-red-600 hover:bg-red-700 rounded-lg transition-all duration-200 text-white flex items-center justify-center"
+              className="w-10 h-10 bg-red-600 hover:bg-red-700 rounded-lg transition-colors duration-200 text-white flex items-center justify-center"
               title="Logout"
             >
-              <LogOut size={18} />
+              <LogOut size={16} />
             </button>
           )}
         </div>
 
         {/* Toggle Button */}
-        <div className="p-2 border-t border-slate-200/50">
+        <div className="p-2 border-t border-gray-200">
           <button
             onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="w-full flex items-center justify-center p-2 hover:bg-slate-100 rounded-lg transition-colors text-slate-600"
+            className="w-full flex items-center justify-center p-2 hover:bg-gray-100 rounded-lg transition-colors text-gray-600"
           >
-            {sidebarOpen ? <X size={20} /> : <Menu size={20} />}
+            {sidebarOpen ? <X size={18} /> : <Menu size={18} />}
           </button>
         </div>
       </div>
 
       {/* Main Content */}
-      <div className={`flex-1 transition-all duration-300 ${sidebarOpen ? 'ml-64' : 'ml-24'} flex flex-col`}>
+      <div className={`flex-1 transition-all duration-300 ${sidebarOpen ? 'ml-64' : 'ml-20'} flex flex-col`}>
         {/* Top Bar */}
-        <div className="bg-white border-b border-slate-200/50 px-8 py-5 flex items-center justify-between shadow-sm">
+        <div className="bg-white border-b border-gray-200 px-8 py-5 flex items-center justify-between">
           <div>
-            <h1 className="font-display text-2xl font-bold bg-gradient-to-r from-[#1B3A52] to-[#2E5A8C] bg-clip-text text-transparent">
-              Performance Overview
-            </h1>
-            <p className="font-body text-sm text-slate-500 mt-1">Kelola semua konten Rupaka Studio</p>
+            <h1 className="font-bold text-xl text-gray-900">Performance Overview</h1>
+            <p className="text-sm text-gray-500 mt-1">Kelola semua konten Rupaka Studio</p>
           </div>
           <div className="flex items-center gap-4">
-            <button className="p-2 hover:bg-slate-100 rounded-lg transition-colors text-slate-600">
-              <Search size={20} />
+            <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors text-gray-600">
+              <Search size={18} />
             </button>
-            <button className="p-2 hover:bg-slate-100 rounded-lg transition-colors text-slate-600 relative">
-              <Bell size={20} />
+            <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors text-gray-600 relative">
+              <Bell size={18} />
               <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
             </button>
-            <div className="flex items-center gap-3 pl-4 border-l border-slate-200/50">
-              <div className="w-10 h-10 bg-gradient-to-br from-[#1B3A52] to-[#2E5A8C] rounded-full flex items-center justify-center text-white font-display font-bold">
+            <div className="flex items-center gap-3 pl-4 border-l border-gray-200">
+              <div className="w-9 h-9 bg-blue-600 rounded-full flex items-center justify-center text-white font-semibold text-sm">
                 {adminEmail.charAt(0).toUpperCase()}
               </div>
               <div>
-                <p className="font-body text-sm font-medium text-slate-800">{adminEmail}</p>
-                <p className="font-body text-xs text-slate-500">Admin</p>
+                <p className="text-sm font-medium text-gray-900">{adminEmail}</p>
+                <p className="text-xs text-gray-500">Admin</p>
               </div>
             </div>
           </div>
@@ -185,10 +183,43 @@ export function AdminLayout({ children, activeTab, onTabChange }: AdminLayoutPro
 // Dashboard Component
 function Dashboard() {
   const stats = [
-    { label: 'Total Portfolio', value: '12', subtext: 'Compared to last month', change: '+22.5%', color: 'from-[#1B3A52] to-[#2E5A8C]', icon: '📊' },
-    { label: 'Monthly Order', value: '34,760', subtext: 'Monthly order count', change: '+12.45%', color: 'from-slate-300 to-slate-200', textColor: 'text-slate-800', icon: '📦' },
-    { label: 'Unique Visits', value: '14,987', subtext: 'Unique visits this month', change: '-1.08%', changeColor: 'text-red-500', color: 'from-slate-100 to-slate-50', textColor: 'text-slate-800', icon: '👥' },
-    { label: 'Products Sold', value: '12,387', subtext: 'Products delivered', change: '+12.7%', color: 'from-slate-200 to-slate-100', textColor: 'text-slate-800', icon: '🛍️' },
+    { 
+      label: 'Total Portfolio', 
+      value: '12', 
+      subtext: 'Compared to last month', 
+      change: '+22.5%', 
+      icon: '📊',
+      bgColor: 'bg-blue-50',
+      borderColor: 'border-blue-200'
+    },
+    { 
+      label: 'Monthly Order', 
+      value: '34,760', 
+      subtext: 'Monthly order count', 
+      change: '+12.45%', 
+      icon: '📦',
+      bgColor: 'bg-gray-50',
+      borderColor: 'border-gray-200'
+    },
+    { 
+      label: 'Unique Visits', 
+      value: '14,987', 
+      subtext: 'Unique visits this month', 
+      change: '-1.08%',
+      changeColor: 'text-red-600',
+      icon: '👥',
+      bgColor: 'bg-gray-50',
+      borderColor: 'border-gray-200'
+    },
+    { 
+      label: 'Products Sold', 
+      value: '12,387', 
+      subtext: 'Products delivered', 
+      change: '+12.7%',
+      icon: '🛍️',
+      bgColor: 'bg-gray-50',
+      borderColor: 'border-gray-200'
+    },
   ];
 
   return (
@@ -196,17 +227,17 @@ function Dashboard() {
       {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {stats.map((stat, idx) => (
-          <div key={idx} className={`bg-gradient-to-br ${stat.color} rounded-2xl p-6 text-white shadow-lg hover:shadow-xl transition-all duration-300`}>
+          <div key={idx} className={`${stat.bgColor} border ${stat.borderColor} rounded-xl p-6 hover:shadow-sm transition-shadow duration-200`}>
             <div className="flex items-start justify-between mb-4">
               <div>
-                <p className={`font-body text-sm ${stat.textColor ? 'text-slate-600' : 'text-white/80'} mb-1`}>{stat.label}</p>
-                <p className={`font-display text-3xl font-bold ${stat.textColor || 'text-white'}`}>{stat.value}</p>
+                <p className="text-sm text-gray-600 mb-1">{stat.label}</p>
+                <p className="text-3xl font-bold text-gray-900">{stat.value}</p>
               </div>
-              <span className="text-3xl">{stat.icon}</span>
+              <span className="text-2xl">{stat.icon}</span>
             </div>
             <div className="flex items-center justify-between">
-              <p className={`font-body text-xs ${stat.textColor ? 'text-slate-500' : 'text-white/70'}`}>{stat.subtext}</p>
-              <span className={`font-display text-sm font-bold ${stat.changeColor || 'text-green-400'}`}>{stat.change}</span>
+              <p className="text-xs text-gray-500">{stat.subtext}</p>
+              <span className={`text-sm font-semibold ${stat.changeColor || 'text-green-600'}`}>{stat.change}</span>
             </div>
           </div>
         ))}
@@ -215,16 +246,16 @@ function Dashboard() {
       {/* Charts Section */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Main Chart */}
-        <div className="lg:col-span-2 bg-white rounded-2xl p-6 shadow-sm border border-slate-200/50">
+        <div className="lg:col-span-2 bg-white rounded-xl p-6 border border-gray-200 hover:shadow-sm transition-shadow duration-200">
           <div className="mb-6">
-            <h3 className="font-display text-lg font-bold text-slate-800">Customer Activity</h3>
-            <p className="font-body text-sm text-slate-500 mt-1">Buying trends across months</p>
+            <h3 className="font-bold text-gray-900">Customer Activity</h3>
+            <p className="text-sm text-gray-500 mt-1">Buying trends across months</p>
           </div>
-          <div className="flex items-end justify-between h-64 bg-gradient-to-b from-slate-50 to-white rounded-xl p-6 border border-slate-200/30">
+          <div className="flex items-end justify-between h-64 bg-gray-50 rounded-lg p-6 border border-gray-200">
             {[40, 60, 35, 55, 70, 45, 50].map((height, i) => (
               <div key={i} className="flex flex-col items-center gap-2 flex-1">
-                <div className={`w-12 bg-gradient-to-t from-[#1B3A52] to-[#2E5A8C] rounded-t-lg`} style={{ height: `${height * 2}px` }}></div>
-                <p className="font-body text-xs text-slate-500">
+                <div className="w-10 bg-blue-600 rounded-t-md" style={{ height: `${height * 2}px` }}></div>
+                <p className="text-xs text-gray-500">
                   {['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'][i]}
                 </p>
               </div>
@@ -235,47 +266,52 @@ function Dashboard() {
         {/* Right Panel */}
         <div className="space-y-6">
           {/* Customer Activity Card */}
-          <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-200/50">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="font-display text-lg font-bold text-slate-800">Customer Activity</h3>
-              <select className="font-body text-sm text-slate-600 bg-transparent border-none outline-none cursor-pointer">
+          <div className="bg-white rounded-xl p-6 border border-gray-200 hover:shadow-sm transition-shadow duration-200">
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="font-bold text-gray-900">Customer Activity</h3>
+              <select className="text-sm text-gray-600 bg-transparent border-none outline-none cursor-pointer hover:text-gray-900">
                 <option>Today</option>
                 <option>Week</option>
                 <option>Month</option>
               </select>
             </div>
-            <div className="flex items-center justify-center mb-6 h-40">
-              <svg viewBox="0 0 200 200" className="w-full h-full">
-                <circle cx="100" cy="100" r="80" fill="none" stroke="#e5e7eb" strokeWidth="20" />
-                <circle cx="100" cy="100" r="80" fill="none" stroke="url(#grad1)" strokeWidth="20" strokeDasharray="251.2 314" strokeDashoffset="0" />
-                <defs>
-                  <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#1B3A52" />
-                    <stop offset="100%" stopColor="#2E5A8C" />
-                  </linearGradient>
-                </defs>
-              </svg>
-              <div className="absolute text-center">
-                <p className="font-display text-3xl font-bold text-slate-800">7,738</p>
-                <p className="font-body text-xs text-slate-500">Sold Today</p>
+            <div className="flex flex-col items-center justify-center h-40 mb-6">
+              <div className="relative w-32 h-32 flex items-center justify-center">
+                <svg viewBox="0 0 120 120" className="w-full h-full transform -rotate-90">
+                  <circle cx="60" cy="60" r="54" fill="none" stroke="#e5e7eb" strokeWidth="12" />
+                  <circle 
+                    cx="60" 
+                    cy="60" 
+                    r="54" 
+                    fill="none" 
+                    stroke="#2563eb" 
+                    strokeWidth="12" 
+                    strokeDasharray="127.234 339.292"
+                    strokeLinecap="round"
+                  />
+                </svg>
+                <div className="absolute text-center">
+                  <p className="text-2xl font-bold text-gray-900">7,738</p>
+                  <p className="text-xs text-gray-500">Sold</p>
+                </div>
               </div>
             </div>
           </div>
 
           {/* Products List */}
-          <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-200/50">
-            <h3 className="font-display text-lg font-bold text-slate-800 mb-4">Top Products</h3>
+          <div className="bg-white rounded-xl p-6 border border-gray-200 hover:shadow-sm transition-shadow duration-200">
+            <h3 className="font-bold text-gray-900 mb-4">Top Products</h3>
             <div className="space-y-3">
               {[
                 { name: 'Electronic', value: '2,487', change: '+22.08%' },
                 { name: 'Games', value: '2,568', change: '-1.08%' },
                 { name: 'Furniture', value: '2,568', change: '+12.08%' },
               ].map((item, idx) => (
-                <div key={idx} className="flex items-center justify-between p-3 bg-slate-50 rounded-lg border border-slate-200/30">
-                  <p className="font-body text-sm text-slate-800">{item.name}</p>
+                <div key={idx} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-200">
+                  <p className="text-sm font-medium text-gray-900">{item.name}</p>
                   <div className="flex items-center gap-3">
-                    <p className="font-display font-bold text-slate-800">{item.value}</p>
-                    <span className={`font-body text-xs px-2 py-1 rounded-full ${item.change.startsWith('+') ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
+                    <p className="font-semibold text-gray-900 text-sm">{item.value}</p>
+                    <span className={`text-xs px-2 py-1 rounded-md font-medium ${item.change.startsWith('+') ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
                       {item.change}
                     </span>
                   </div>
@@ -313,5 +349,3 @@ export default function AdminDashboard() {
     </AdminLayout>
   );
 }
-
-
