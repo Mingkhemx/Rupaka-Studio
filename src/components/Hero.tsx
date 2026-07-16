@@ -90,7 +90,7 @@ export default function Hero({ onScrollToSection }: HeroProps) {
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.5 }}
           className="w-full max-w-[1280px] bg-white relative z-10 rounded-[24px] md:rounded-[40px] flex items-center justify-center border border-line-grey/20 overflow-hidden shadow-2xl"
         >
-          <div className="w-full aspect-[16/10] md:aspect-[21/10] flex items-center justify-center relative p-8">
+          <div className="w-full aspect-[16/7] md:aspect-[21/7] flex items-center justify-center relative p-8">
             <img
               alt="Mascot Rupaka Studio"
               className="h-full w-auto object-contain select-none"
