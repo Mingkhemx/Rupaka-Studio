@@ -78,7 +78,7 @@ export const BLOG_POSTS: BlogPost[] = [
     title: '5 Tips Desain Poster yang Menjual untuk UMKM',
     category: 'Insights',
     date: '12 Jan 2026',
-    image: banner1,
+    image: posterRumahPanggang1,
     readTime: '4 Menit Baca',
     author: 'Adi Setyo',
     content: `
@@ -105,7 +105,7 @@ Setelah pelanggan melihat poster Anda, apa yang harus mereka lakukan? Berikan in
     title: 'Kenapa Branding Penting untuk Usaha Kecil?',
     category: 'Branding',
     date: '08 Jan 2026',
-    image: logoSaky,
+    image: logoAurra,
     readTime: '5 Menit Baca',
     author: 'Rina Kartika',
     content: `
@@ -133,7 +133,7 @@ Di Rupaka Studio, kami memahami tantangan budget UMKM. Itulah mengapa kami menye
     title: 'Bagaimana AI Membantu Produksi Desain Lebih Cepat',
     category: 'Teknologi',
     date: '24 Des 2025',
-    image: banner3,
+    image: banner2,
     readTime: '6 Menit Baca',
     author: 'Yusuf Nur',
     content: `
