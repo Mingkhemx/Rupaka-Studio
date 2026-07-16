@@ -180,7 +180,7 @@ export default function TestimonialFaq() {
             </div>
           </div>
           <button
-            onClick={() => window.open('https://wa.me/628123456789?text=Halo%20Rupaka%20Studio%2C%20ada%20hal%20yang%20ingin%20saya%20tanyakan%20mengenai%20layanan%20desain.', '_blank', 'noreferrer')}
+            onClick={() => window.open('https://wa.me/6285604323512?text=Halo%20Rupaka%20Studio%2C%20ada%20hal%20yang%20ingin%20saya%20tanyakan%20mengenai%20layanan%20desain.', '_blank', 'noreferrer')}
             className="bg-black text-white hover:bg-gray-800 font-display text-[9px] font-bold uppercase tracking-wider px-5 py-3 rounded-full cursor-pointer flex items-center gap-1 shadow-sm transition-colors"
           >
             <span>Tanya Admin</span>

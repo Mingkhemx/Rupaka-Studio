@@ -3,7 +3,7 @@ import logoImg from '../assets/logo.png';
 
 export default function Footer() {
   const handleWhatsAppChat = () => {
-    const waUrl = `https://wa.me/628123456789?text=Halo%20Rupaka%20Studio%2C%20saya%20tertarik%20untuk%20berdiskusi%20mengenai%20desain%20untuk%20UMKM%20saya.`;
+    const waUrl = `https://wa.me/6285604323512?text=Halo%20Rupaka%20Studio%2C%20saya%20tertarik%20untuk%20berdiskusi%20mengenai%20desain%20untuk%20UMKM%20saya.`;
     window.open(waUrl, '_blank', 'noreferrer');
   };
 

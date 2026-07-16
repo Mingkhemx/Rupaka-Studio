@@ -8,7 +8,7 @@ interface HeroProps {
 
 export default function Hero({ onScrollToSection }: HeroProps) {
   const handleWhatsAppChat = () => {
-    const waUrl = `https://wa.me/628123456789?text=Halo%20Rupaka%20Studio%2C%20saya%20tertarik%20untuk%20berdiskusi%20mengenai%20desain%20untuk%20UMKM%20saya.`;
+    const waUrl = `https://wa.me/6285604323512?text=Halo%20Rupaka%20Studio%2C%20saya%20tertarik%20untuk%20berdiskusi%20mengenai%20desain%20untuk%20UMKM%20saya.`;
     window.open(waUrl, '_blank', 'noreferrer');
   };
 
@@ -88,9 +88,9 @@ export default function Hero({ onScrollToSection }: HeroProps) {
           initial={{ opacity: 0, y: 60, scale: 0.96 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.5 }}
-          className="w-full max-w-[1280px] bg-white relative z-10 rounded-[24px] md:rounded-[40px] flex items-center justify-center border border-line-grey/20 overflow-hidden"
+          className="w-full max-w-[1280px] bg-white relative z-10 rounded-[24px] md:rounded-[40px] flex items-center justify-center border border-line-grey/20 overflow-hidden shadow-2xl"
         >
-          <div className="w-full aspect-[16/9] md:aspect-[21/9] flex items-center justify-center relative p-8">
+          <div className="w-full aspect-[16/10] md:aspect-[21/10] flex items-center justify-center relative p-8">
             <img
               alt="Mascot Rupaka Studio"
               className="h-full w-auto object-contain select-none"

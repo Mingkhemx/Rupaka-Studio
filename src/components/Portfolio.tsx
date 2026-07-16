@@ -21,8 +21,8 @@ export default function Portfolio() {
     : portfolioItems.filter(item => item.category === selectedCategory);
 
   const handleOrderWhatsApp = (project: PortfolioItem) => {
-    const textParam = encodeURIComponent(`Halo Rupaka Studio! Saya tertarik memesan jasa pembuatan "${project.title}" seharga ${project.price}. Mohon informasi petunjuk brief-nya.`);
-    window.open(`https://wa.me/628123456789?text=${textParam}`, '_blank', 'noreferrer');
+    const textParam = encodeURIComponent(`Halo Rupaka Studio! Saya tertarik memesan jasa pembuatan "${project.title}". Mohon informasi petunjuk brief-nya.`);
+    window.open(`https://wa.me/6285604323512?text=${textParam}`, '_blank', 'noreferrer');
   };
 
   return (
