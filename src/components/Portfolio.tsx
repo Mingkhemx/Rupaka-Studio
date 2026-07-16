@@ -110,9 +110,6 @@ export default function Portfolio() {
                   <p className="font-body text-[10px] text-white/75 line-clamp-2 leading-relaxed">
                     {item.description}
                   </p>
-                  <p className="font-display text-[10px] font-bold text-accent-coral mt-3 tracking-wider">
-                    {item.price}
-                  </p>
                 </div>
               </div>
 
@@ -217,14 +214,7 @@ export default function Portfolio() {
                 </div>
 
                 {/* Footer price & purchase bar */}
-                <div className="pt-6 border-t border-line-grey/30 flex items-center justify-between gap-4 mt-4">
-                  <div>
-                    <span className="text-[10px] uppercase tracking-widest font-bold text-muted-grey">Mulai Dari</span>
-                    <p className="font-display text-2xl font-black text-black-dark tracking-tight leading-none mt-1">
-                      {selectedProject.price}
-                    </p>
-                  </div>
-
+                <div className="pt-6 border-t border-line-grey/30 flex items-center justify-end gap-4 mt-4">
                   <button
                     onClick={() => handleOrderWhatsApp(selectedProject)}
                     className="bg-black text-white hover:bg-gray-800 font-display text-[11px] font-bold uppercase tracking-wider px-6 h-[48px] rounded-full flex items-center gap-2 shadow-lg transition-colors cursor-pointer"
