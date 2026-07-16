@@ -49,9 +49,9 @@ export default function Navbar({ onScrollToSection }: NavbarProps) {
           <div className="flex items-center gap-6 pl-2">
             <button 
               onClick={() => onScrollToSection('hero')}
-              className="flex items-center justify-center shrink-0 cursor-pointer hover:scale-105 transition-transform"
+              className="flex items-center justify-center shrink-0 cursor-pointer hover:scale-105 transition-transform bg-white rounded-full p-2 w-[76px] h-[76px] shadow-inner"
             >
-              <img src={logoImg} alt="Rupaka Logo" className="h-[72px] sm:h-[80px] w-auto object-contain drop-shadow-md" />
+              <img src={logoImg} alt="Rupaka Logo" className="w-full h-full object-contain" />
             </button>
             <nav className="hidden md:flex items-center gap-6">
               {navLinks.map((link) => (
