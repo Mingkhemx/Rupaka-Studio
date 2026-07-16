@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Sparkles, Sliders, ToggleLeft, ToggleRight, CheckCircle2, ShieldCheck, HeartHandshake } from 'lucide-react';
+import posterRumahPanggang from '../assets/Poster Rumah panggang 1.png';
+import logoSaky from '../assets/Logo saky.png';
+import mockupLogo from '../assets/Mockup logo.png';
 
 export default function CollageSection() {
   const [aiEnabled, setAiEnabled] = useState(true);
@@ -43,8 +46,7 @@ export default function CollageSection() {
             <img
               alt="Design Drafting Process"
               className="w-full h-full object-cover select-none"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuDGxwLNMP2KVAWtuqvWXiFZkBm5YgSXjM45PkkRPvB3NsuAPX4Nse6nAySmOSPxXiaWvlTk0fB0Pagx0EkNf1L8x3CFyxgAWpQbdP2z4ZXhaiVorAeLCKBcI2qvs9oG9HqdMdiJrUYvBgL1Dr8nKNzygffqFMIlgWyshucf41s65I_hV3kCGtjFYShml4zOn9O6MuvVW54WVcjP7bBLEAYguBfutmc0Yq73HP9-yBiY6b98be0hC6KYAZFesHH3FkL4Gx0Yks2fyrpu"
-              referrerPolicy="no-referrer"
+              src={posterRumahPanggang}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black-dark/40 to-transparent pointer-events-none" />
             <span className="absolute bottom-3 left-3 bg-white/25 backdrop-blur-md text-[9px] font-bold text-white uppercase tracking-wider px-2.5 py-1 rounded-full border border-white/20">
@@ -92,8 +94,7 @@ export default function CollageSection() {
           <img
             alt="Vibrant Branding Artwork"
             className="w-full h-full object-cover select-none"
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRI6ZfedfqJ42Kz8fkZTlqC5CbQ5Q_0kVkLxIu7Xh8-ABjTl2K4v_yJEBQE1wi3AZMYD9IMvFxFOJyc86piFVAfQ0g6nyc1fRoYl7wB1_YDB3zlrCqOGtEow28qlTRV6LL9s1-rRPvAYojJgQhjJ9ERQ7Jf-IhHeg0bAcA4QWd3YKyDnVxSjTGeJ--ir7xqCghMtZPJ5OjvBwWSTiw7xPHbFrwOa_f5RTQGV6WOEWxuC-xwV7Ayb1q0kBzYF_oQHCxP3Dn3PL-aewa"
-            referrerPolicy="no-referrer"
+            src={logoSaky}
           />
           <div className="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/50 backdrop-blur-md border border-white/50 flex items-center justify-center shadow-lg hover:scale-110 transition-transform">
             <Sparkles size={14} className="text-text-dark" />
@@ -153,8 +154,7 @@ export default function CollageSection() {
           <img
             alt="Creative Studio Setup"
             className="w-full h-full object-cover select-none"
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRd7pAyBrUx31zx6klyDiCWD04EiIaiDfNYNdGO8HozSTYH3bTc4IhWoBbOh4CpW4jAmMk2H_ecdJwzZL71ta4NvHIyMqapKo2BK36h0hn674xlIS0FoLhl6jQwDTwu_Idk9ZLj6MN8k5s-VrWMSox9J5YNpnlpqVlAVnzCXtAeDkwyvNWzXtGXt76wUk85CfXUmdE9Vi6RxqxkyBORzc1__OdpVEqiYNrMD1dKFJIU7gC874F--k_Kf5C1_yMSnhoytWkS9XWPwsm"
-            referrerPolicy="no-referrer"
+            src={mockupLogo}
           />
           <div className="absolute top-4 left-4 bg-white/70 backdrop-blur-xl px-4 py-2 rounded-full border border-white/50 shadow-md flex items-center gap-2">
             <div className="w-2.5 h-2.5 rounded-full bg-green-500 animate-ping absolute" />
@@ -235,8 +235,7 @@ export default function CollageSection() {
             <img
               alt="Quality Artwork Setup"
               className="w-full h-full object-cover"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRd7pAyBrUx31zx6klyDiCWD04EiIaiDfNYNdGO8HozSTYH3bTc4IhWoBbOh4CpW4jAmMk2H_ecdJwzZL71ta4NvHIyMqapKo2BK36h0hn674xlIS0FoLhl6jQwDTwu_Idk9ZLj6MN8k5s-VrWMSox9J5YNpnlpqVlAVnzCXtAeDkwyvNWzXtGXt76wUk85CfXUmdE9Vi6RxqxkyBORzc1__OdpVEqiYNrMD1dKFJIU7gC874F--k_Kf5C1_yMSnhoytWkS9XWPwsm"
-              referrerPolicy="no-referrer"
+              src={mockupLogo}
             />
             <span className="absolute top-3 left-3 bg-white/80 backdrop-blur-md text-[9px] font-bold text-text-dark uppercase tracking-wider px-3 py-1 rounded-full shadow-md">
               Kualitas Agensi
@@ -256,8 +255,7 @@ export default function CollageSection() {
             <img
               alt="Indonesian local branding typography"
               className="w-full h-full object-cover"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRI6ZfedfqJ42Kz8fkZTlqC5CbQ5Q_0kVkLxIu7Xh8-ABjTl2K4v_yJEBQE1wi3AZMYD9IMvFxFOJyc86piFVAfQ0g6nyc1fRoYl7wB1_YDB3zlrCqOGtEow28qlTRV6LL9s1-rRPvAYojJgQhjJ9ERQ7Jf-IhHeg0bAcA4QWd3YKyDnVxSjTGeJ--ir7xqCghMtZPJ5OjvBwWSTiw7xPHbFrwOa_f5RTQGV6WOEWxuC-xwV7Ayb1q0kBzYF_oQHCxP3Dn3PL-aewa"
-              referrerPolicy="no-referrer"
+              src={logoSaky}
             />
           </div>
           <div className="mt-4">
