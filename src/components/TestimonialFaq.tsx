@@ -53,7 +53,7 @@ export default function TestimonialFaq() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -15 }}
                 transition={{ duration: 0.5 }}
-                className="font-display text-2xl sm:text-3xl md:text-[38px] leading-[1.3] text-balance tracking-tight text-text-dark font-light italic max-w-4xl"
+                className="font-display text-2xl sm:text-3xl md:text-[38px] leading-[1.3] text-balance tracking-tight text-text-dark font-light italic max-w-4xl text-center mx-auto"
               >
                 "{activeTestimonial.content}"
               </motion.h3>
@@ -62,13 +62,15 @@ export default function TestimonialFaq() {
         </div>
 
         {/* Client Profile Box */}
-        <div className="flex flex-col sm:flex-row items-center gap-4 mt-8">
-          <div className="w-14 h-14 rounded-full bg-[#E9E8E4] flex items-center justify-center text-text-dark/40 shadow-sm shrink-0 border border-line-grey/30">
-            <UserCircle size={28} strokeWidth={1.5} />
-          </div>
-          <div className="text-center sm:text-left">
-            <p className="font-display text-sm font-bold text-text-dark">{activeTestimonial.name}</p>
-            <p className="font-display text-xs text-muted-grey font-medium mt-0.5">{activeTestimonial.role}</p>
+        <div className="flex flex-col items-center justify-center gap-4 mt-8 w-full">
+          <div className="flex flex-col sm:flex-row items-center gap-4">
+            <div className="w-14 h-14 rounded-full bg-[#E9E8E4] flex items-center justify-center text-text-dark/40 shadow-sm shrink-0 border border-line-grey/30">
+              <UserCircle size={28} strokeWidth={1.5} />
+            </div>
+            <div className="text-center sm:text-left">
+              <p className="font-display text-sm font-bold text-text-dark">{activeTestimonial.name}</p>
+              <p className="font-display text-xs text-muted-grey font-medium mt-0.5">{activeTestimonial.role}</p>
+            </div>
           </div>
         </div>
 
