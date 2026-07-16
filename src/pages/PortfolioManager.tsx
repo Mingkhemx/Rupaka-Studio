@@ -15,7 +15,7 @@ const DUMMY_PORTFOLIO: PortfolioItem[] = [
   {
     id: 'port-2',
     title: 'Logo Brand Cafe',
-    category: 'kemasan',
+    category: 'logo',
     image: 'https://via.placeholder.com/300x200?text=Logo+1',
     description: 'Desain logo modern untuk brand cafe',
     price: 'Rp 150.000',
@@ -115,7 +115,23 @@ export default function PortfolioManager() {
                   {item.price}
                 </span>
               </div>
-              <p className="font-body text-sm text-muted-grey mb-4 line-clamp-2">{item.description}</p>
+              <p className="font-body text-sm text-muted-grey mb-3 line-clamp-2">{item.description}</p>
+              {item.features && item.features.length > 0 && (
+                <div className="mb-4">
+                  <div className="flex flex-wrap gap-1">
+                    {item.features.slice(0, 2).map((feature, idx) => (
+                      <span key={idx} className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">
+                        {feature}
+                      </span>
+                    ))}
+                    {item.features.length > 2 && (
+                      <span className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">
+                        +{item.features.length - 2}
+                      </span>
+                    )}
+                  </div>
+                </div>
+              )}
               <div className="flex gap-2">
                 <button
                   onClick={() => handleEdit(item)}
@@ -167,8 +183,9 @@ export default function PortfolioManager() {
                   className="w-full border border-line-grey/40 rounded-lg px-4 py-2 font-body text-sm focus:outline-none focus:border-primary-dark"
                 >
                   <option value="poster">Poster</option>
-                  <option value="banner">Banner</option>
-                  <option value="kemasan">Kemasan</option>
+                  <option value="logo">Logo</option>
+                  <option value="website">Website</option>
+                  <option value="custom">Custom</option>
                 </select>
               </div>
 
@@ -205,6 +222,18 @@ export default function PortfolioManager() {
                   onChange={(e) => setFormData({ ...formData, price: e.target.value })}
                   className="w-full border border-line-grey/40 rounded-lg px-4 py-2 font-body text-sm focus:outline-none focus:border-primary-dark"
                   placeholder="Rp 50.000"
+                />
+              </div>
+
+              {/* Features */}
+              <div>
+                <label className="font-display text-sm font-bold text-text-dark mb-2 block">Fitur (pisahkan dengan koma)</label>
+                <textarea
+                  value={formData.features?.join(', ') || ''}
+                  onChange={(e) => setFormData({ ...formData, features: e.target.value.split(',').map(f => f.trim()).filter(f => f) })}
+                  className="w-full border border-line-grey/40 rounded-lg px-4 py-2 font-body text-sm focus:outline-none focus:border-primary-dark resize-none"
+                  rows={3}
+                  placeholder="Format file siap cetak, Revisi maksimal 2 kali"
                 />
               </div>
             </div>
