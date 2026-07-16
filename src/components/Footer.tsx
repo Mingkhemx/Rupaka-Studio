@@ -4,7 +4,7 @@ import mascotWatermark from '../assets/mascot website rupaka.png';
 
 export default function Footer() {
   const handleWhatsAppChat = () => {
-    const waUrl = `https://wa.me/628214360971?text=Halo%20Rupaka%20Studio%2C%20saya%20tertarik%20untuk%20berdiskusi%20mengenai%20desain%20untuk%20UMKM%20saya.`;
+    const waUrl = `https://wa.me/6282143609712?text=Halo%20Rupaka%20Studio%2C%20saya%20tertarik%20untuk%20berdiskusi%20mengenai%20desain%20untuk%20UMKM%20saya.`;
     window.open(waUrl, '_blank', 'noreferrer');
   };
 
