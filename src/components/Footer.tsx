@@ -1,6 +1,6 @@
 import { MessageCircle, Share2, Globe, Sparkles, Command } from 'lucide-react';
 import logoImage from '../assets/logo.png';
-import logoIcon from '../assets/logo-icon.svg';
+import mascotWatermark from '../assets/mascot website rupaka.png';
 
 export default function Footer() {
   const handleWhatsAppChat = () => {
@@ -37,12 +37,12 @@ export default function Footer() {
       <footer className="bg-primary-dark text-white-soft pt-24 pb-12 px-6 sm:px-10 rounded-t-[40px] md:rounded-t-[60px] relative z-20 border-t border-accent-coral/20">
         <div className="max-w-[1440px] mx-auto">
           
-          {/* Background watermark logo icon */}
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-10 overflow-hidden">
+          {/* Background watermark mascot image */}
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-8 overflow-hidden">
             <img 
-              src={logoIcon}
-              alt="Rupaka Studio Icon Watermark"
-              className="w-[500px] h-auto object-contain"
+              src={mascotWatermark}
+              alt="Rupaka Studio Mascot Watermark"
+              className="w-[700px] h-auto object-contain"
             />
           </div>
 
