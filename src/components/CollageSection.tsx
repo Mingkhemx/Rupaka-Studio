@@ -21,7 +21,7 @@ export default function CollageSection() {
 
       {/* Intro Text for Context */}
       <div className="relative z-10 max-w-3xl mx-auto text-center px-6 mb-16 lg:mb-0">
-        <span className="font-display text-xs font-bold uppercase tracking-widest text-[#FF4B2B] mb-3 block">
+        <span className="font-display text-xs font-bold uppercase tracking-widest text-[#E08E9B] mb-3 block">
           Proses & Efisiensi Kreatif
         </span>
         <h3 className="font-display text-3xl md:text-4xl font-bold tracking-tight text-text-dark mb-4">
@@ -100,7 +100,7 @@ export default function CollageSection() {
             <Sparkles size={14} className="text-text-dark" />
           </div>
           <div className="absolute bottom-4 left-4 right-4 bg-black/60 backdrop-blur-md border border-white/10 p-3.5 rounded-2xl text-white">
-            <p className="font-display text-[10px] font-bold tracking-widest uppercase text-[#FF4B2B]">Warna Akurat</p>
+            <p className="font-display text-[10px] font-bold tracking-widest uppercase text-[#E08E9B]">Warna Akurat</p>
             <p className="text-[11px] text-white/70 leading-normal mt-1">Preset palet khusus untuk visual UMKM lokal.</p>
           </div>
         </motion.div>
@@ -124,7 +124,7 @@ export default function CollageSection() {
           </div>
           
           <div className="flex items-center gap-3.5 bg-white/50 p-3 rounded-2xl border border-white/40">
-            <div className={`w-10 h-10 rounded-full flex items-center justify-center shadow-md transition-colors duration-500 ${aiEnabled ? 'bg-gradient-to-tr from-[#FF416C] to-[#FF4B2B] text-white' : 'bg-soft-card text-muted-grey'}`}>
+            <div className={`w-10 h-10 rounded-full flex items-center justify-center shadow-md transition-colors duration-500 ${aiEnabled ? 'bg-gradient-to-tr from-[#F3A8B0] to-[#E08E9B] text-white' : 'bg-soft-card text-muted-grey'}`}>
               <Sparkles size={16} className={aiEnabled ? 'animate-spin' : ''} style={{ animationDuration: '4s' }} />
             </div>
             <div className="flex flex-col">
@@ -172,7 +172,7 @@ export default function CollageSection() {
         <div className="bg-white-card border border-line-grey/40 p-5 rounded-[24px] shadow-sm flex flex-col justify-between">
           <div>
             <div className="flex items-center gap-2 mb-3">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#FF4B2B]" />
+              <span className="w-1.5 h-1.5 rounded-full bg-[#E08E9B]" />
               <span className="font-display text-xs font-bold uppercase tracking-widest text-text-dark">
                 Alur Pengerjaan
               </span>
@@ -217,7 +217,7 @@ export default function CollageSection() {
             className="flex items-center justify-between bg-panel-bg p-3.5 rounded-xl border border-line-grey/20"
           >
             <div className="flex items-center gap-2 text-left">
-              <div className={`w-8 h-8 rounded-full flex items-center justify-center text-white ${aiEnabled ? 'bg-[#FF4B2B]' : 'bg-muted-light'}`}>
+              <div className={`w-8 h-8 rounded-full flex items-center justify-center text-white ${aiEnabled ? 'bg-[#E08E9B]' : 'bg-muted-light'}`}>
                 <Sparkles size={14} />
               </div>
               <div>

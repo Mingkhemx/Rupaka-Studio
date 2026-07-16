@@ -12,11 +12,6 @@ export default function Footer() {
       <section className="py-24 sm:py-32 px-6 sm:px-10 bg-page-bg border-t border-line-grey/20">
         <div className="max-w-4xl mx-auto flex flex-col items-center text-center">
           <div className="relative z-10 flex flex-col items-center">
-            {/* Elegant logo anchor */}
-            <div className="w-12 h-12 rounded-full border border-text-dark flex items-center justify-center mb-10 bg-white shadow-sm">
-              <span className="text-text-dark font-display font-extrabold text-xl leading-none">R</span>
-            </div>
-
             <h2 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold text-text-dark tracking-tighter leading-[1.08] mb-8 max-w-3xl text-balance">
               Siap Bikin Bisnis Anda Terlihat Lebih Profesional?
             </h2>

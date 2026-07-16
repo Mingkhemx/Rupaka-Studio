@@ -30,7 +30,7 @@ export default function TestimonialFaq() {
       
       {/* 1. TESTIMONIAL SLIDER */}
       <div className="flex flex-col items-center text-center mb-28 max-w-[1100px] mx-auto">
-        <span className="font-display text-xs font-bold uppercase tracking-widest text-[#FF4B2B] mb-4">
+        <span className="font-display text-xs font-bold uppercase tracking-widest text-[#E08E9B] mb-4">
           Testimoni & Suara Klien
         </span>
         

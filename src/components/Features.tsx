@@ -21,17 +21,17 @@ export default function Features() {
     {
       title: '1. Terjangkau',
       desc: 'Harga mulai dari Rp 50.000/desain - jauh di bawah rata-rata harga agensi besar, sengaja dirancang agar ramah bagi perputaran modal usaha kecil.',
-      accent: 'from-[#FF416C] to-[#FF4B2B]'
+      accent: 'from-[#F3A8B0] to-[#E08E9B]'
     },
     {
       title: '2. Fleksibel',
       desc: 'Sistem pemesanan per-proyek (project-based) yang memudahkan Anda. Tidak ada komitmen jangka panjang, pesan hanya saat bisnis Anda membutuhkannya.',
-      accent: 'from-[#8A2387] to-[#E94057]'
+      accent: 'from-[#8A2387] to-[#C76A7D]'
     },
     {
       title: '3. Praktis',
       desc: 'One-stop visual partner. Mulai dari poster Instagram harian, perancangan logo, kemasan produk, stiker segel dus, hingga pembuatan custom landing page katalog produk.',
-      accent: 'from-[#F27121] to-[#E94057]'
+      accent: 'from-[#E08E9B] to-[#C76A7D]'
     },
     {
       title: '4. Personal',
@@ -57,7 +57,7 @@ export default function Features() {
           
           <div className="flex items-center justify-between mb-8 relative z-10">
             <div className="flex items-center gap-2">
-              <div className="w-2.5 h-2.5 rounded-full bg-[#FF4B2B] animate-pulse" />
+              <div className="w-2.5 h-2.5 rounded-full bg-[#E08E9B] animate-pulse" />
               <span className="font-display font-extrabold text-[10px] text-text-dark uppercase tracking-widest">
                 Layanan Utama Kami
               </span>
@@ -67,11 +67,11 @@ export default function Features() {
 
           <div className="space-y-4 relative z-10">
             <div className="flex items-center gap-4 p-4 bg-white-card/80 hover:bg-white-card rounded-2xl transition-all duration-300 border border-line-grey/20 cursor-pointer group/item hover:translate-x-1 hover:shadow-md">
-              <div className="w-10 h-10 rounded-full bg-[#FF4B2B]/10 flex items-center justify-center text-[#FF4B2B]">
+              <div className="w-10 h-10 rounded-full bg-[#E08E9B]/10 flex items-center justify-center text-[#E08E9B]">
                 <BadgeDollarSign size={18} />
               </div>
               <div>
-                <h5 className="font-display font-bold text-sm text-text-dark group-hover/item:text-[#FF4B2B] transition-colors">Poster Promosi</h5>
+                <h5 className="font-display font-bold text-sm text-text-dark group-hover/item:text-[#E08E9B] transition-colors">Poster Promosi</h5>
                 <p className="text-[11px] text-muted-grey mt-0.5">Sosial media feed, flyer, baliho, menu resto.</p>
               </div>
             </div>
@@ -87,11 +87,11 @@ export default function Features() {
             </div>
 
             <div className="flex items-center gap-4 p-4 bg-white-card/80 hover:bg-white-card rounded-2xl transition-all duration-300 border border-line-grey/20 cursor-pointer group/item hover:translate-x-1 hover:shadow-md">
-              <div className="w-10 h-10 rounded-full bg-[#F27121]/10 flex items-center justify-center text-[#F27121]">
+              <div className="w-10 h-10 rounded-full bg-[#E08E9B]/10 flex items-center justify-center text-[#E08E9B]">
                 <Sparkles size={18} />
               </div>
               <div>
-                <h5 className="font-display font-bold text-sm text-text-dark group-hover/item:text-[#F27121] transition-colors">Digital Product Accents</h5>
+                <h5 className="font-display font-bold text-sm text-text-dark group-hover/item:text-[#E08E9B] transition-colors">Digital Product Accents</h5>
                 <p className="text-[11px] text-muted-grey mt-0.5">Stiker cutting, kartu ucapan, digital planner.</p>
               </div>
             </div>
@@ -115,7 +115,7 @@ export default function Features() {
 
         {/* Right Info List */}
         <div className="flex flex-col justify-center h-full">
-          <span className="font-display text-xs font-bold uppercase tracking-widest text-[#FF4B2B] mb-3">
+          <span className="font-display text-xs font-bold uppercase tracking-widest text-[#E08E9B] mb-3">
             Kelebihan Kami
           </span>
           <h3 className="font-display text-3xl md:text-4xl font-bold tracking-tight text-text-dark mb-10 leading-tight">
@@ -154,7 +154,7 @@ export default function Features() {
         
         {/* Left: Pricing details */}
         <div className="flex flex-col justify-center h-full order-2 lg:order-1">
-          <span className="font-display text-xs font-bold uppercase tracking-widest text-[#FF4B2B] mb-3">
+          <span className="font-display text-xs font-bold uppercase tracking-widest text-[#E08E9B] mb-3">
             Pilihan Paket
           </span>
           <h3 className="font-display text-3xl md:text-4xl font-bold tracking-tight text-text-dark mb-8 leading-tight">
@@ -164,7 +164,7 @@ export default function Features() {
           <div className="space-y-8 pl-1 border-l border-line-grey/40">
             <div className="hover:pl-4 transition-all duration-300 py-1">
               <div className="flex items-center gap-2 mb-2">
-                <Flame size={14} className="text-[#FF4B2B]" />
+                <Flame size={14} className="text-[#E08E9B]" />
                 <h4 className="font-display text-base sm:text-lg font-extrabold text-text-dark">
                   Skema Project-Based (Eceran)
                 </h4>

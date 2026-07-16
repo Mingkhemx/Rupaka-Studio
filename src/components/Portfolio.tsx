@@ -28,7 +28,7 @@ export default function Portfolio() {
   return (
     <section id="portofolio" className="py-24 sm:py-32 px-6 sm:px-10 max-w-[1440px] mx-auto bg-page-bg border-t border-line-grey/25">
       <div className="flex flex-col items-center text-center mb-16">
-        <span className="font-display text-xs font-bold uppercase tracking-widest text-[#FF4B2B] mb-3">
+        <span className="font-display text-xs font-bold uppercase tracking-widest text-[#E08E9B] mb-3">
           Karya & Portofolio
         </span>
         <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-text-dark max-w-2xl leading-tight">
@@ -81,10 +81,10 @@ export default function Portfolio() {
               
               <div className="relative z-10 flex justify-between items-end">
                 <div className="max-w-[75%]">
-                  <span className="font-display text-[9px] font-bold text-[#FF4B2B] bg-white px-2.5 py-1 rounded-full uppercase tracking-widest shadow-sm inline-block mb-3.5">
+                  <span className="font-display text-[9px] font-bold text-[#E08E9B] bg-white px-2.5 py-1 rounded-full uppercase tracking-widest shadow-sm inline-block mb-3.5">
                     {item.category === 'custom' ? 'Custom Accent' : item.category}
                   </span>
-                  <h4 className="font-display text-lg sm:text-xl font-bold mb-1.5 text-white group-hover:text-[#FF4B2B] transition-colors leading-tight">
+                  <h4 className="font-display text-lg sm:text-xl font-bold mb-1.5 text-white group-hover:text-[#E08E9B] transition-colors leading-tight">
                     {item.title}
                   </h4>
                   <p className="font-body text-[11px] text-white/70 line-clamp-1">
@@ -92,7 +92,7 @@ export default function Portfolio() {
                   </p>
                 </div>
                 
-                <div className="w-10 h-10 rounded-full bg-white/10 hover:bg-[#FF4B2B] hover:scale-110 transition-all flex items-center justify-center text-white border border-white/25">
+                <div className="w-10 h-10 rounded-full bg-white/10 hover:bg-[#E08E9B] hover:scale-110 transition-all flex items-center justify-center text-white border border-white/25">
                   <ArrowUpRight size={16} />
                 </div>
               </div>
@@ -128,7 +128,7 @@ export default function Portfolio() {
                   referrerPolicy="no-referrer"
                 />
                 <div className="absolute top-4 left-4 bg-black/60 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/20 text-white flex items-center gap-1.5 shadow-md">
-                  <Award size={12} className="text-[#FF4B2B]" />
+                  <Award size={12} className="text-[#E08E9B]" />
                   <span className="font-display text-[9px] font-bold uppercase tracking-widest leading-none">Best Seller</span>
                 </div>
               </div>
@@ -138,7 +138,7 @@ export default function Portfolio() {
                 <div>
                   <div className="flex justify-between items-start gap-4 mb-4">
                     <div>
-                      <span className="font-display text-[10px] font-bold text-[#FF4B2B] uppercase tracking-widest">
+                      <span className="font-display text-[10px] font-bold text-[#E08E9B] uppercase tracking-widest">
                         Katalog Rupaka • {selectedProject.category}
                       </span>
                       <h3 className="font-display text-xl sm:text-2xl font-bold text-text-dark tracking-tight mt-1 leading-tight">

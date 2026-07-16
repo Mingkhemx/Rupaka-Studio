@@ -34,7 +34,7 @@ export default function Hero({ onScrollToSection }: HeroProps) {
           transition={{ duration: 0.6, delay: 0.1 }}
           className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-soft-card border border-line-grey/30 mb-8"
         >
-          <Sparkles size={11} className="text-[#FF4B2B] animate-pulse" />
+          <Sparkles size={11} className="text-[#E08E9B] animate-pulse" />
           <span className="font-display text-[10px] font-bold uppercase tracking-wider text-text-dark">
             Partner Digital Kreatif UMKM
           </span>
@@ -47,7 +47,7 @@ export default function Hero({ onScrollToSection }: HeroProps) {
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
           className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-[76px] leading-[1.08] text-balance max-w-5xl mb-6 text-text-dark tracking-tighter font-bold"
         >
-          Desain Digital <span className="bg-gradient-to-r from-black-dark via-gray-700 to-[#FF4B2B] bg-clip-text text-transparent">Low-Cost, High-Impact</span> untuk UMKM Indonesia
+          Desain Digital <span className="bg-gradient-to-r from-black-dark via-gray-700 to-[#E08E9B] bg-clip-text text-transparent">Low-Cost, High-Impact</span> untuk UMKM Indonesia
         </motion.h1>
 
         {/* Subtitle */}
@@ -111,7 +111,7 @@ export default function Hero({ onScrollToSection }: HeroProps) {
             {[...marqueeTexts, ...marqueeTexts, ...marqueeTexts].map((text, idx) => (
               <span
                 key={idx}
-                className="font-display text-xl sm:text-2xl md:text-3xl font-semibold tracking-tight text-text-dark/80 select-none whitespace-nowrap cursor-default hover:text-[#FF4B2B] transition-colors"
+                className="font-display text-xl sm:text-2xl md:text-3xl font-semibold tracking-tight text-text-dark/80 select-none whitespace-nowrap cursor-default hover:text-[#E08E9B] transition-colors"
               >
                 {text}
               </span>

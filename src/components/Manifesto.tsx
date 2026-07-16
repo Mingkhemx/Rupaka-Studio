@@ -40,7 +40,7 @@ export default function Manifesto() {
           transition={{ duration: 0.8, ease: 'easeOut' }}
           className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-[46px] leading-[1.25] text-balance tracking-tight text-text-dark font-light max-w-[960px] text-center"
         >
-          Perkembangan era digital telah mengubah cara UMKM bersaing. <span className="font-bold text-black-dark font-display bg-gradient-to-r from-[#FF416C] to-[#FF4B2B] bg-clip-text text-transparent">Rupaka Studio</span> hadir sebagai mitra strategis solusi jasa desain digital yang dirancang khusus untuk pertumbuhan bisnis Anda.
+          Perkembangan era digital telah mengubah cara UMKM bersaing. <span className="font-bold text-black-dark font-display bg-gradient-to-r from-[#F3A8B0] to-[#E08E9B] bg-clip-text text-transparent">Rupaka Studio</span> hadir sebagai mitra strategis solusi jasa desain digital yang dirancang khusus untuk pertumbuhan bisnis Anda.
         </motion.h2>
 
         {/* Small footer accent */}

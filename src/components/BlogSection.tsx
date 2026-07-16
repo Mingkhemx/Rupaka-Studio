@@ -13,7 +13,7 @@ export default function BlogSection() {
       {/* Blog Top Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-16 gap-4">
         <div>
-          <span className="font-display text-xs font-bold uppercase tracking-widest text-[#FF4B2B] mb-3 block">
+          <span className="font-display text-xs font-bold uppercase tracking-widest text-[#E08E9B] mb-3 block">
             Eksplorasi Wawasan
           </span>
           <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-text-dark">
@@ -55,13 +55,13 @@ export default function BlogSection() {
                   <span className="flex items-center gap-1"><Clock size={11} /> {post.readTime}</span>
                 </div>
 
-                <h4 className="font-display text-lg sm:text-xl font-bold text-text-dark group-hover:text-[#FF4B2B] transition-colors leading-snug">
+                <h4 className="font-display text-lg sm:text-xl font-bold text-text-dark group-hover:text-[#E08E9B] transition-colors leading-snug">
                   {post.title}
                 </h4>
               </div>
 
               {/* Read button link */}
-              <div className="flex items-center gap-1.5 text-[11px] font-bold text-text-dark hover:text-[#FF4B2B] transition-colors uppercase tracking-wider mt-6 font-display pt-4 border-t border-line-grey/10">
+              <div className="flex items-center gap-1.5 text-[11px] font-bold text-text-dark hover:text-[#E08E9B] transition-colors uppercase tracking-wider mt-6 font-display pt-4 border-t border-line-grey/10">
                 <span>Baca Selengkapnya</span>
                 <ArrowRight size={12} className="group-hover:translate-x-1 transition-transform" />
               </div>
@@ -91,7 +91,7 @@ export default function BlogSection() {
               {/* Header bar inside reader */}
               <div className="px-6 py-4 border-b border-line-grey/25 flex items-center justify-between bg-panel-bg shrink-0">
                 <div className="flex items-center gap-2">
-                  <BookOpen size={14} className="text-[#FF4B2B]" />
+                  <BookOpen size={14} className="text-[#E08E9B]" />
                   <span className="font-display text-[10px] font-extrabold uppercase tracking-widest text-text-dark">Rupaka Reader</span>
                 </div>
                 <button
@@ -117,7 +117,7 @@ export default function BlogSection() {
 
                 {/* Meta details */}
                 <div className="flex flex-wrap items-center gap-4 text-xs text-muted-grey mb-4 border-b border-line-grey/20 pb-4">
-                  <span className="bg-[#FF4B2B]/10 text-[#FF4B2B] px-3 py-1 rounded-full text-[10px] font-bold uppercase font-display tracking-widest">
+                  <span className="bg-[#E08E9B]/10 text-[#E08E9B] px-3 py-1 rounded-full text-[10px] font-bold uppercase font-display tracking-widest">
                     {readingPost.category}
                   </span>
                   <div className="flex items-center gap-1 font-medium"><Calendar size={13} /> {readingPost.date}</div>

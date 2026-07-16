@@ -3,18 +3,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
 
 @theme {
-  --color-page-bg: #FAF9F5;
-  --color-panel-bg: #F0EFEB;
-  --color-soft-card: #E9E8E4;
-  --color-soft-card-2: #F4F3EF;
-  --color-text-dark: #1B1B1B;
-  --color-muted-grey: #8C8880;
-  --color-muted-light: #BDBAB2;
-  --color-line-grey: #D9D7D0;
-  --color-black-dark: #181818;
-  --color-deep-black: #151515;
-  --color-white-card: #FFFDF8;
-  --color-white-soft: #FAF9F5;
+  --color-black: #0C1424;
+  --color-white: #FFFFFF;
+  --color-page-bg: #FDFBFB;
+  --color-panel-bg: #F6F1F1;
+  --color-soft-card: #F0EAEB;
+  --color-soft-card-2: #F8F4F4;
+  --color-text-dark: #1A253A;
+  --color-muted-grey: #828B9B;
+  --color-muted-light: #B8C0CC;
+  --color-line-grey: #D7DBE2;
+  --color-black-dark: #131E32;
+  --color-deep-black: #0C1424;
+  --color-white-card: #FFFFFF;
+  --color-white-soft: #FDFBFB;
 
   --font-display: "Space Grotesk", "Poppins", sans-serif;
   --font-body: "Plus Jakarta Sans", sans-serif;
@@ -41,13 +43,13 @@
   width: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: #FAF9F5;
+  background: #FDFBFB;
 }
 ::-webkit-scrollbar-thumb {
-  background: #D9D7D0;
+  background: #D7DBE2;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #8C8880;
+  background: #828B9B;
 }
 
