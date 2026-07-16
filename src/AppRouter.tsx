@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { useAuth } from './contexts/AuthContext';
 import App from './App';
 import { AdminApp } from './admin';
+import { AdminLogin } from './admin/pages/Login';
 
 function RequireAuth({ children }: { children: React.ReactNode }) {
   const { isAuthenticated, loading, error } = useAuth();
@@ -36,7 +37,7 @@ export default function AppRouter() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />} />
-        <Route path="/admin/login/*" element={<AdminApp />} />
+        <Route path="/admin/login" element={<AdminLogin />} />
         <Route
           path="/admin/*"
           element={
