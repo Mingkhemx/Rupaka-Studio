@@ -95,16 +95,16 @@ export default function CollageSection() {
           style={{ right: '14%', top: '12%', width: '300px', height: '340px', zIndex: 10 }}
         >
           <img
-            alt="Logo Saky Branding"
+            alt="Rupaka Studio Mascot"
             className="w-full h-full object-cover select-none"
-            src={logoSaky}
+            src={mascotRupaka}
           />
           <div className="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/50 backdrop-blur-md border border-white/50 flex items-center justify-center shadow-lg hover:scale-110 transition-transform">
             <Sparkles size={14} className="text-text-dark" />
           </div>
           <div className="absolute bottom-4 left-4 right-4 bg-black/60 backdrop-blur-md border border-white/10 p-3.5 rounded-2xl text-white">
-            <p className="font-display text-[10px] font-bold tracking-widest uppercase text-[#FF4B2B]">Logo Saky</p>
-            <p className="text-[11px] text-white/70 leading-normal mt-1">Identitas visual yang kuat untuk brand Anda.</p>
+            <p className="font-display text-[10px] font-bold tracking-widest uppercase text-[#FF4B2B]">Mascot Rupaka</p>
+            <p className="text-[11px] text-white/70 leading-normal mt-1">Karakter brand yang memorable dan eye-catching.</p>
           </div>
         </motion.div>
 
