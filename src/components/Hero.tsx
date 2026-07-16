@@ -88,11 +88,11 @@ export default function Hero({ onScrollToSection }: HeroProps) {
           initial={{ opacity: 0, y: 60, scale: 0.96 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.5 }}
-          className="w-full max-w-[1280px] relative z-10 rounded-[24px] md:rounded-[40px] aspect-[16/9] md:aspect-[21/9] flex items-center justify-center"
+          className="w-full max-w-[1280px] bg-white relative z-10 rounded-[24px] md:rounded-[40px] aspect-[16/9] md:aspect-[21/9] flex items-center justify-center border border-line-grey/20"
         >
           <img
             alt="Mascot Rupaka Studio"
-            className="w-full h-full object-contain select-none mix-blend-multiply"
+            className="h-[80%] md:h-[90%] w-auto object-contain select-none mix-blend-multiply"
             src={mascotImage}
           />
         </motion.div>
