@@ -96,7 +96,7 @@ export function PortfolioAdmin() {
   const { toasts, showToast, removeToast } = useToast();
   const pagination = usePagination(10);
   const { sorted, sortKey, sortOrder, toggleSort } = useSort(items);
-  const { results: searchResults } = useSearch(sorted, ['title', 'description']);
+  const { results: searchResults } = useSearch(sorted, ['title', 'description'], searchTerm);
 
   const filtered = categoryFilter
     ? searchResults.filter(item => item.category === categoryFilter)
@@ -169,48 +169,57 @@ export function PortfolioAdmin() {
       <ToastContainer toasts={toasts} onRemove={removeToast} />
 
       <div className="space-y-6">
-        {/* Header & Search */}
-        <div className="flex flex-col md:flex-row gap-4 items-start md:items-end justify-between">
-          <div className="flex-1 max-w-sm">
+        {/* Header with Add Button */}
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-4 border-b border-line-grey">
+          <div>
+            <h2 className="text-2xl font-bold text-text-dark">Portfolio Management</h2>
+            <p className="text-muted-grey text-sm mt-1">Manage your portfolio items</p>
+          </div>
+          
+          <button
+            onClick={handleAdd}
+            className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2.5 rounded-lg font-semibold transition-colors flex items-center gap-2 whitespace-nowrap shadow-lg"
+          >
+            <Plus className="w-5 h-5" />
+            Add Portfolio
+          </button>
+        </div>
+
+        {/* Search & Filter */}
+        <div className="flex flex-col lg:flex-row gap-4">
+          <div className="flex-1">
             <label className="block text-sm font-medium text-text-dark mb-2">Search</label>
             <div className="relative">
-              <Search className="absolute left-3 top-3 w-5 h-5 text-muted-grey" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-grey" />
               <input
                 type="text"
-                placeholder="Search portfolios..."
+                placeholder="Search by title or description..."
                 value={searchTerm}
-                onChange={e => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2.5 border border-line-grey rounded-lg focus:outline-none focus:ring-2 focus:ring-accent-orange"
+                onChange={e => {
+                  setSearchTerm(e.target.value);
+                  pagination.goToPage(1);
+                }}
+                className="w-full pl-10 pr-4 py-2.5 border border-line-grey rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 text-text-dark"
               />
             </div>
           </div>
 
-          <div className="flex gap-4 w-full md:w-auto">
-            <div className="flex-1 md:flex-initial">
-              <label className="block text-sm font-medium text-text-dark mb-2">Category</label>
-              <select
-                value={categoryFilter}
-                onChange={e => {
-                  setCategoryFilter(e.target.value);
-                  pagination.goToPage(1);
-                }}
-                className="w-full px-4 py-2.5 border border-line-grey rounded-lg focus:outline-none focus:ring-2 focus:ring-accent-orange"
-              >
-                <option value="">All Categories</option>
-                <option value="poster">Poster</option>
-                <option value="logo">Logo</option>
-                <option value="website">Website</option>
-                <option value="custom">Custom</option>
-              </select>
-            </div>
-
-            <button
-              onClick={handleAdd}
-              className="self-end bg-accent-orange hover:bg-orange-600 text-white px-6 py-2.5 rounded-lg font-medium transition-colors flex items-center gap-2"
+          <div className="w-full lg:w-48">
+            <label className="block text-sm font-medium text-text-dark mb-2">Category</label>
+            <select
+              value={categoryFilter}
+              onChange={e => {
+                setCategoryFilter(e.target.value);
+                pagination.goToPage(1);
+              }}
+              className="w-full px-4 py-2.5 border border-line-grey rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 text-text-dark"
             >
-              <Plus className="w-4 h-4" />
-              Add Portfolio
-            </button>
+              <option value="">All Categories</option>
+              <option value="poster">Poster</option>
+              <option value="logo">Logo</option>
+              <option value="website">Website</option>
+              <option value="custom">Custom</option>
+            </select>
           </div>
         </div>
 

@@ -133,9 +133,7 @@ export function usePagination(initialItemsPerPage = 10) {
   };
 }
 
-export function useSearch<T>(items: T[], searchableFields: (keyof T)[]) {
-  const [query, setQuery] = useState('');
-
+export function useSearch<T>(items: T[], searchableFields: (keyof T)[], query: string = '') {
   const results = query.trim() === '' ? items : items.filter(item =>
     searchableFields.some(field => {
       const value = item[field];
@@ -143,7 +141,7 @@ export function useSearch<T>(items: T[], searchableFields: (keyof T)[]) {
     })
   );
 
-  return { query, setQuery, results };
+  return { results };
 }
 
 export function useSort<T>(items: T[]) {

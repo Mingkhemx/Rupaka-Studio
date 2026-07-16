@@ -1,0 +1,19 @@
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Flame icon - simplified Rupaka logo mark -->
+  <defs>
+    <linearGradient id="flameGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#E8654D;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#E8654D;stop-opacity:0.8" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Red/Coral flame - top -->
+  <path d="M 100 30 C 110 50 115 70 115 90 C 115 110 105 120 100 120 C 95 120 85 110 85 90 C 85 70 90 50 100 30 Z" fill="url(#flameGradient)" />
+  
+  <!-- Blue flame - bottom right -->
+  <path d="M 110 85 C 120 95 130 110 130 125 C 130 145 120 155 110 155 C 105 155 100 150 100 140 C 100 125 105 110 110 85 Z" fill="#2E5A8C" />
+  
+  <!-- Highlight dots -->
+  <circle cx="95" cy="45" r="3.5" fill="#F39237" opacity="0.7" />
+  <circle cx="120" cy="50" r="2.5" fill="#F39237" opacity="0.6" />
+</svg>
