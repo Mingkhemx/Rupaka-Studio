@@ -1,63 +1,72 @@
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { getFirebaseStorage, isFirebaseConfigured } from './firebase';
+import { v2 as cloudinary } from 'cloudinary';
+
+// Configure Cloudinary
+cloudinary.config({
+  cloud_name: import.meta.env.VITE_CLOUDINARY_CLOUD_NAME,
+  api_key: import.meta.env.VITE_CLOUDINARY_API_KEY,
+  api_secret: import.meta.env.VITE_CLOUDINARY_API_SECRET,
+});
 
 export async function uploadImage(file: File, folder: string): Promise<string> {
   console.log('uploadImage called with file:', file.name, 'folder:', folder);
   
-  if (!isFirebaseConfigured()) {
-    console.error('Firebase not configured');
-    throw new Error('Firebase belum dikonfigurasi. Pastikan environment variables VITE_FIREBASE_* sudah diisi.');
-  }
-
   if (!file) {
     console.error('No file provided');
     throw new Error('File tidak ditemukan');
   }
 
-  if (file.size > 5 * 1024 * 1024) { // 5MB limit
+  if (file.size > 10 * 1024 * 1024) { // 10MB limit
     console.error('File too large:', file.size);
-    throw new Error('Ukuran file terlalu besar. Maksimal 5MB.');
+    throw new Error('Ukuran file terlalu besar. Maksimal 10MB.');
+  }
+
+  // Check if Cloudinary is configured
+  if (!import.meta.env.VITE_CLOUDINARY_CLOUD_NAME || 
+      !import.meta.env.VITE_CLOUDINARY_API_KEY || 
+      !import.meta.env.VITE_CLOUDINARY_API_SECRET) {
+    console.error('Cloudinary not configured');
+    throw new Error('Cloudinary belum dikonfigurasi. Pastikan environment variables VITE_CLOUDINARY_* sudah diisi.');
   }
 
   try {
-    const storage = getFirebaseStorage();
-    console.log('Storage obtained');
+    console.log('Uploading to Cloudinary...');
     
-    const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, '_');
-    const path = `${folder}/${Date.now()}-${safeName}`;
-    console.log('Uploading to path:', path);
+    // Convert file to base64
+    const base64 = await fileToBase64(file);
     
-    const storageRef = ref(storage, path);
-    console.log('Storage ref created');
+    // Upload to Cloudinary
+    const result = await cloudinary.uploader.upload(base64, {
+      folder: folder,
+      resource_type: 'auto',
+      allowed_formats: ['jpg', 'jpeg', 'png', 'webp', 'gif'],
+      max_file_size: 10000000, // 10MB
+    });
     
-    const metadata = {
-      contentType: file.type || 'image/jpeg',
-    };
+    console.log('Upload completed:', result.secure_url);
     
-    await uploadBytes(storageRef, file, metadata);
-    console.log('Upload completed');
-    
-    const url = await getDownloadURL(storageRef);
-    console.log('Download URL obtained:', url);
-    
-    return url;
+    return result.secure_url;
   } catch (error) {
     console.error('Error in uploadImage:', error);
     
     if (error instanceof Error) {
-      // Provide more specific error messages
-      if (error.message.includes('storage/unauthorized')) {
-        throw new Error('Anda tidak memiliki izin untuk upload gambar. Periksa Firebase Storage rules.');
-      }
-      if (error.message.includes('storage/quota-exceeded')) {
-        throw new Error('Kuota Firebase Storage penuh. Hapus beberapa file atau upgrade plan.');
-      }
-      if (error.message.includes('storage/canceled')) {
-        throw new Error('Upload dibatalkan');
-      }
       throw new Error(`Gagal upload gambar: ${error.message}`);
     }
     
     throw new Error('Gagal upload gambar. Terjadi kesalahan tidak diketahui.');
   }
+}
+
+// Helper function to convert file to base64
+function fileToBase64(file: File): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      const result = reader.result as string;
+      // Remove data URL prefix (e.g., "data:image/jpeg;base64,")
+      const base64 = result.split(',')[1];
+      resolve(base64);
+    };
+    reader.onerror = (error) => reject(error);
+  });
 }
