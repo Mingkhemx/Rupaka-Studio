@@ -1,6 +1,6 @@
 import {StrictMode} from 'react';
 import {createRoot} from 'react-dom/client';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import App from './App.tsx';
 import AdminLogin from './pages/AdminLogin.tsx';
 import AdminDashboard from './pages/AdminDashboard.tsx';
@@ -25,6 +25,10 @@ try {
               </ProtectedRoute>
             } 
           />
+          {/* Catch-all: redirect /admin to /admin/login */}
+          <Route path="/admin" element={<Navigate to="/admin/login" replace />} />
+          {/* Catch-all for 404s */}
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </BrowserRouter>
     </StrictMode>,
