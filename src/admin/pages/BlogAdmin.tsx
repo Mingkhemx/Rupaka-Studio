@@ -129,6 +129,9 @@ function FormModal({ open, editing, onClose, onSave }: FormModalProps) {
           <div>
             <label style={labelStyle}>URL Cover Image</label>
             <input style={inputStyle} value={form.image} onChange={e => set('image', e.target.value)} placeholder="https://..." />
+            <p style={{ fontSize: 11, color: '#6b7280', marginTop: 4, marginBottom: 8 }}>
+              Masukkan URL gambar dari mana saja (Imgur, Cloudinary, dll) atau upload ke Firebase Storage:
+            </p>
             <input
               type="file"
               accept="image/*"
@@ -137,7 +140,7 @@ function FormModal({ open, editing, onClose, onSave }: FormModalProps) {
                 const file = e.target.files?.[0];
                 if (file) handleImageUpload(file);
               }}
-              style={{ marginTop: 8, fontSize: 13 }}
+              style={{ fontSize: 13 }}
             />
             {uploading && <p style={{ fontSize: 12, color: '#6b7280', marginTop: 4 }}>Mengupload gambar...</p>}
           </div>
