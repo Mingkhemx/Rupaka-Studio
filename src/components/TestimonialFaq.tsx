@@ -113,38 +113,50 @@ export default function TestimonialFaq() {
       </div>
 
       {/* 2. FAQ ACCORDIONS */}
-      <div className="max-w-[850px] mx-auto border-t border-line-grey/20 pt-24">
+      <div className="max-w-[900px] mx-auto border-t border-line-grey/20 pt-24">
         <div className="text-center mb-16">
-          <span className="font-display text-xs font-bold uppercase tracking-widest text-text-dark">
-            Pertanyaan Umum (FAQ)
+          <span className="font-display text-xs font-bold uppercase tracking-widest text-accent-coral mb-3 inline-block">
+            Tanya Jawab
           </span>
-          <h3 className="font-display text-2xl sm:text-3xl font-bold tracking-tight text-text-dark mt-2">
-            Masih Ragu? Berikut Penjelasannya
+          <h3 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-text-dark">
+            Pertanyaan yang Sering Diajukan
           </h3>
+          <p className="font-body text-sm text-muted-grey mt-3 max-w-2xl mx-auto">
+            Temukan jawaban atas pertanyaan umum tentang layanan desain dan paket kami
+          </p>
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-3">
           {FAQ_ITEMS.map((item) => {
             const isOpen = openFaq === item.id;
             return (
-              <div 
+              <motion.div 
                 key={item.id}
-                className="bg-panel-bg rounded-[20px] border border-line-grey/20 overflow-hidden transition-all duration-300 hover:border-line-grey/40"
+                layout
+                className={`rounded-[16px] border transition-all duration-300 overflow-hidden ${
+                  isOpen 
+                    ? 'bg-white border-accent-coral/40 shadow-md' 
+                    : 'bg-white border-line-grey/20 hover:border-line-grey/50 shadow-sm'
+                }`}
               >
                 <button
                   id={`btn-faq-${item.id}`}
                   onClick={() => toggleFaq(item.id)}
-                  className="w-full px-6 sm:px-8 py-5 flex items-center justify-between text-left focus:outline-none cursor-pointer"
+                  className="w-full px-5 sm:px-7 py-4 sm:py-5 flex items-center justify-between text-left focus:outline-none cursor-pointer group"
                 >
-                  <span className="font-display text-sm sm:text-base font-extrabold text-text-dark pr-6">
+                  <span className={`font-body text-sm sm:text-base font-semibold pr-6 transition-colors ${
+                    isOpen ? 'text-text-dark' : 'text-text-dark group-hover:text-accent-coral'
+                  }`}>
                     {item.question}
                   </span>
                   <motion.div
                     animate={{ rotate: isOpen ? 180 : 0 }}
                     transition={{ duration: 0.3 }}
-                    className="text-text-dark shrink-0 w-6 h-6 rounded-full bg-white/40 flex items-center justify-center border border-white/20"
+                    className={`text-accent-coral shrink-0 w-5 h-5 flex items-center justify-center transition-colors ${
+                      isOpen ? 'text-accent-coral' : 'text-muted-grey group-hover:text-accent-coral'
+                    }`}
                   >
-                    <ChevronDown size={14} />
+                    <ChevronDown size={16} strokeWidth={2.5} />
                   </motion.div>
                 </button>
 
@@ -154,38 +166,38 @@ export default function TestimonialFaq() {
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: 'auto', opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3, ease: 'easeInOut' }}
+                      transition={{ duration: 0.25, ease: 'easeInOut' }}
                     >
-                      <div className="px-6 sm:px-8 pb-6 border-t border-line-grey/10 pt-4">
-                        <p className="font-body text-xs sm:text-sm text-muted-grey leading-relaxed">
+                      <div className="px-5 sm:px-7 pb-5 border-t border-line-grey/20 pt-4">
+                        <p className="font-body text-sm text-text-dark/85 leading-relaxed">
                           {item.answer}
                         </p>
                       </div>
                     </motion.div>
                   )}
                 </AnimatePresence>
-              </div>
+              </motion.div>
             );
           })}
         </div>
 
         {/* Call to action card for custom queries */}
-        <div className="mt-12 bg-gradient-to-br from-primary-blue to-primary-blue rounded-[24px] p-6 flex flex-col sm:flex-row items-center justify-between gap-4 border border-line-grey/25 shadow-sm">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-black/5 flex items-center justify-center text-text-dark">
-              <MessageSquare size={16} />
+        <div className="mt-14 bg-white rounded-[20px] p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-5 border border-accent-coral/20 shadow-sm">
+          <div className="flex items-center gap-4 flex-1">
+            <div className="w-12 h-12 rounded-full bg-accent-coral/10 flex items-center justify-center text-accent-coral flex-shrink-0">
+              <MessageSquare size={20} strokeWidth={2} />
             </div>
-            <div className="text-center sm:text-left">
-              <h5 className="font-display font-bold text-xs sm:text-sm text-text-dark">Punya pertanyaan kustom yang belum terjawab?</h5>
-              <p className="font-body text-[10px] sm:text-[11px] text-muted-grey">Jangan ragu, konsultasikan langsung secara gratis via chat.</p>
+            <div className="text-left">
+              <h5 className="font-display font-bold text-base text-text-dark">Pertanyaan lain?</h5>
+              <p className="font-body text-sm text-muted-grey">Hubungi kami untuk konsultasi gratis</p>
             </div>
           </div>
           <button
             onClick={() => window.open('https://wa.me/628123456789?text=Halo%20Rupaka%20Studio%2C%20ada%20hal%20yang%20ingin%20saya%20tanyakan%20mengenai%20layanan%20desain.', '_blank', 'noreferrer')}
-            className="bg-black text-white hover:bg-gray-800 font-display text-[9px] font-bold uppercase tracking-wider px-5 py-3 rounded-full cursor-pointer flex items-center gap-1 shadow-sm transition-colors"
+            className="bg-accent-coral text-white hover:bg-accent-coral/90 font-display text-xs font-bold uppercase tracking-widest px-6 py-3 rounded-full cursor-pointer flex items-center gap-2 shadow-sm transition-all duration-300 flex-shrink-0"
           >
-            <span>Tanya Admin</span>
-            <ChevronDown size={11} className="-rotate-90" />
+            <MessageSquare size={14} />
+            <span>Chat Sekarang</span>
           </button>
         </div>
       </div>
