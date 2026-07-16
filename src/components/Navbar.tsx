@@ -32,7 +32,7 @@ export default function Navbar({ onScrollToSection }: NavbarProps) {
   ];
 
   const handleWhatsAppChat = () => {
-    const waUrl = `https://wa.me/628560432352?text=Halo%20Rupaka%20Studio%2C%20saya%20tertarik%20untuk%20berdiskusi%20mengenai%20desain%20untuk%20UMKM%20saya.`;
+    const waUrl = `https://wa.me/62856043235?text=Halo%20Rupaka%20Studio%2C%20saya%20tertarik%20untuk%20berdiskusi%20mengenai%20desain%20untuk%20UMKM%20saya.`;
     window.open(waUrl, '_blank', 'noreferrer');
   };
 
