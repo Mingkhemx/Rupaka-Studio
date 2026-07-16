@@ -106,10 +106,18 @@ export default function CollageSection() {
 
         {/* 2. Top-right Tall Card: Image & icon badge */}
         <motion.div
-          animate={{ y: hoveredCard === 'top-right' ? -10 : 0 }}
+          drag
+          dragElastic={0.2}
+          onDragEnd={(event, info) => {
+            setCardPositions(prev => ({
+              ...prev,
+              'top-right': { x: info.offset.x, y: info.offset.y }
+            }));
+          }}
+          animate={{ y: hoveredCard === 'top-right' ? -10 : 0, x: cardPositions['top-right'].x, y: cardPositions['top-right'].y }}
           onMouseEnter={() => setHoveredCard('top-right')}
           onMouseLeave={() => setHoveredCard(null)}
-          className="absolute rounded-[32px] overflow-hidden bg-white-card/40 backdrop-blur-xl border border-white/40 shadow-2xl cursor-pointer"
+          className="absolute rounded-[32px] overflow-hidden bg-white-card/40 backdrop-blur-xl border border-white/40 shadow-2xl cursor-grab active:cursor-grabbing"
           style={{ right: '14%', top: '12%', width: '300px', height: '340px', zIndex: 10 }}
         >
           <img
@@ -128,7 +136,16 @@ export default function CollageSection() {
 
         {/* 3. Mid-left: Interactive Glass Toggle Card */}
         <motion.div
-          className="absolute rounded-[28px] overflow-hidden bg-white/30 backdrop-blur-2xl border border-white/50 shadow-[0_12px_40px_rgba(0,0,0,0.06)] flex flex-col p-6 cursor-pointer"
+          drag
+          dragElastic={0.2}
+          onDragEnd={(event, info) => {
+            setCardPositions(prev => ({
+              ...prev,
+              'mid-left': { x: info.offset.x, y: info.offset.y }
+            }));
+          }}
+          animate={{ x: cardPositions['mid-left'].x, y: cardPositions['mid-left'].y }}
+          className="absolute rounded-[28px] overflow-hidden bg-white/30 backdrop-blur-2xl border border-white/50 shadow-[0_12px_40px_rgba(0,0,0,0.06)] flex flex-col p-6 cursor-grab active:cursor-grabbing"
           style={{ left: '8%', top: '48%', width: '280px', zIndex: 30 }}
           whileTap={{ scale: 0.98 }}
         >
@@ -166,10 +183,18 @@ export default function CollageSection() {
 
         {/* 4. Mid-right: Product Quality Image with real pulse tag */}
         <motion.div
-          animate={{ y: hoveredCard === 'mid-right' ? -10 : 0 }}
+          drag
+          dragElastic={0.2}
+          onDragEnd={(event, info) => {
+            setCardPositions(prev => ({
+              ...prev,
+              'mid-right': { x: info.offset.x, y: info.offset.y }
+            }));
+          }}
+          animate={{ y: hoveredCard === 'mid-right' ? -10 : 0, x: cardPositions['mid-right'].x, y: cardPositions['mid-right'].y }}
           onMouseEnter={() => setHoveredCard('mid-right')}
           onMouseLeave={() => setHoveredCard(null)}
-          className="absolute rounded-[32px] overflow-hidden bg-white-card/40 backdrop-blur-xl border border-white/40 shadow-2xl cursor-pointer"
+          className="absolute rounded-[32px] overflow-hidden bg-white-card/40 backdrop-blur-xl border border-white/40 shadow-2xl cursor-grab active:cursor-grabbing"
           style={{ right: '10%', top: '56%', width: '350px', height: '240px', zIndex: 15 }}
         >
           <img
