@@ -24,12 +24,11 @@ export async function uploadImage(file: File, folder: string): Promise<string> {
   try {
     console.log('Uploading to Cloudinary...');
     
-    // Convert file to base64
-    const base64 = await fileToBase64(file);
+    // Convert file to base64 with data URI prefix
+    const dataUri = await fileToDataUri(file);
     
     // Create signature for Cloudinary upload
     const timestamp = Math.floor(Date.now() / 1000);
-    const folderParam = folder ? `folder=${folder}&` : '';
     const stringToSign = `folder=${folder}&timestamp=${timestamp}${apiSecret}`;
     
     // Simple signature (in production, use crypto-js or similar)
@@ -37,7 +36,7 @@ export async function uploadImage(file: File, folder: string): Promise<string> {
     
     // Upload to Cloudinary using direct API
     const formData = new FormData();
-    formData.append('file', base64);
+    formData.append('file', dataUri);
     formData.append('api_key', apiKey);
     formData.append('timestamp', timestamp.toString());
     formData.append('signature', signature);
@@ -68,16 +67,15 @@ export async function uploadImage(file: File, folder: string): Promise<string> {
   }
 }
 
-// Helper function to convert file to base64
-function fileToBase64(file: File): Promise<string> {
+// Helper function to convert file to data URI with prefix
+function fileToDataUri(file: File): Promise<string> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = () => {
       const result = reader.result as string;
-      // Remove data URL prefix (e.g., "data:image/jpeg;base64,")
-      const base64 = result.split(',')[1];
-      resolve(base64);
+      // Keep the full data URI with prefix (e.g., "data:image/jpeg;base64,")
+      resolve(result);
     };
     reader.onerror = (error) => reject(error);
   });
