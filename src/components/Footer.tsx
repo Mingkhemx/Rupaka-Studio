@@ -1,4 +1,5 @@
 import { MessageCircle, Share2, Globe, Sparkles, Command } from 'lucide-react';
+import logoImage from '../assets/logo.png';
 
 export default function Footer() {
   const handleWhatsAppChat = () => {
@@ -12,11 +13,6 @@ export default function Footer() {
       <section className="py-24 sm:py-32 px-6 sm:px-10 bg-page-bg border-t border-line-grey/20">
         <div className="max-w-4xl mx-auto flex flex-col items-center text-center">
           <div className="relative z-10 flex flex-col items-center">
-            {/* Elegant logo anchor */}
-            <div className="w-12 h-12 rounded-full border border-accent-coral flex items-center justify-center mb-10 bg-accent-coral/10 shadow-sm">
-              <span className="text-accent-coral font-display font-extrabold text-xl leading-none">R</span>
-            </div>
-
             <h2 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold text-text-dark tracking-tighter leading-[1.08] mb-8 max-w-3xl text-balance">
               Siap Bikin Bisnis Anda Terlihat Lebih Profesional?
             </h2>
@@ -43,13 +39,17 @@ export default function Footer() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 lg:gap-16 mb-20">
             {/* Logo and Brand column */}
             <div className="lg:col-span-2 flex flex-col gap-6">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full border border-accent-coral flex items-center justify-center shrink-0 bg-accent-coral/10">
-                  <span className="text-accent-coral font-display font-black text-lg leading-none">R</span>
+              <div className="flex items-center gap-4">
+                <div className="w-16 h-16 rounded-full shrink-0 flex items-center justify-center bg-white/10 p-2">
+                  <img 
+                    src={logoImage}
+                    alt="Rupaka Studio Logo"
+                    className="w-full h-full object-contain"
+                  />
                 </div>
                 <div>
-                  <h4 className="font-display text-base font-bold tracking-tight text-white leading-none">Rupaka Studio</h4>
-                  <p className="text-[10px] text-white/40 tracking-widest uppercase mt-0.5">Mitra Visual UMKM</p>
+                  <h4 className="font-display text-lg font-bold tracking-tight text-white leading-none">Rupaka Studio</h4>
+                  <p className="text-[10px] text-white/40 tracking-widest uppercase mt-1">Mitra Visual UMKM</p>
                 </div>
               </div>
 
