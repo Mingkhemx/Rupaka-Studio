@@ -12,50 +12,10 @@ import {
   Flame, 
   Send 
 } from 'lucide-react';
+import chatImg from '../assets/chat.png';
 
 export default function Features() {
   const [activeFeature, setActiveFeature] = useState(0);
-  
-  // Interactive Chat State
-  const [chatPreset, setChatPreset] = useState<string>('kopi');
-  const [messages, setMessages] = useState<Array<{ sender: 'user' | 'rupaka'; text: string; time: string }>>([
-    { 
-      sender: 'user', 
-      text: 'Halo Rupaka! Saya butuh desain poster promosi untuk menu baru warung kopi saya dengan gaya yang estetik dan minimalis.', 
-      time: '14:20' 
-    },
-    { 
-      sender: 'rupaka', 
-      text: 'Halo! Tentu bisa sekali Kak. Untuk warung kopi, kami sangat merekomendasikan layanan Project-Based Poster Promosi seharga Rp 50.000 saja. Kakak sudah dapat file resolusi tinggi siap cetak & posting di Instagram, serta gratis 2x revisi. Tertarik melanjutkan diskusi brief-nya?', 
-      time: '14:21' 
-    }
-  ]);
-
-  const handlePresetChange = (presetId: 'kopi' | 'kripik' | 'butik' | 'web') => {
-    setChatPreset(presetId);
-    
-    let userMsg = '';
-    let rupakaMsg = '';
-
-    if (presetId === 'kopi') {
-      userMsg = 'Halo Rupaka! Saya butuh desain poster promosi untuk menu baru warung kopi saya dengan gaya yang estetik dan minimalis.';
-      rupakaMsg = 'Halo! Tentu bisa sekali Kak. Untuk warung kopi, kami sangat merekomendasikan layanan Project-Based Poster Promosi seharga Rp 50.000 saja. Kakak sudah dapat file resolusi tinggi siap cetak & posting di Instagram, serta gratis 2x revisi. Tertarik melanjutkan diskusi?';
-    } else if (presetId === 'kripik') {
-      userMsg = 'Sore admin, saya punya produk keripik singkong khas daerah tapi bungkusnya masih polosan. Ada paket untuk buat logo + desain kemasannya?';
-      rupakaMsg = 'Selamat sore! Untuk kebutuhan ini, kami punya paket Bundling Logo & Kemasan seharga Rp 150.000. Kakak akan mendapatkan file master vektor (bisa diperbesar tanpa pecah) dan visualisasi 3D mock-up agar terbayang hasil cetaknya.';
-    } else if (presetId === 'butik') {
-      userMsg = 'Kak, saya butuh konten promo harian untuk butik pakaian muslim saya di Instagram secara rutin tiap bulan. Lebih baik pilih paket yang mana ya?';
-      rupakaMsg = 'Halo Kak! Sangat disarankan mengambil paket Subscription (Bulanan) kami. Mulai dari Rp 350.000/bulan, kakak akan mendapatkan 8 materi desain konten promosi terjadwal lengkap dengan copywriting menarik. Usaha jalan terus, feed rapi!';
-    } else if (presetId === 'web') {
-      userMsg = 'Mas, saya mau buat website katalog online sederhana untuk toko oleh-oleh saya agar pembeli tinggal klik & pesan via WhatsApp. Berapa biayanya?';
-      rupakaMsg = 'Halo! Kami menyediakan Custom Website satu halaman seharga Rp 450.000. Desain responsif (rapi di HP), sudah termasuk integrasi direct WhatsApp chat, dan SEO dasar agar toko oleh-oleh kakak mudah ditemukan di Google!';
-    }
-
-    setMessages([
-      { sender: 'user', text: userMsg, time: '14:20' },
-      { sender: 'rupaka', text: rupakaMsg, time: '14:21' }
-    ]);
-  };
 
   const featureList = [
     {
@@ -240,87 +200,13 @@ export default function Features() {
           </div>
         </div>
 
-        {/* Right: Awesome Interactive Chat Mockup */}
-        <div className="bg-gradient-to-br from-[#E0EAFC] to-[#CFDEF3] rounded-[32px] md:rounded-[40px] p-4 sm:p-8 min-h-[600px] flex flex-col justify-between border border-line-grey/30 shadow-inner order-1 lg:order-2">
-          
-          {/* Chat Simulator Top Options */}
-          <div className="bg-white/60 backdrop-blur-md rounded-2xl p-3.5 mb-6 border border-white/50 flex flex-col gap-2 shadow-sm">
-            <span className="font-display text-[9px] font-extrabold uppercase tracking-wider text-muted-grey text-center">
-              Pilih contoh bisnis untuk memulai simulasi konsultasi:
-            </span>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-1">
-              <button
-                onClick={() => handlePresetChange('kopi')}
-                className={`py-2 px-2.5 rounded-xl font-display text-[10px] font-bold uppercase transition-all tracking-wider cursor-pointer ${chatPreset === 'kopi' ? 'bg-black text-white shadow-md' : 'bg-white/70 text-text-dark hover:bg-white'}`}
-              >
-                ☕ Kopi
-              </button>
-              <button
-                onClick={() => handlePresetChange('kripik')}
-                className={`py-2 px-2.5 rounded-xl font-display text-[10px] font-bold uppercase transition-all tracking-wider cursor-pointer ${chatPreset === 'kripik' ? 'bg-black text-white shadow-md' : 'bg-white/70 text-text-dark hover:bg-white'}`}
-              >
-                🍌 Keripik
-              </button>
-              <button
-                onClick={() => handlePresetChange('butik')}
-                className={`py-2 px-2.5 rounded-xl font-display text-[10px] font-bold uppercase transition-all tracking-wider cursor-pointer ${chatPreset === 'butik' ? 'bg-black text-white shadow-md' : 'bg-white/70 text-text-dark hover:bg-white'}`}
-              >
-                👗 Butik
-              </button>
-              <button
-                onClick={() => handlePresetChange('web')}
-                className={`py-2 px-2.5 rounded-xl font-display text-[10px] font-bold uppercase transition-all tracking-wider cursor-pointer ${chatPreset === 'web' ? 'bg-black text-white shadow-md' : 'bg-white/70 text-text-dark hover:bg-white'}`}
-              >
-                🌐 Web Katalog
-              </button>
-            </div>
-          </div>
-
-          {/* Messages Container */}
-          <div className="flex-grow flex flex-col gap-4 overflow-y-auto px-1 max-h-[300px] min-h-[250px] justify-center">
-            {messages.map((msg, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                className={`max-w-[85%] flex flex-col p-3.5 rounded-2xl border text-xs leading-relaxed shadow-sm ${msg.sender === 'user' 
-                  ? 'bg-white/90 text-text-dark border-white/50 self-start rounded-tl-none' 
-                  : 'bg-black/95 text-white-soft border-white/10 self-end rounded-tr-none'}`}
-              >
-                <div className="flex items-center gap-1.5 mb-1.5 justify-between">
-                  <span className="font-display text-[9px] font-bold tracking-widest uppercase opacity-60">
-                    {msg.sender === 'user' ? 'Pertanyaan Klien' : 'Respon Rupaka Studio'}
-                  </span>
-                  <span className="text-[8px] opacity-40">{msg.time}</span>
-                </div>
-                <p className="font-body text-xs">{msg.text}</p>
-              </motion.div>
-            ))}
-          </div>
-
-          {/* Interactive Chat Footer Accent */}
-          <div className="mt-6 pt-4 border-t border-white/30 flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-full bg-gradient-to-r from-[#FF416C] to-[#FF4B2B] flex items-center justify-center text-white shadow-md animate-pulse">
-                <Sparkles size={12} />
-              </div>
-              <span className="font-display text-[10px] font-bold tracking-widest uppercase text-text-dark/70">
-                Pengerjaan Cepat & Hemat
-              </span>
-            </div>
-            
-            <button 
-              onClick={() => {
-                const textParam = encodeURIComponent(`Halo Rupaka Studio, saya tertarik melanjutkan diskusi mengenai paket ${chatPreset === 'kopi' ? 'Poster Promosi Warung Kopi' : chatPreset === 'kripik' ? 'Logo dan Kemasan Produk Makanan' : chatPreset === 'butik' ? 'Subscription Konten Feed IG Bulanan' : 'Pembuatan Custom Website Landing Page'}.`);
-                window.open(`https://wa.me/628123456789?text=${textParam}`, '_blank', 'noreferrer');
-              }}
-              className="px-4 py-2 bg-black text-white font-display text-[9px] font-bold uppercase tracking-wider rounded-full hover:bg-gray-800 transition-colors flex items-center gap-1 cursor-pointer"
-            >
-              <span>Lanjut WhatsApp</span>
-              <ChevronRight size={10} />
-            </button>
-          </div>
-          
+        {/* Right: Static Image Replacement */}
+        <div className="flex justify-center items-center h-full order-1 lg:order-2">
+          <img 
+            src={chatImg} 
+            alt="Konsultasi via Chat" 
+            className="w-full max-w-[600px] h-auto object-contain drop-shadow-xl"
+          />
         </div>
         
       </div>
