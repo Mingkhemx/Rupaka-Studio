@@ -42,22 +42,22 @@ export function AdminSidebar() {
       </button>
 
       {/* Desktop Sidebar - Always visible on large screens */}
-      <aside className="hidden lg:flex flex-col w-64 bg-black-dark text-white overflow-y-auto border-r border-white/10">
+      <aside className="hidden lg:flex flex-col w-64 bg-black-dark text-white border-r border-white/10 h-screen">
         {/* Logo Area */}
-        <div className="p-6 border-b border-white/10 sticky top-0 bg-black-dark">
+        <div className="p-6 border-b border-white/10 sticky top-0 bg-black-dark z-10">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-orange-500 rounded-lg flex items-center justify-center font-bold text-lg text-black">
+            <div className="w-10 h-10 bg-orange-500 rounded-lg flex items-center justify-center font-bold text-lg text-black flex-shrink-0">
               R
             </div>
-            <div>
-              <h1 className="font-bold text-lg">Rupaka</h1>
+            <div className="min-w-0">
+              <h1 className="font-bold text-lg truncate">Rupaka</h1>
               <p className="text-xs text-gray-400">Admin Panel</p>
             </div>
           </div>
         </div>
 
-        {/* Menu Items */}
-        <nav className="p-4 space-y-2 flex-1">
+        {/* Menu Items - Scrollable */}
+        <nav className="p-4 space-y-2 flex-1 overflow-y-auto">
           {MENU_ITEMS.map(item => {
             const Icon = item.icon;
             const active = isActive(item.path);
@@ -66,7 +66,7 @@ export function AdminSidebar() {
               <Link
                 key={item.path}
                 to={item.path}
-                className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 cursor-pointer select-none ${
+                className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 cursor-pointer select-none z-0 relative ${
                   active
                     ? 'bg-orange-500 text-white shadow-lg'
                     : 'text-gray-300 hover:bg-white/10 hover:text-white'
@@ -80,7 +80,7 @@ export function AdminSidebar() {
         </nav>
 
         {/* Footer Info */}
-        <div className="p-4 border-t border-white/10 bg-black/40 text-xs text-gray-400">
+        <div className="p-4 border-t border-white/10 bg-black/40 text-xs text-gray-400 flex-shrink-0 z-10">
           <p className="font-semibold text-white/60">Rupaka Studio</p>
           <p>Admin Panel © 2025</p>
         </div>
