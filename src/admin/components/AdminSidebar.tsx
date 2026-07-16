@@ -66,14 +66,14 @@ export function AdminSidebar() {
               <Link
                 key={item.path}
                 to={item.path}
-                className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 ${
+                className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 cursor-pointer select-none ${
                   active
                     ? 'bg-orange-500 text-white shadow-lg'
-                    : 'text-gray-300 hover:bg-white/10'
+                    : 'text-gray-300 hover:bg-white/10 hover:text-white'
                 }`}
               >
-                <Icon className="w-5 h-5 flex-shrink-0" />
-                <span className="font-medium text-sm">{item.label}</span>
+                <Icon className="w-5 h-5 flex-shrink-0 pointer-events-none" />
+                <span className="font-medium text-sm pointer-events-none">{item.label}</span>
               </Link>
             );
           })}
@@ -120,14 +120,14 @@ export function AdminSidebar() {
                     key={item.path}
                     to={item.path}
                     onClick={() => setIsOpen(false)}
-                    className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 ${
+                    className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 cursor-pointer select-none ${
                       active
                         ? 'bg-orange-500 text-white shadow-lg'
-                        : 'text-gray-300 hover:bg-white/10'
+                        : 'text-gray-300 hover:bg-white/10 hover:text-white'
                     }`}
                   >
-                    <Icon className="w-5 h-5 flex-shrink-0" />
-                    <span className="font-medium text-sm">{item.label}</span>
+                    <Icon className="w-5 h-5 flex-shrink-0 pointer-events-none" />
+                    <span className="font-medium text-sm pointer-events-none">{item.label}</span>
                   </Link>
                 );
               })}
