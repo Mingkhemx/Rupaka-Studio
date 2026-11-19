@@ -24,7 +24,7 @@
 
   <p>
     <a href="#tentang-rupaka-studio">Tentang</a> •
-    <a href="#showcase-karya--identitas">Showcase</a> •
+    <a href="#showcase-website--karya">Showcase</a> •
     <a href="#layanan--skema-paket">Layanan</a> •
     <a href="#fitur-website--cms">Fitur Platform</a> •
     <a href="#teknologi">Teknologi</a>
@@ -51,26 +51,55 @@ Dengan menggabungkan **sentuhan artistik desainer profesional** dan **alur kerja
 
 ---
 
-## Showcase Karya & Identitas
+## Showcase Website & Karya
 
-### Maskot & Pengalaman Konsultasi
+### Tampilan Website (`rupaka-studio.vercel.app`)
+
+<div align="center">
+  <img src="assets/showcase/website-hero.png" alt="Tampilan Hero Website Rupaka Studio" width="100%" />
+  <br />
+  <sub><strong>Halaman Utama (Hero & Floating Navbar)</strong> — Navigasi glassmorphism, tipografi modern, tombol CTA WhatsApp, dan maskot resmi studio</sub>
+</div>
+
+<br />
 
 <table>
   <tr>
     <td align="center" width="50%">
-      <img src="assets/mascot%20website%20rupaka.png" alt="Maskot Rupaka Studio" height="280" />
+      <img src="assets/showcase/website-collage.png" alt="Interactive Collage Rupaka Studio" width="100%" />
       <br />
-      <sub><strong>Maskot Resmi Rupaka Studio</strong> — Karakter visual utama pada halaman Hero website</sub>
+      <sub><strong>Interactive Creative Collage</strong> — Kartu interaktif <em>draggable</em>, progress slider, & simulasi toggle Akselerasi AI</sub>
     </td>
     <td align="center" width="50%">
-      <img src="assets/chat.png" alt="Ilustrasi Konsultasi WhatsApp Rupaka Studio" height="280" />
+      <img src="assets/showcase/website-layanan.png" alt="Bagian Layanan dan Keunggulan Rupaka Studio" width="100%" />
       <br />
-      <sub><strong>Alur Konsultasi Langsung</strong> — Diskusi brief cepat dan personal via WhatsApp</sub>
+      <sub><strong>Layanan Utama & Keunggulan</strong> — Kartu layanan interaktif dan 5 pilar nilai utama untuk UMKM</sub>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="50%">
+      <img src="assets/showcase/website-paket.png" alt="Skema Paket Harga dan Simulasi Chat WhatsApp" width="100%" />
+      <br />
+      <sub><strong>Skema Anggaran & Konsultasi</strong> — Pilihan paket <em>Project-Based</em>, <em>Subscription</em>, dan <em>Bundling</em></sub>
+    </td>
+    <td align="center" width="50%">
+      <img src="assets/showcase/website-footer.png" alt="Call to Action dan Footer Rupaka Studio" width="100%" />
+      <br />
+      <sub><strong>Final CTA & Footer</strong> — Ajakan konsultasi gratis via WhatsApp dan navigasi informasi studio</sub>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" colspan="2">
+      <img src="assets/showcase/website-admin-login.png" alt="Panel Login Admin CMS Rupaka Studio" width="75%" />
+      <br />
+      <sub><strong>Admin Dashboard CMS (<code>/admin</code>)</strong> — Akses terproteksi Firebase Authentication untuk kelola portofolio, blog, testimoni, & FAQ</sub>
     </td>
   </tr>
 </table>
 
-### Poster Promosi & Kemasan Produk UMKM
+### Karya Desain Pilihan
+
+#### Poster Promosi & Kemasan Produk UMKM
 
 <table>
   <tr>
@@ -92,7 +121,7 @@ Dengan menggabungkan **sentuhan artistik desainer profesional** dan **alur kerja
   </tr>
 </table>
 
-### Banner Promosi Digital & Lanskap
+#### Banner Promosi Digital & Lanskap
 
 <table>
   <tr>
@@ -123,7 +152,7 @@ Dengan menggabungkan **sentuhan artistik desainer profesional** dan **alur kerja
   </tr>
 </table>
 
-### Identitas Logo, Maskot & Mockup 3D
+#### Identitas Logo, Maskot & Mockup 3D
 
 <table>
   <tr>
